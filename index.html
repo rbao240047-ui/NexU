@@ -1,0 +1,3151 @@
+<!DOCTYPE html>
+<html lang="es"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NexU</title>
+<link rel="icon" type="image/png" href="logo.png">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&amp;family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&amp;display=swap" rel="stylesheet">
+<style>
+:root{
+  --purple:#4B1D8E;--purple-mid:#6B35B5;--purple-light:#9B59D0;
+  --accent:#C084FC;--white:#FFFFFF;--off-white:#F5F0FF;
+  --dark:#0D0517;--gray:#8B7BA8;--border:rgba(155,89,208,0.2);
+  --success:#22C55E;--gold:#F59E0B;--gold-light:#FEF3C7;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--dark);overflow-x:hidden;}
+
+/* ══ PAGES ══ */
+.page{display:none;}
+.page.active{display:block;}
+#page-dash{display:none;}
+#page-dash.active{display:flex;min-height:100vh;}
+
+/* ════════════════════════════════
+   LANDING
+════════════════════════════════ */
+
+/* NAV */
+.land-nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1.2rem 5%;
+  background:rgba(255,255,255,.92);backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);
+}
+.land-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:1.6rem;color:var(--purple);letter-spacing:-.03em;cursor:pointer;}
+.land-nav-links{display:flex;gap:2rem;list-style:none;align-items:center;}
+.land-nav-links a{text-decoration:none;color:var(--dark);font-size:.9rem;font-weight:500;transition:color .2s;cursor:pointer;}
+.land-nav-links a:hover{color:var(--purple-mid);}
+.nav-cta-btn{background:var(--purple);color:white !important;padding:.6rem 1.4rem;border-radius:50px;transition:background .2s !important;}
+.nav-cta-btn:hover{background:var(--purple-mid) !important;}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden;padding:8rem 5% 5rem;}
+.hero-bg{position:absolute;inset:0;background:linear-gradient(135deg,#F5F0FF 0%,#EDE0FF 40%,#F9F5FF 100%);z-index:0;}
+.hero-blob{position:absolute;border-radius:50%;filter:blur(80px);opacity:.35;}
+.blob-1{width:600px;height:600px;background:var(--purple-light);top:-150px;right:-100px;animation:bfloat 8s ease-in-out infinite;}
+.blob-2{width:400px;height:400px;background:var(--accent);bottom:-100px;left:-50px;animation:bfloat 10s ease-in-out infinite reverse;}
+@keyframes bfloat{0%,100%{transform:translateY(0) scale(1);}50%{transform:translateY(-30px) scale(1.05);}}
+.hero-content{position:relative;z-index:1;max-width:680px;}
+.hero-badge{display:inline-flex;align-items:center;gap:.5rem;background:rgba(75,29,142,.1);border:1px solid rgba(75,29,142,.25);color:var(--purple-mid);padding:.4rem 1rem;border-radius:50px;font-size:.8rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;margin-bottom:1.5rem;animation:fadeUp .6s ease both;}
+.hero h1{font-family:'Syne',sans-serif;font-size:clamp(2.8rem,6vw,5rem);font-weight:800;line-height:1.05;letter-spacing:-.03em;margin-bottom:1.5rem;animation:fadeUp .6s .1s ease both;}
+.hero h1 span{color:var(--purple-mid);}
+.hero-p{font-size:1.15rem;color:#4A3960;line-height:1.75;max-width:520px;margin-bottom:2.5rem;animation:fadeUp .6s .2s ease both;}
+.hero-btns{display:flex;gap:1rem;flex-wrap:wrap;animation:fadeUp .6s .3s ease both;}
+.btn-primary{background:var(--purple);color:white;padding:.9rem 2rem;border-radius:50px;font-size:.95rem;font-weight:600;text-decoration:none;transition:transform .2s,box-shadow .2s;box-shadow:0 4px 20px rgba(75,29,142,.35);cursor:pointer;border:none;font-family:'DM Sans',sans-serif;}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(75,29,142,.45);}
+.btn-secondary{background:transparent;color:var(--purple);padding:.9rem 2rem;border-radius:50px;font-size:.95rem;font-weight:600;text-decoration:none;border:2px solid var(--purple);transition:background .2s,color .2s;cursor:pointer;font-family:'DM Sans',sans-serif;}
+.btn-secondary:hover{background:var(--purple);color:white;}
+.hero-visual{position:absolute;right:5%;bottom:0;z-index:1;animation:fadeUp .8s .4s ease both;}
+.hero-card{background:white;border-radius:20px;padding:1.5rem;box-shadow:0 20px 60px rgba(75,29,142,.15);width:280px;margin-bottom:1rem;border:1px solid var(--border);}
+.hcard-top{display:flex;align-items:center;gap:.8rem;margin-bottom:1rem;}
+.hav{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--purple),var(--purple-light));display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:.9rem;}
+.hcard-name{font-weight:600;font-size:.9rem;}
+.hcard-sub{color:var(--gray);font-size:.75rem;}
+.hcard-match{background:linear-gradient(135deg,var(--purple),var(--purple-light));color:white;padding:.5rem 1rem;border-radius:8px;font-size:.8rem;font-weight:600;text-align:center;}
+.hstats{display:flex;gap:.8rem;}
+.hstat{background:white;border-radius:16px;padding:1rem 1.2rem;box-shadow:0 10px 30px rgba(75,29,142,.1);border:1px solid var(--border);text-align:center;flex:1;}
+.hstat-num{font-family:'Syne',sans-serif;font-size:1.4rem;font-weight:800;color:var(--purple);}
+.hstat-lbl{font-size:.7rem;color:var(--gray);}
+
+/* SECTION COMMON */
+section.land{padding:6rem 5%;}
+.stag{display:inline-block;color:var(--purple-mid);font-size:.8rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.8rem;}
+.stitle{font-family:'Syne',sans-serif;font-size:clamp(2rem,4vw,3rem);font-weight:800;line-height:1.1;letter-spacing:-.03em;margin-bottom:1rem;}
+.ssub{color:#4A3960;font-size:1.05rem;line-height:1.7;max-width:540px;}
+
+/* PROBLEM */
+.problem-sec{background:var(--dark);color:white;}
+.problem-sec .stitle{color:white;}
+.problem-sec .ssub{color:#C0AEDE;}
+.pain-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.5rem;margin-top:3rem;}
+.pain-card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:1.8rem;transition:background .2s;}
+.pain-card:hover{background:rgba(107,53,181,.2);}
+.pain-icon{font-size:2rem;margin-bottom:1rem;}
+.pain-card h3{font-family:'Syne',sans-serif;font-weight:700;margin-bottom:.5rem;color:white;}
+.pain-card p{color:#C0AEDE;font-size:.9rem;line-height:1.6;}
+
+/* HOW */
+.how-sec{background:var(--off-white);}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:2rem;margin-top:3.5rem;}
+.step{text-align:center;}
+.step-num{width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,var(--purple),var(--purple-light));color:white;font-family:'Syne',sans-serif;font-size:1.3rem;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 1.2rem;box-shadow:0 8px 25px rgba(75,29,142,.3);}
+.step h3{font-family:'Syne',sans-serif;font-weight:700;margin-bottom:.5rem;font-size:1.05rem;}
+.step p{color:#4A3960;font-size:.9rem;line-height:1.6;}
+
+/* FOR WHO */
+.forwho-sec{background:white;}
+.tabs-bar{display:flex;gap:.5rem;background:var(--off-white);border-radius:50px;padding:4px;width:fit-content;margin-bottom:2.5rem;}
+.tab-btn{padding:.65rem 1.8rem;border-radius:50px;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:.9rem;font-weight:600;transition:all .2s;background:transparent;color:var(--gray);}
+.tab-btn.active{background:var(--purple);color:white;box-shadow:0 4px 15px rgba(75,29,142,.3);}
+.tab-pane{display:none;}
+.tab-pane.active{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center;}
+.tab-feats{list-style:none;}
+.tab-feats li{display:flex;align-items:flex-start;gap:.8rem;padding:.9rem 0;border-bottom:1px solid var(--border);}
+.tab-feats li:last-child{border-bottom:none;}
+.fcheck{width:22px;height:22px;border-radius:50%;background:linear-gradient(135deg,var(--purple),var(--purple-light));color:white;display:flex;align-items:center;justify-content:center;font-size:.7rem;flex-shrink:0;margin-top:2px;}
+.ftxt strong{display:block;font-weight:600;font-size:.95rem;}
+.ftxt span{color:var(--gray);font-size:.85rem;}
+.tab-visual{background:linear-gradient(135deg,var(--purple),var(--purple-light));border-radius:24px;padding:2.5rem;color:white;position:relative;overflow:hidden;min-height:320px;display:flex;flex-direction:column;justify-content:flex-end;}
+.tab-visual::before{content:'';position:absolute;width:200px;height:200px;border-radius:50%;background:rgba(255,255,255,.08);top:-50px;right:-50px;}
+.tab-visual h3{font-family:'Syne',sans-serif;font-size:1.5rem;font-weight:800;margin-bottom:.5rem;}
+.tab-visual p{opacity:.85;font-size:.9rem;line-height:1.6;}
+
+/* PRICING */
+.pricing-sec{background:var(--off-white);}
+.pricing-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-top:3.5rem;max-width:800px;}
+.price-card{background:white;border-radius:24px;padding:2.5rem;border:2px solid var(--border);position:relative;transition:transform .2s,box-shadow .2s;}
+.price-card:hover{transform:translateY(-4px);box-shadow:0 20px 50px rgba(75,29,142,.12);}
+.price-card.featured{background:linear-gradient(135deg,var(--purple),var(--purple-mid));border-color:transparent;color:white;}
+.price-badge-tag{position:absolute;top:-12px;right:1.5rem;background:var(--accent);color:var(--dark);padding:.3rem .8rem;border-radius:50px;font-size:.75rem;font-weight:700;}
+.price-name{font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:700;margin-bottom:.5rem;}
+.price-amount{font-family:'Syne',sans-serif;font-size:2.8rem;font-weight:800;letter-spacing:-.03em;line-height:1;margin-bottom:.3rem;}
+.price-period{font-size:.85rem;opacity:.7;margin-bottom:1.8rem;}
+.price-feats{list-style:none;margin-bottom:2rem;}
+.price-feats li{display:flex;align-items:center;gap:.6rem;padding:.5rem 0;font-size:.9rem;border-bottom:1px solid rgba(155,89,208,.1);}
+.price-card.featured .price-feats li{border-bottom-color:rgba(255,255,255,.1);}
+.price-feats li::before{content:'✓';font-size:.8rem;font-weight:700;color:var(--purple-light);}
+.price-card.featured .price-feats li::before{color:var(--accent);}
+.btn-plan{display:block;text-align:center;padding:.85rem;border-radius:50px;font-weight:600;font-size:.9rem;text-decoration:none;transition:all .2s;cursor:pointer;border:none;width:100%;font-family:'DM Sans',sans-serif;}
+.btn-outline-plan{border:2px solid var(--purple);color:var(--purple);background:transparent;}
+.btn-outline-plan:hover{background:var(--purple);color:white;}
+.btn-white-plan{background:white;color:var(--purple);}
+.btn-white-plan:hover{background:var(--accent);}
+
+/* SOCIAL PROOF */
+.proof-sec{background:white;}
+.proof-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.5rem;margin-top:3rem;}
+.proof-card{background:var(--off-white);border-radius:20px;padding:2rem;border:1px solid var(--border);transition:transform .2s;}
+.proof-card:hover{transform:translateY(-3px);}
+.pstars{color:#F59E0B;margin-bottom:1rem;font-size:.9rem;}
+.ptext{font-size:.95rem;line-height:1.7;color:#4A3960;margin-bottom:1.5rem;font-style:italic;}
+.pauthor{display:flex;align-items:center;gap:.8rem;}
+.pav{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--purple),var(--purple-light));display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:.85rem;}
+.pname{font-weight:600;font-size:.9rem;}
+.prole{color:var(--gray);font-size:.8rem;}
+
+/* METRICS */
+.metrics-sec{background:linear-gradient(135deg,var(--purple),var(--purple-mid));color:white;text-align:center;}
+.metrics-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:2rem;margin-top:3rem;}
+.metric-num{font-family:'Syne',sans-serif;font-size:3rem;font-weight:800;letter-spacing:-.03em;line-height:1;margin-bottom:.4rem;}
+.metric-lbl{opacity:.8;font-size:.9rem;}
+
+/* CTA SECTION */
+.cta-sec{background:var(--off-white);text-align:center;padding:8rem 5%;}
+.cta-sec .stitle{max-width:600px;margin:0 auto 1rem;}
+.cta-sec .ssub{margin:0 auto 2.5rem;text-align:center;}
+.cta-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;}
+
+/* FOOTER */
+.land-footer{background:var(--dark);color:rgba(255,255,255,.6);padding:3rem 5%;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;}
+.foot-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:1.6rem;color:var(--accent);}
+.foot-links{display:flex;gap:1.5rem;}
+.foot-links a{color:rgba(255,255,255,.5);text-decoration:none;font-size:.85rem;transition:color .2s;}
+.foot-links a:hover{color:var(--accent);}
+
+/* ════════════════════════════════
+   AUTH
+════════════════════════════════ */
+#page-auth{min-height:100vh;display:none;align-items:stretch;}
+#page-auth.active{display:flex;}
+.auth-left{flex:1;background:linear-gradient(145deg,var(--purple) 0%,var(--purple-mid) 60%,#9B59D0 100%);display:flex;flex-direction:column;justify-content:center;padding:4rem;position:relative;overflow:hidden;}
+.auth-left::before{content:'';position:absolute;width:400px;height:400px;border-radius:50%;background:rgba(255,255,255,.06);top:-100px;right:-100px;}
+.auth-left::after{content:'';position:absolute;width:300px;height:300px;border-radius:50%;background:rgba(255,255,255,.04);bottom:-80px;left:-60px;}
+.auth-logo{font-family:'Syne',sans-serif;font-size:2.5rem;font-weight:800;color:white;letter-spacing:-.04em;margin-bottom:.5rem;position:relative;z-index:1;cursor:pointer;}
+.auth-logo-sub{color:rgba(255,255,255,.5);font-size:.85rem;margin-bottom:3rem;position:relative;z-index:1;cursor:pointer;}
+.auth-tagline{position:relative;z-index:1;}
+.auth-tagline h2{font-family:'Syne',sans-serif;font-size:clamp(1.8rem,3vw,2.5rem);font-weight:800;color:white;line-height:1.1;margin-bottom:1rem;}
+.auth-tagline p{color:rgba(255,255,255,.75);line-height:1.7;font-size:1rem;max-width:360px;}
+.auth-feats{margin-top:3rem;position:relative;z-index:1;display:flex;flex-direction:column;gap:1rem;}
+.auth-feat{display:flex;align-items:center;gap:.8rem;color:rgba(255,255,255,.85);font-size:.9rem;}
+.feat-dot{width:8px;height:8px;border-radius:50%;background:var(--accent);flex-shrink:0;}
+.auth-right{width:480px;display:flex;flex-direction:column;justify-content:center;padding:4rem 3.5rem;background:white;overflow-y:auto;}
+.auth-tabs{display:flex;background:var(--off-white);border-radius:50px;padding:4px;margin-bottom:2.5rem;}
+.auth-tab{flex:1;padding:.65rem;border-radius:50px;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:.9rem;font-weight:600;transition:all .2s;background:transparent;color:var(--gray);}
+.auth-tab.active{background:var(--purple);color:white;box-shadow:0 4px 15px rgba(75,29,142,.3);}
+.auth-form{display:none;flex-direction:column;gap:1.2rem;}
+.auth-form.active{display:flex;}
+.auth-title{font-family:'Syne',sans-serif;font-size:1.6rem;font-weight:800;margin-bottom:.3rem;letter-spacing:-.02em;}
+.auth-subtitle{color:var(--gray);font-size:.9rem;margin-bottom:.5rem;}
+.fgroup{display:flex;flex-direction:column;gap:.4rem;}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+label{font-size:.82rem;font-weight:600;color:var(--dark);letter-spacing:.02em;}
+input,select{padding:.75rem 1rem;border:1.5px solid var(--border);border-radius:12px;font-family:'DM Sans',sans-serif;font-size:.9rem;color:var(--dark);background:var(--off-white);transition:border .2s,box-shadow .2s;outline:none;width:100%;}
+input:focus,select:focus{border-color:var(--purple-mid);box-shadow:0 0 0 3px rgba(107,53,181,.12);background:white;}
+.btn-auth{background:var(--purple);color:white;border:none;padding:.9rem;border-radius:50px;font-family:'DM Sans',sans-serif;font-size:.95rem;font-weight:700;cursor:pointer;transition:transform .2s,box-shadow .2s;box-shadow:0 4px 20px rgba(75,29,142,.3);margin-top:.3rem;}
+.btn-auth:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(75,29,142,.4);}
+.amsg{padding:.75rem 1rem;border-radius:10px;font-size:.85rem;font-weight:500;display:none;}
+.amsg.success{background:#DCFCE7;color:#166534;border:1px solid #86EFAC;display:block;}
+.amsg.error{background:#FEE2E2;color:#991B1B;border:1px solid #FCA5A5;display:block;}
+
+/* ════════════════════════════════
+   DASHBOARD
+════════════════════════════════ */
+.sidebar{width:260px;background:var(--dark);display:flex;flex-direction:column;padding:2rem 1.5rem;position:fixed;top:0;left:0;bottom:0;z-index:10;}
+.sb-logo{font-family:'Syne',sans-serif;font-size:1.8rem;font-weight:800;color:var(--accent);letter-spacing:-.04em;margin-bottom:2.5rem;padding-left:.5rem;cursor:pointer;}
+.sb-user{display:flex;align-items:center;gap:.8rem;background:rgba(255,255,255,.05);border-radius:14px;padding:.9rem 1rem;margin-bottom:2rem;position:relative;}
+.sb-av{width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,var(--purple),var(--purple-light));display:flex;align-items:center;justify-content:center;color:white;font-weight:800;font-size:1rem;font-family:'Syne',sans-serif;flex-shrink:0;}
+.sb-av.gold{background:linear-gradient(135deg,#F59E0B,#D97706);}
+.sb-name{font-weight:600;font-size:.9rem;color:white;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:140px;}
+.sb-type{font-size:.75rem;color:var(--accent);font-weight:500;}
+.sb-crown{position:absolute;top:-8px;right:10px;font-size:1.1rem;display:none;}
+.nav-lbl{font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.3);padding:0 .5rem;margin-bottom:.5rem;}
+.sb-nav{list-style:none;display:flex;flex-direction:column;gap:.3rem;margin-bottom:1.5rem;}
+.sb-nav a{display:flex;align-items:center;gap:.7rem;padding:.7rem 1rem;border-radius:10px;text-decoration:none;color:rgba(255,255,255,.55);font-size:.9rem;font-weight:500;transition:all .2s;cursor:pointer;}
+.sb-nav a:hover,.sb-nav a.active{background:rgba(107,53,181,.3);color:white;}
+.sb-nav a.active{color:var(--accent);}
+.nicon{font-size:1rem;width:20px;text-align:center;}
+.nlock{font-size:.7rem;margin-left:auto;opacity:.4;}
+.sb-foot{margin-top:auto;}
+.btn-logout{display:flex;align-items:center;gap:.7rem;padding:.7rem 1rem;border-radius:10px;color:rgba(255,255,255,.4);font-size:.9rem;cursor:pointer;transition:all .2s;border:none;background:none;font-family:'DM Sans',sans-serif;width:100%;}
+.btn-logout:hover{color:#EF4444;background:rgba(239,68,68,.08);}
+.dash-main{margin-left:260px;flex:1;padding:2.5rem;min-height:100vh;background:var(--off-white);}
+.dash-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:2rem;}
+.dash-hi h1{font-family:'Syne',sans-serif;font-size:1.8rem;font-weight:800;letter-spacing:-.02em;}
+.dash-hi p{color:var(--gray);font-size:.9rem;}
+.plan-pill{padding:.5rem 1.2rem;border-radius:50px;font-size:.82rem;font-weight:700;}
+.plan-pill.free{background:linear-gradient(135deg,var(--purple),var(--purple-light));color:white;}
+.plan-pill.premium{background:linear-gradient(135deg,#F59E0B,#D97706);color:white;}
+.dpanel{display:none;}
+.dpanel.active{display:block;animation:fadeUp .4s ease both;}
+
+/* STATS */
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(175px,1fr));gap:1.2rem;margin-bottom:2rem;}
+.sbox{background:white;border-radius:18px;padding:1.5rem;border:1px solid var(--border);transition:transform .2s;}
+.sbox:hover{transform:translateY(-2px);}
+.sbox-icon{font-size:1.5rem;margin-bottom:.8rem;}
+.sbox-num{font-family:'Syne',sans-serif;font-size:2rem;font-weight:800;color:var(--purple);line-height:1;margin-bottom:.3rem;}
+.sbox-lbl{font-size:.82rem;color:var(--gray);}
+
+/* SECTION CARD */
+.sc{background:white;border-radius:20px;padding:1.8rem;border:1px solid var(--border);margin-bottom:1.5rem;}
+.sc-title{font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:700;margin-bottom:1.2rem;display:flex;align-items:center;gap:.5rem;}
+
+/* TIMELINE */
+.tl{display:flex;flex-direction:column;}
+.tl-item{display:flex;gap:1.2rem;}
+.tl-l{display:flex;flex-direction:column;align-items:center;width:32px;flex-shrink:0;}
+.tl-dot{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.85rem;flex-shrink:0;z-index:1;}
+.tl-dot.done{background:var(--success);color:white;}
+.tl-dot.cur{background:var(--purple);color:white;box-shadow:0 0 0 4px rgba(75,29,142,.15);}
+.tl-dot.pend{background:var(--off-white);color:var(--gray);border:2px solid var(--border);}
+.tl-line{flex:1;width:2px;background:var(--border);margin:4px auto;min-height:28px;}
+.tl-c{padding-bottom:1.4rem;flex:1;}
+.tl-title{font-weight:600;font-size:.95rem;margin-bottom:.2rem;}
+.tl-sub{color:var(--gray);font-size:.82rem;}
+
+/* PROFILE */
+.prof-head{display:flex;align-items:center;gap:1.5rem;margin-bottom:2rem;}
+.prof-av{width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,var(--purple),var(--purple-light));display:flex;align-items:center;justify-content:center;color:white;font-family:'Syne',sans-serif;font-size:2rem;font-weight:800;flex-shrink:0;box-shadow:0 8px 25px rgba(75,29,142,.3);position:relative;}
+.prof-av.gold{background:linear-gradient(135deg,#F59E0B,#D97706);box-shadow:0 8px 25px rgba(245,158,11,.35);}
+.crown-ov{position:absolute;top:-12px;right:-4px;font-size:1.3rem;}
+.prof-info h2{font-family:'Syne',sans-serif;font-size:1.4rem;font-weight:800;margin-bottom:.2rem;}
+.prof-info p{color:var(--gray);font-size:.9rem;}
+.pbadge{display:inline-flex;align-items:center;gap:.4rem;padding:.3rem .8rem;border-radius:50px;font-size:.75rem;font-weight:700;margin-top:.5rem;}
+.pbadge.free{background:rgba(75,29,142,.1);border:1px solid rgba(75,29,142,.2);color:var(--purple-mid);}
+.pbadge.gold{background:var(--gold-light);border:1px solid #F59E0B;color:#92400E;}
+.prof-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+.pf{background:var(--off-white);border-radius:12px;padding:1rem 1.2rem;border:1px solid var(--border);}
+.pf-lbl{font-size:.75rem;font-weight:700;color:var(--gray);text-transform:uppercase;letter-spacing:.05em;margin-bottom:.3rem;}
+.pf-val{font-size:.95rem;font-weight:500;}
+
+/* VACANTES */
+.vgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(275px,1fr));gap:1.2rem;}
+.vcard{background:white;border-radius:16px;padding:1.5rem;border:1.5px solid var(--border);transition:all .2s;}
+.vcard:hover{border-color:var(--purple-mid);transform:translateY(-3px);box-shadow:0 12px 30px rgba(75,29,142,.12);}
+.vcard.gold-c{border-color:rgba(245,158,11,.4);background:linear-gradient(135deg,#FFFBEB,#FEFCE8);}
+.vcard.gold-c:hover{border-color:#F59E0B;box-shadow:0 12px 30px rgba(245,158,11,.15);}
+.vtop{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:.8rem;}
+.vlogo{width:44px;height:44px;border-radius:10px;background:var(--off-white);display:flex;align-items:center;justify-content:center;font-size:1.2rem;}
+.vtag{padding:.25rem .7rem;border-radius:50px;font-size:.72rem;font-weight:700;}
+.vtag.norm{background:rgba(75,29,142,.1);color:var(--purple-mid);}
+.vtag.gold{background:var(--gold-light);color:#92400E;}
+.vempresa{font-size:.8rem;color:var(--gray);margin-bottom:.3rem;}
+.vnombre{font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;margin-bottom:.8rem;}
+.vribbon{display:flex;align-items:center;gap:.4rem;font-size:.75rem;font-weight:700;color:#92400E;margin-bottom:.5rem;}
+.vmeta{display:flex;gap:.8rem;flex-wrap:wrap;}
+.vmeta span{font-size:.78rem;color:var(--gray);}
+.vbtn{display:block;text-align:center;border:none;padding:.65rem;border-radius:50px;font-family:'DM Sans',sans-serif;font-size:.85rem;font-weight:600;cursor:pointer;margin-top:1rem;transition:all .2s;width:100%;}
+.vbtn.norm{background:var(--purple);color:white;}
+.vbtn.norm:hover{background:var(--purple-mid);transform:translateY(-1px);}
+.vbtn.applied{background:var(--success);color:white;cursor:default;}
+.vbtn.locked{background:linear-gradient(135deg,#F59E0B,#D97706);color:white;}
+.vbtn.locked:hover{filter:brightness(1.08);transform:translateY(-1px);}
+
+/* RESEÑAS */
+.rgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.2rem;}
+.rcard{background:var(--off-white);border-radius:16px;padding:1.5rem;border:1px solid var(--border);}
+.rstars{color:#F59E0B;margin-bottom:.5rem;font-size:.9rem;}
+.rtext{font-size:.9rem;line-height:1.6;color:#4A3960;margin-bottom:1rem;font-style:italic;}
+.rauthor{display:flex;align-items:center;gap:.7rem;}
+.rav{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,var(--purple),var(--purple-light));display:flex;align-items:center;justify-content:center;color:white;font-size:.8rem;font-weight:700;}
+.rname{font-weight:600;font-size:.85rem;}
+.rrole{color:var(--gray);font-size:.75rem;}
+
+/* ESCOLAR */
+.ebox{background:linear-gradient(135deg,#EDE9FE,#F5F0FF);border-radius:16px;padding:1.8rem;border:1.5px solid rgba(107,53,181,.2);margin-bottom:1.2rem;}
+.ebox-title{font-family:'Syne',sans-serif;font-weight:800;font-size:1.1rem;margin-bottom:.5rem;}
+.school-row{display:grid;grid-template-columns:1fr auto;gap:.8rem;align-items:end;}
+.btn-connect{background:var(--purple);color:white;border:none;padding:.75rem 1.2rem;border-radius:10px;font-family:'DM Sans',sans-serif;font-weight:600;font-size:.88rem;cursor:pointer;transition:all .2s;white-space:nowrap;}
+.btn-connect:hover{background:var(--purple-mid);}
+
+/* PLAN */
+.plan-hero-free{background:linear-gradient(135deg,var(--purple),var(--purple-mid));border-radius:24px;padding:2.5rem;color:white;margin-bottom:1.5rem;position:relative;overflow:hidden;}
+.plan-hero-free::before{content:'';position:absolute;width:250px;height:250px;border-radius:50%;background:rgba(255,255,255,.06);top:-80px;right:-60px;}
+.plan-hero-prem{background:linear-gradient(135deg,#F59E0B,#D97706);border-radius:24px;padding:2.5rem;color:white;margin-bottom:1.5rem;position:relative;overflow:hidden;}
+.plan-hero-prem::before{content:'';position:absolute;width:250px;height:250px;border-radius:50%;background:rgba(255,255,255,.08);top:-80px;right:-60px;}
+.phero-title{font-family:'Syne',sans-serif;font-size:1.4rem;font-weight:800;margin-bottom:.4rem;position:relative;z-index:1;color:white;}
+.phero-sub{opacity:.8;font-size:.9rem;margin-bottom:1.5rem;position:relative;z-index:1;color:white;}
+.btn-upgrade{background:white;color:var(--purple);border:none;padding:.85rem 2rem;border-radius:50px;font-family:'DM Sans',sans-serif;font-weight:800;font-size:1rem;cursor:pointer;transition:transform .2s,box-shadow .2s;box-shadow:0 4px 20px rgba(0,0,0,.15);position:relative;z-index:1;}
+.btn-upgrade:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,0,0,.2);}
+.cancel-sub{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);color:white;padding:.6rem 1.2rem;border-radius:50px;font-family:'DM Sans',sans-serif;font-weight:600;font-size:.85rem;cursor:pointer;transition:all .2s;margin-top:1rem;}
+.cancel-sub:hover{background:rgba(255,255,255,.25);}
+.cmp-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;}
+.cmp-col{border-radius:16px;padding:1.5rem;border:1.5px solid var(--border);}
+.cmp-col.gold{border-color:rgba(245,158,11,.5);background:var(--gold-light);}
+.cmp-title{font-family:'Syne',sans-serif;font-weight:800;font-size:1rem;margin-bottom:1rem;}
+.cmp-list{list-style:none;display:flex;flex-direction:column;gap:.6rem;}
+.cmp-list li{font-size:.88rem;display:flex;align-items:center;gap:.5rem;}
+
+/* PAYMENT MODAL */
+.modal-ov{display:none;position:fixed;inset:0;background:rgba(13,5,23,.75);backdrop-filter:blur(8px);z-index:500;align-items:center;justify-content:center;padding:1rem;}
+.modal-ov.open{display:flex;}
+.modal-box{background:white;border-radius:28px;width:100%;max-width:460px;overflow:hidden;animation:modalIn .3s ease;}
+@keyframes modalIn{from{opacity:0;transform:scale(.94) translateY(20px);}to{opacity:1;transform:scale(1) translateY(0);}}
+.mhead{background:linear-gradient(135deg,var(--purple),var(--purple-mid));padding:2rem;color:white;position:relative;}
+.mhead h2{font-family:'Syne',sans-serif;font-size:1.4rem;font-weight:800;margin-bottom:.3rem;}
+.mhead p{opacity:.8;font-size:.88rem;}
+.mclose{position:absolute;top:1.2rem;right:1.2rem;background:rgba(255,255,255,.15);border:none;color:white;width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:1rem;transition:background .2s;}
+.mclose:hover{background:rgba(255,255,255,.3);}
+.mbody{padding:2rem;}
+.beta-banner{background:var(--gold-light);border:1px solid #F59E0B;border-radius:12px;padding:.9rem 1.1rem;margin-bottom:1.5rem;display:flex;align-items:flex-start;gap:.7rem;}
+.beta-icon{font-size:1.2rem;flex-shrink:0;margin-top:.1rem;}
+.beta-banner p{font-size:.82rem;color:#92400E;line-height:1.5;}
+.beta-banner strong{display:block;font-weight:700;margin-bottom:.1rem;}
+.mprice{display:flex;align-items:baseline;gap:.5rem;margin-bottom:1.5rem;}
+.mp-amt{font-family:'Syne',sans-serif;font-size:2.5rem;font-weight:800;color:var(--purple);}
+.mp-per{color:var(--gray);font-size:.9rem;}
+.mp-orig{text-decoration:line-through;color:var(--gray);font-size:.82rem;margin-left:.2rem;}
+.cform{display:flex;flex-direction:column;gap:1rem;}
+.cwrap{position:relative;}
+.cwrap input{padding-left:3rem;}
+.cico{position:absolute;left:1rem;top:50%;transform:translateY(-50%);font-size:1rem;}
+.crow{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+.btn-pay{background:linear-gradient(135deg,var(--purple),var(--purple-mid));color:white;border:none;padding:1rem;border-radius:50px;font-family:'DM Sans',sans-serif;font-size:1rem;font-weight:700;cursor:pointer;width:100%;transition:transform .2s,box-shadow .2s;box-shadow:0 4px 20px rgba(75,29,142,.35);margin-top:.4rem;}
+.btn-pay:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(75,29,142,.45);}
+.secure-note{text-align:center;font-size:.75rem;color:var(--gray);margin-top:.8rem;}
+.spinner-wrap{display:none;flex-direction:column;align-items:center;justify-content:center;gap:1rem;padding:3rem 2rem;text-align:center;}
+.spinner-wrap.show{display:flex;}
+.spinner{width:48px;height:48px;border:4px solid var(--border);border-top-color:var(--purple);border-radius:50%;animation:spin .8s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
+.success-box{background:white;border-radius:28px;width:100%;max-width:380px;padding:3rem 2rem;text-align:center;animation:modalIn .3s ease;}
+.suc-icon{font-size:4rem;margin-bottom:1rem;}
+.suc-title{font-family:'Syne',sans-serif;font-size:1.6rem;font-weight:800;margin-bottom:.5rem;}
+.suc-sub{color:var(--gray);font-size:.9rem;line-height:1.6;margin-bottom:2rem;}
+.btn-go{background:linear-gradient(135deg,#F59E0B,#D97706);color:white;border:none;padding:.9rem 2rem;border-radius:50px;font-family:'DM Sans',sans-serif;font-weight:700;font-size:1rem;cursor:pointer;box-shadow:0 4px 20px rgba(245,158,11,.4);transition:transform .2s;}
+.btn-go:hover{transform:translateY(-2px);}
+
+
+/* ── AD BANNER SYSTEM ── */
+.ad-banner{border-radius:16px;overflow:hidden;margin-bottom:1.5rem;box-shadow:0 4px 20px rgba(0,0,0,.12);}
+.ad-banner.hidden{display:none;}
+.ad-slot{display:none;flex-direction:column;}
+.ad-slot.visible{display:flex;}
+.ad-slot-row{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:1rem 1.3rem;flex-wrap:wrap;}
+.ad-slot-1 .ad-slot-row{background:linear-gradient(135deg,#CC0000,#990000);color:white;}
+.ad-slot-2 .ad-slot-row{background:linear-gradient(135deg,#0D3B8E,#1a5cbf);color:white;}
+.ad-slot-3 .ad-slot-row{background:linear-gradient(135deg,#E8A000,#c47c00);color:white;}
+.ad-slot-4 .ad-slot-row{background:linear-gradient(135deg,#006633,#004d26);color:white;}
+.ad-slot-5 .ad-slot-row{background:linear-gradient(135deg,#0052A5,#003d80);color:white;}
+.ad-slot-6 .ad-slot-row{background:linear-gradient(135deg,#2D1B69,#4B1D8E);color:white;}
+.ad-inner{display:flex;align-items:center;gap:.9rem;flex:1;}
+.ad-logo-box{width:46px;height:46px;border-radius:10px;background:rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0;}
+.ad-tag-real{background:rgba(0,0,0,.3);color:rgba(255,255,255,.8);font-size:.6rem;font-weight:800;padding:.15rem .45rem;border-radius:4px;letter-spacing:.06em;display:inline-block;margin-bottom:.2rem;}
+.ad-body-txt strong{display:block;font-size:.95rem;font-weight:800;font-family:'Syne',sans-serif;}
+.ad-body-txt span{font-size:.77rem;opacity:.88;}
+.ad-right-group{display:flex;align-items:center;gap:.7rem;flex-shrink:0;}
+.ad-cta-btn{background:white;font-family:'DM Sans',sans-serif;font-weight:800;font-size:.82rem;border:none;padding:.5rem 1.1rem;border-radius:50px;cursor:pointer;transition:transform .15s;white-space:nowrap;}
+.ad-slot-1 .ad-cta-btn{color:#CC0000;}
+.ad-slot-2 .ad-cta-btn{color:#0D3B8E;}
+.ad-slot-3 .ad-cta-btn{color:#c47c00;}
+.ad-slot-4 .ad-cta-btn{color:#006633;}
+.ad-slot-5 .ad-cta-btn{color:#0052A5;}
+.ad-slot-6 .ad-cta-btn{color:#4B1D8E;}
+.ad-cta-btn:hover{transform:scale(1.05);}
+.ad-close-btn{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);color:white;width:26px;height:26px;border-radius:50%;cursor:pointer;font-size:.8rem;display:flex;align-items:center;justify-content:center;transition:background .2s;flex-shrink:0;}
+.ad-close-btn:hover{background:rgba(255,255,255,.3);}
+.ad-footer-strip{background:rgba(0,0,0,.18);padding:.3rem 1.3rem;display:flex;align-items:center;justify-content:space-between;}
+.ad-footer-strip span{font-size:.68rem;color:rgba(255,255,255,.7);}
+.ad-upgrade-hint{font-size:.68rem;color:rgba(255,255,255,.85);cursor:pointer;text-decoration:underline;text-underline-offset:2px;background:none;border:none;font-family:'DM Sans',sans-serif;padding:0;}
+.ad-upgrade-hint:hover{color:white;}
+/* POPUP AD */
+.ad-popup-ov{display:none;position:fixed;inset:0;background:rgba(13,5,23,.8);backdrop-filter:blur(5px);z-index:600;align-items:center;justify-content:center;padding:1rem;}
+.ad-popup-ov.open{display:flex;}
+.ad-popup-box{background:white;border-radius:24px;width:100%;max-width:400px;overflow:hidden;animation:modalIn .3s ease;position:relative;}
+.ad-popup-timer-bar{height:4px;background:var(--border);}
+.ad-popup-timer-fill{height:4px;background:var(--purple);width:100%;transition:width linear;}
+.ad-popup-inner{padding:2rem;}
+.ad-popup-logo{font-size:2.5rem;margin-bottom:.5rem;}
+.ad-popup-brand{font-family:'Syne',sans-serif;font-size:1.2rem;font-weight:800;margin-bottom:.2rem;}
+.ad-popup-tagline{font-size:.85rem;color:var(--gray);margin-bottom:1rem;}
+.ad-popup-body{font-size:.9rem;color:#4A3960;line-height:1.6;margin-bottom:1.2rem;}
+.ad-popup-skip{width:100%;background:var(--off-white);color:var(--gray);border:1.5px solid var(--border);padding:.75rem;border-radius:50px;font-family:'DM Sans',sans-serif;font-weight:600;font-size:.88rem;cursor:pointer;margin-bottom:.5rem;}
+.ad-popup-prem{width:100%;background:var(--purple);color:white;border:none;padding:.75rem;border-radius:50px;font-family:'DM Sans',sans-serif;font-weight:700;font-size:.88rem;cursor:pointer;box-shadow:0 4px 15px rgba(75,29,142,.3);}
+.ad-countdown{font-size:.75rem;color:var(--gray);text-align:center;margin-top:.7rem;}
+
+/* ── MODAL FORMS ── */
+.modal-form-ov{display:none;position:fixed;inset:0;background:rgba(13,5,23,.7);backdrop-filter:blur(6px);z-index:400;align-items:center;justify-content:center;padding:1rem;}
+.modal-form-ov.open{display:flex;}
+.modal-form-box{background:white;border-radius:24px;width:100%;max-width:520px;max-height:90vh;overflow-y:auto;animation:modalIn .3s ease;}
+.mfhead{background:linear-gradient(135deg,var(--purple),var(--purple-mid));padding:1.8rem 2rem;color:white;position:relative;border-radius:24px 24px 0 0;}
+.mfhead h2{font-family:'Syne',sans-serif;font-size:1.3rem;font-weight:800;}
+.mfhead p{opacity:.8;font-size:.85rem;margin-top:.2rem;}
+.mfclose{position:absolute;top:1.1rem;right:1.1rem;background:rgba(255,255,255,.15);border:none;color:white;width:30px;height:30px;border-radius:50%;cursor:pointer;font-size:.9rem;}
+.mfbody{padding:1.8rem 2rem;}
+.mfbody .fgroup{margin-bottom:1rem;}
+.mfbody textarea{width:100%;padding:.75rem 1rem;border:1.5px solid var(--border);border-radius:12px;font-family:'DM Sans',sans-serif;font-size:.9rem;color:var(--dark);background:var(--off-white);resize:vertical;min-height:80px;outline:none;transition:border .2s;}
+.mfbody textarea:focus{border-color:var(--purple-mid);box-shadow:0 0 0 3px rgba(107,53,181,.12);background:white;}
+.mffooter{display:flex;gap:.8rem;justify-content:flex-end;padding:0 2rem 1.8rem;}
+.btn-mf-cancel{background:var(--off-white);color:var(--gray);border:1.5px solid var(--border);padding:.7rem 1.4rem;border-radius:50px;font-family:'DM Sans',sans-serif;font-weight:600;font-size:.88rem;cursor:pointer;}
+.btn-mf-save{background:var(--purple);color:white;border:none;padding:.7rem 1.6rem;border-radius:50px;font-family:'DM Sans',sans-serif;font-weight:700;font-size:.88rem;cursor:pointer;box-shadow:0 4px 15px rgba(75,29,142,.3);transition:transform .2s;}
+.btn-mf-save:hover{transform:translateY(-1px);}
+
+/* ── ESTUDIANTE DETAIL MODAL ── */
+.est-row-editable{display:grid;grid-template-columns:repeat(4,1fr);gap:.6rem;margin-top:.8rem;}
+.est-input-box{background:white;border-radius:8px;padding:.6rem;border:1.5px solid var(--border);text-align:center;}
+.est-input-box label{font-size:.65rem;color:var(--gray);display:block;margin-bottom:.3rem;font-weight:700;text-transform:uppercase;}
+.est-input-box input{width:100%;border:none;background:transparent;text-align:center;font-weight:700;font-size:.95rem;color:var(--dark);outline:none;font-family:'DM Sans',sans-serif;}
+
+/* ── MENSAJES ── */
+.msg-layout{display:grid;grid-template-columns:280px 1fr;gap:0;height:calc(100vh - 180px);background:white;border-radius:20px;border:1px solid var(--border);overflow:hidden;}
+.msg-sidebar{border-right:1px solid var(--border);display:flex;flex-direction:column;}
+.msg-sidebar-head{padding:1.2rem;border-bottom:1px solid var(--border);font-family:'Syne',sans-serif;font-weight:700;font-size:1rem;}
+.msg-list{overflow-y:auto;flex:1;}
+.msg-contact{display:flex;align-items:center;gap:.8rem;padding:1rem 1.2rem;cursor:pointer;transition:background .15s;border-bottom:1px solid var(--border);}
+.msg-contact:hover{background:var(--off-white);}
+.msg-contact.active{background:var(--off-white);}
+.msg-contact-av{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--purple),var(--purple-light));color:white;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.85rem;flex-shrink:0;}
+.msg-contact-name{font-weight:600;font-size:.88rem;}
+.msg-contact-last{font-size:.75rem;color:var(--gray);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:140px;}
+.msg-unread{background:var(--purple);color:white;border-radius:50%;width:18px;height:18px;font-size:.65rem;font-weight:700;display:flex;align-items:center;justify-content:center;margin-left:auto;flex-shrink:0;}
+.msg-chat{display:flex;flex-direction:column;}
+.msg-chat-head{padding:1rem 1.4rem;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:.8rem;}
+.msg-chat-name{font-weight:700;font-size:.95rem;}
+.msg-chat-sub{font-size:.78rem;color:var(--gray);}
+.msg-chat-body{flex:1;overflow-y:auto;padding:1.2rem;display:flex;flex-direction:column;gap:.8rem;background:#FAFAFA;}
+.msg-bubble{max-width:70%;padding:.7rem 1rem;border-radius:16px;font-size:.88rem;line-height:1.5;}
+.msg-bubble.them{background:white;border:1px solid var(--border);align-self:flex-start;border-radius:4px 16px 16px 16px;}
+.msg-bubble.me{background:var(--purple);color:white;align-self:flex-end;border-radius:16px 4px 16px 16px;}
+.msg-time{font-size:.7rem;color:var(--gray);margin-top:.2rem;}
+.msg-time.right{text-align:right;}
+.msg-input-row{padding:1rem 1.2rem;border-top:1px solid var(--border);display:flex;gap:.8rem;align-items:flex-end;}
+.msg-input-row input{flex:1;padding:.7rem 1rem;border:1.5px solid var(--border);border-radius:50px;font-family:'DM Sans',sans-serif;font-size:.88rem;outline:none;transition:border .2s;}
+.msg-input-row input:focus{border-color:var(--purple-mid);}
+.msg-send-btn{background:var(--purple);color:white;border:none;width:38px;height:38px;border-radius:50%;cursor:pointer;font-size:1rem;transition:background .2s;flex-shrink:0;}
+.msg-send-btn:hover{background:var(--purple-mid);}
+.msg-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;flex:1;color:var(--gray);text-align:center;padding:2rem;}
+.msg-empty-icon{font-size:3rem;margin-bottom:1rem;opacity:.4;}
+
+/* ── UNIVERSIDADES ── */
+.uni-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.2rem;}
+.uni-card{background:white;border-radius:16px;padding:1.5rem;border:1.5px solid var(--border);transition:all .2s;}
+.uni-card:hover{border-color:var(--purple-mid);transform:translateY(-3px);box-shadow:0 10px 25px rgba(75,29,142,.1);}
+.uni-logo-circle{width:56px;height:56px;border-radius:14px;background:linear-gradient(135deg,var(--off-white),#EDE0FF);display:flex;align-items:center;justify-content:center;font-size:1.4rem;margin-bottom:1rem;}
+.uni-name{font-family:'Syne',sans-serif;font-weight:700;font-size:1rem;margin-bottom:.3rem;}
+.uni-location{font-size:.8rem;color:var(--gray);margin-bottom:.8rem;}
+.uni-stats{display:flex;gap:.8rem;flex-wrap:wrap;margin-bottom:1rem;}
+.uni-stat{background:var(--off-white);border-radius:8px;padding:.3rem .7rem;font-size:.75rem;font-weight:600;color:var(--purple-mid);}
+.btn-uni{display:block;text-align:center;background:var(--off-white);color:var(--purple);border:1.5px solid var(--border);padding:.6rem;border-radius:50px;font-family:'DM Sans',sans-serif;font-size:.82rem;font-weight:600;cursor:pointer;transition:all .2s;width:100%;}
+.btn-uni:hover{background:var(--purple);color:white;border-color:var(--purple);}
+
+@media(max-width:640px){.msg-layout{grid-template-columns:1fr;}.msg-sidebar{display:none;}}
+
+/* TOAST */
+.toast{position:fixed;bottom:2rem;right:2rem;background:var(--dark);color:white;padding:.9rem 1.4rem;border-radius:14px;font-size:.9rem;font-weight:500;box-shadow:0 10px 30px rgba(0,0,0,.3);z-index:1000;transform:translateY(100px);opacity:0;transition:all .3s;display:flex;align-items:center;gap:.6rem;}
+.toast.show{transform:translateY(0);opacity:1;}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+
+/* SCROLL REVEAL */
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .5s ease,transform .5s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+
+/* ══════════════════════════════════════
+   HAMBURGER MENU BUTTON (mobile/tablet)
+══════════════════════════════════════ */
+.mob-topbar{display:none;position:fixed;top:0;left:0;right:0;z-index:200;background:var(--dark);height:56px;align-items:center;justify-content:space-between;padding:0 1.1rem;box-shadow:0 2px 12px rgba(0,0,0,.3);}
+.mob-topbar-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:1.4rem;color:var(--accent);letter-spacing:-.03em;}
+.mob-topbar-right{display:flex;align-items:center;gap:.6rem;}
+.mob-plan-badge{font-size:.7rem;font-weight:700;padding:.25rem .6rem;border-radius:50px;background:rgba(192,132,252,.2);color:var(--accent);}
+.hamburger{background:none;border:none;cursor:pointer;display:flex;flex-direction:column;gap:5px;padding:.3rem;border-radius:8px;transition:background .2s;}
+.hamburger:hover{background:rgba(255,255,255,.08);}
+.hamburger span{display:block;width:22px;height:2px;background:white;border-radius:2px;transition:all .3s;}
+.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.hamburger.open span:nth-child(2){opacity:0;transform:scaleX(0);}
+.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+
+/* Overlay for sidebar on mobile */
+.sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:9;backdrop-filter:blur(2px);}
+.sidebar-overlay.open{display:block;}
+
+/* ══════════════════════════════════════
+   TABLET  768px – 1024px
+══════════════════════════════════════ */
+@media(max-width:1024px){
+  .hero-visual{display:none;}
+}
+
+@media(min-width:769px) and (max-width:1024px){
+  /* Nav */
+  .land-nav-links li:nth-child(1),.land-nav-links li:nth-child(2){display:none;}
+
+  /* Sidebar collapsed */
+  .sidebar{width:68px;padding:1.2rem .6rem;overflow:hidden;}
+  .sb-logo{font-size:0;width:40px;height:40px;background:var(--accent);border-radius:10px;display:flex;align-items:center;justify-content:center;padding:0;margin-bottom:1.5rem;}
+  .sb-logo::after{content:'N';font-size:1.2rem;font-family:'Syne',sans-serif;font-weight:800;color:var(--dark);}
+  .sb-user{padding:.6rem;justify-content:center;}
+  .sb-name,.sb-type,.sb-crown{display:none;}
+  .nav-lbl{display:none;}
+  .sb-nav a{padding:.7rem;justify-content:center;border-radius:10px;}
+  .sb-nav a span.nicon{margin:0;font-size:1.1rem;}
+  .sb-nav a span:not(.nicon){display:none;}
+  .nlock{display:none;}
+  .btn-logout span:not(.nicon){display:none;}
+  .btn-logout{justify-content:center;padding:.7rem;}
+
+  /* Main content */
+  .dash-main{margin-left:68px;padding:1.5rem;}
+
+  /* Auth */
+  .auth-left{display:none;}
+  .auth-right{width:100%;padding:3rem 2rem;}
+
+  /* Grids */
+  .tab-pane.active{grid-template-columns:1fr;}
+  .pricing-grid{grid-template-columns:1fr;max-width:400px;}
+  .prof-grid{grid-template-columns:1fr 1fr;}
+  .cmp-grid{grid-template-columns:1fr 1fr;}
+  .frow{grid-template-columns:1fr 1fr;}
+  .crow{grid-template-columns:1fr 1fr;}
+  .est-row-editable{grid-template-columns:repeat(2,1fr);}
+
+  /* Ad banner */
+  .ad-inner img{width:56px;height:56px;}
+  .ad-body-txt strong{font-size:.88rem;}
+  .ad-body-txt span{font-size:.72rem;}
+
+  /* Messages */
+  .msg-layout{grid-template-columns:220px 1fr;}
+
+  /* Sections */
+  section.land{padding:5rem 4%;}
+  .cta-sec{padding:5rem 4%;}
+}
+
+/* ══════════════════════════════════════
+   MOBILE  ≤ 768px
+══════════════════════════════════════ */
+@media(max-width:768px){
+
+  /* ── Landing nav ── */
+  .land-nav{padding:.9rem 4%;}
+  .land-nav-links li:not(:last-child){display:none;}
+  .land-logo{font-size:1.4rem;}
+
+  /* ── Hero ── */
+  .hero{padding:7rem 4% 4rem;min-height:auto;}
+  .hero h1{font-size:clamp(2rem,9vw,3rem);}
+  .hero-p{font-size:1rem;}
+  .hero-btns{flex-direction:column;align-items:flex-start;}
+  .btn-primary,.btn-secondary{width:100%;text-align:center;padding:.85rem 1.2rem;}
+
+  /* ── Sections ── */
+  section.land{padding:3.5rem 4%;}
+  .cta-sec{padding:4rem 4%;}
+  .stitle{font-size:clamp(1.6rem,7vw,2.4rem);}
+  .ssub{font-size:.95rem;}
+
+  /* ── Landing grids ── */
+  .pain-grid{grid-template-columns:1fr;}
+  .steps{grid-template-columns:1fr 1fr;gap:1.5rem;}
+  .metrics-grid{grid-template-columns:1fr 1fr;gap:1.2rem;}
+  .proof-grid{grid-template-columns:1fr;}
+  .pricing-grid{grid-template-columns:1fr;max-width:100%;}
+  .tab-pane.active{grid-template-columns:1fr;gap:1.5rem;}
+  .tabs-bar{width:100%;}
+  .tab-btn{flex:1;padding:.6rem .5rem;font-size:.82rem;}
+
+  /* ── Footer ── */
+  .land-footer{flex-direction:column;text-align:center;gap:.8rem;}
+  .foot-links{justify-content:center;}
+
+  /* ── Auth ── */
+  #page-auth.active{display:block;}
+  .auth-left{display:none;}
+  .auth-right{width:100%;min-height:100vh;padding:2.5rem 1.5rem;}
+
+  /* ── Dashboard sidebar → hidden, topbar shown ── */
+  .sidebar{
+    position:fixed;top:0;left:0;bottom:0;z-index:100;
+    width:260px;
+    transform:translateX(-100%);
+    transition:transform .3s ease;
+    padding-top:1.5rem;
+  }
+  .sidebar.mob-open{transform:translateX(0);}
+  .mob-topbar{display:flex;}
+  .dash-main{
+    margin-left:0 !important;
+    padding:1rem;
+    padding-top:70px; /* below topbar */
+  }
+
+  /* ── Dash header ── */
+  .dash-head{flex-direction:column;align-items:flex-start;gap:.6rem;margin-bottom:1.2rem;}
+  .dash-hi h1{font-size:1.3rem;}
+  .dash-hi p{font-size:.78rem;}
+
+  /* ── Stats grid ── */
+  .stats-grid{grid-template-columns:1fr 1fr;gap:.8rem;margin-bottom:1.2rem;}
+  .sbox{padding:1rem;}
+  .sbox-num{font-size:1.6rem;}
+  .sbox-lbl{font-size:.75rem;}
+
+  /* ── Section cards ── */
+  .sc{padding:1.2rem;}
+  .sc-title{font-size:1rem;}
+
+  /* ── Profile ── */
+  .prof-head{flex-direction:column;align-items:flex-start;gap:1rem;}
+  .prof-grid{grid-template-columns:1fr;}
+  .cmp-grid{grid-template-columns:1fr;}
+  .frow{grid-template-columns:1fr;}
+  .crow{grid-template-columns:1fr;}
+
+  /* ── Vacantes ── */
+  .vgrid{grid-template-columns:1fr;}
+  .vcard{padding:1.1rem;}
+
+  /* ── Plan compare ── */
+  .cmp-grid{grid-template-columns:1fr;}
+  .plan-hero-free,.plan-hero-prem{padding:1.5rem;}
+  .phero-title{font-size:1.1rem;}
+  .btn-upgrade{font-size:.88rem;padding:.75rem 1.4rem;}
+
+  /* ── Timelines ── */
+  .tl-title{font-size:.88rem;}
+  .tl-sub{font-size:.76rem;}
+
+  /* ── Messages ── */
+  .msg-layout{grid-template-columns:1fr;height:calc(100vh - 140px);}
+  .msg-sidebar{display:none;}
+  .msg-layout.show-list .msg-sidebar{display:flex;}
+  .msg-layout.show-list .msg-chat{display:none;}
+
+  /* ── Reseñas ── */
+  .rgrid{grid-template-columns:1fr;}
+
+  /* ── Universidades ── */
+  .uni-grid{grid-template-columns:1fr;}
+
+  /* ── Modals ── */
+  .modal-form-box{border-radius:20px 20px 0 0;max-height:95vh;position:fixed;bottom:0;left:0;right:0;width:100%;max-width:100%;}
+  .modal-form-ov.open{align-items:flex-end;}
+  .modal-box{border-radius:24px 24px 0 0;max-width:100%;position:fixed;bottom:0;left:0;right:0;width:100%;}
+  .modal-ov.open{align-items:flex-end;}
+  .success-box{border-radius:24px 24px 0 0;width:100%;max-width:100%;}
+  .mfbody{padding:1.3rem 1.2rem;}
+  .mffooter{padding:0 1.2rem 1.3rem;}
+  .mbody{padding:1.3rem 1.2rem;}
+
+  /* ── Ad banner ── */
+  .ad-slot-row{flex-wrap:nowrap;gap:.6rem;padding:.8rem 1rem;}
+  .ad-inner img{width:50px;height:50px;flex-shrink:0;}
+  .ad-inner{gap:.6rem;}
+  .ad-body-txt strong{font-size:.8rem;}
+  .ad-body-txt span{font-size:.68rem;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+  .ad-cta-btn{font-size:.75rem;padding:.4rem .8rem;}
+  .ad-footer-strip{flex-direction:column;align-items:flex-start;gap:.2rem;padding:.4rem 1rem;}
+
+  /* ── Popup ad ── */
+  .ad-popup-box{border-radius:24px 24px 0 0;max-width:100%;position:fixed;bottom:0;left:0;right:0;}
+  .ad-popup-ov.open{align-items:flex-end;}
+  .ad-popup-inner{padding:1.5rem;}
+
+  /* ── Inscribir modal grid ── */
+  .est-row-editable{grid-template-columns:repeat(2,1fr);}
+
+  /* ── School row ── */
+  .school-row{grid-template-columns:1fr;gap:.6rem;}
+  .btn-connect{width:100%;}
+
+  /* ── Gestión estudiantes summary ── */
+  #esc-empresa .pf{text-align:center;}
+
+  /* ── Toast ── */
+  .toast{bottom:1rem;right:1rem;left:1rem;font-size:.85rem;}
+}
+
+/* ══════════════════════════════════════
+   EXTRA SMALL  ≤ 400px
+══════════════════════════════════════ */
+@media(max-width:400px){
+  .hero h1{font-size:2rem;}
+  .steps{grid-template-columns:1fr;}
+  .metrics-grid{grid-template-columns:1fr 1fr;}
+  .stats-grid{grid-template-columns:1fr 1fr;}
+  .auth-right{padding:2rem 1.2rem;}
+}
+
+/* ══ PROFILE REDESIGN ══ */
+.profile-photo-card{background:linear-gradient(135deg,var(--purple) 0%,var(--purple-mid) 100%);border-radius:24px;padding:2rem;color:white;margin-bottom:1.2rem;position:relative;overflow:hidden;}
+.profile-photo-card::before{content:'';position:absolute;width:200px;height:200px;border-radius:50%;background:rgba(255,255,255,.06);top:-60px;right:-60px;}
+.profile-photo-inner{display:flex;align-items:center;gap:1.5rem;position:relative;z-index:1;flex-wrap:wrap;}
+.photo-ring{width:90px;height:90px;border-radius:50%;border:3px solid rgba(255,255,255,.4);padding:3px;flex-shrink:0;cursor:pointer;transition:border-color .2s;}
+.photo-ring:hover{border-color:white;}
+.photo-ring-inner{width:100%;height:100%;border-radius:50%;background:rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:800;font-size:1.8rem;color:white;overflow:hidden;position:relative;}
+.photo-ring-inner img{width:100%;height:100%;object-fit:cover;border-radius:50%;}
+.photo-overlay{position:absolute;inset:0;border-radius:50%;background:rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .2s;font-size:1.1rem;}
+.photo-ring:hover .photo-overlay{opacity:1;}
+.profile-photo-info h2{font-family:'Syne',sans-serif;font-size:1.4rem;font-weight:800;margin-bottom:.2rem;}
+.profile-photo-info p{opacity:.8;font-size:.88rem;margin-bottom:.5rem;}
+.profile-photo-info .plan-chip{display:inline-flex;align-items:center;gap:.4rem;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);color:white;padding:.3rem .8rem;border-radius:50px;font-size:.75rem;font-weight:700;}
+.photo-hint{font-size:.72rem;opacity:.6;margin-top:.4rem;display:flex;align-items:center;gap:.3rem;}
+
+/* DATA CARDS GRID */
+.data-cards-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.8rem;margin-bottom:1.2rem;}
+.data-card{background:white;border-radius:14px;padding:1rem 1.2rem;border:1px solid var(--border);}
+.data-card-label{font-size:.7rem;font-weight:700;color:var(--gray);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.3rem;}
+.data-card-value{font-size:.95rem;font-weight:600;color:var(--dark);}
+
+/* CV CARD */
+.cv-card{background:white;border-radius:18px;border:1px solid var(--border);overflow:hidden;margin-bottom:1.2rem;}
+.cv-card-head{background:linear-gradient(135deg,#EDE9FE,#F5F0FF);padding:1.2rem 1.5rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
+.cv-card-head h3{font-family:'Syne',sans-serif;font-weight:800;font-size:1rem;}
+.cv-card-body{padding:1.5rem;}
+.cv-drop-zone{border:2px dashed var(--purple-light);border-radius:14px;padding:2rem;text-align:center;cursor:pointer;transition:all .2s;background:rgba(107,53,181,.02);}
+.cv-drop-zone:hover{border-color:var(--purple);background:rgba(107,53,181,.05);}
+.cv-drop-icon{font-size:2.5rem;margin-bottom:.6rem;}
+.cv-drop-title{font-family:'Syne',sans-serif;font-weight:700;font-size:.95rem;color:var(--purple-mid);margin-bottom:.2rem;}
+.cv-drop-sub{font-size:.8rem;color:var(--gray);}
+.cv-file-row{display:flex;align-items:center;gap:1rem;background:linear-gradient(135deg,#EDE9FE,#F5F0FF);border-radius:12px;padding:1rem 1.2rem;}
+.cv-file-thumb{width:48px;height:48px;border-radius:10px;background:var(--purple);display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0;}
+.cv-file-info{flex:1;}
+.cv-file-nm{font-weight:700;font-size:.9rem;color:var(--dark);}
+.cv-file-dt{font-size:.75rem;color:var(--gray);margin-top:.1rem;}
+.cv-status-ok{font-size:.75rem;color:var(--success);font-weight:600;margin-top:.3rem;display:flex;align-items:center;gap:.3rem;}
+.btn-cv-del{background:#FEE2E2;color:#991B1B;border:none;padding:.5rem .8rem;border-radius:8px;font-size:.78rem;font-weight:600;cursor:pointer;transition:background .2s;flex-shrink:0;}
+.btn-cv-del:hover{background:#FCA5A5;}
+
+/* INFO CARDS */
+.info-section{background:white;border-radius:18px;border:1px solid var(--border);overflow:hidden;margin-bottom:1.2rem;}
+.info-section-head{padding:1.2rem 1.5rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
+.info-section-head h3{font-family:'Syne',sans-serif;font-weight:800;font-size:1rem;}
+.info-section-body{padding:1.5rem;}
+.info-fields-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem;}
+.info-field{display:flex;flex-direction:column;gap:.4rem;}
+.info-field label{font-size:.72rem;font-weight:700;color:var(--gray);text-transform:uppercase;letter-spacing:.06em;}
+.info-field input,.info-field textarea{padding:.7rem 1rem;border:1.5px solid var(--border);border-radius:10px;font-family:'DM Sans',sans-serif;font-size:.88rem;color:var(--dark);background:var(--off-white);outline:none;transition:border .2s,box-shadow .2s;resize:none;}
+.info-field input:focus,.info-field textarea:focus{border-color:var(--purple-mid);box-shadow:0 0 0 3px rgba(107,53,181,.1);background:white;}
+.info-field-full{grid-column:1/-1;}
+.btn-save-info{background:var(--purple);color:white;border:none;padding:.75rem 1.8rem;border-radius:50px;font-family:'DM Sans',sans-serif;font-weight:700;font-size:.9rem;cursor:pointer;transition:transform .2s,box-shadow .2s;box-shadow:0 4px 15px rgba(75,29,142,.3);}
+.btn-save-info:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(75,29,142,.4);}
+
+/* EMPRESA PROFILE CARD */
+.emp-profile-hero{background:linear-gradient(135deg,#0D0517 0%,#1a0a2e 100%);border-radius:20px;padding:1.8rem;color:white;margin-bottom:1rem;position:relative;overflow:hidden;}
+.emp-profile-hero::before{content:'';position:absolute;width:250px;height:250px;border-radius:50%;background:rgba(107,53,181,.15);top:-80px;right:-60px;}
+.emp-profile-hero::after{content:'';position:absolute;width:150px;height:150px;border-radius:50%;background:rgba(192,132,252,.08);bottom:-40px;left:20px;}
+.emp-hero-inner{position:relative;z-index:1;display:flex;align-items:center;gap:1.2rem;flex-wrap:wrap;}
+.emp-logo-ring{width:72px;height:72px;border-radius:16px;border:2px solid rgba(255,255,255,.2);padding:3px;cursor:pointer;flex-shrink:0;transition:border-color .2s;}
+.emp-logo-ring:hover{border-color:var(--accent);}
+.emp-logo-inner{width:100%;height:100%;border-radius:12px;background:rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:800;font-size:1.4rem;color:white;overflow:hidden;position:relative;}
+.emp-logo-inner img{width:100%;height:100%;object-fit:cover;border-radius:12px;}
+.emp-hero-text h3{font-family:'Syne',sans-serif;font-size:1.2rem;font-weight:800;margin-bottom:.2rem;}
+.emp-hero-text p{opacity:.65;font-size:.82rem;}
+.emp-hero-tag{display:inline-flex;align-items:center;gap:.3rem;background:rgba(192,132,252,.15);border:1px solid rgba(192,132,252,.3);color:var(--accent);padding:.25rem .7rem;border-radius:50px;font-size:.72rem;font-weight:700;margin-top:.4rem;}
+
+@media(max-width:640px){.info-fields-grid{grid-template-columns:1fr;}.data-cards-grid{grid-template-columns:1fr 1fr;}}
+
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════
+     LANDING PAGE
+══════════════════════════════════════ -->
+<div class="page active" id="page-land">
+
+  <nav class="land-nav">
+    <div class="land-logo" onclick="goLand()">NexU</div>
+    <ul class="land-nav-links">
+      <li><a href="#como">Cómo funciona</a></li>
+      <li><a href="#para-quien">Para quién</a></li>
+      <li><a href="#precios">Precios</a></li>
+      <li><a onclick="goAuth('login')" class="nav-cta-btn">Iniciar sesión</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-blob blob-1"></div>
+    <div class="hero-blob blob-2"></div>
+    <div class="hero-content">
+      <div class="hero-badge">🎓 Plataforma de vinculación académica</div>
+      <h1>Tu estadía empieza <span>aquí</span></h1>
+      <p class="hero-p">NexU conecta a estudiantes universitarios con empresas reales para realizar estadías, prácticas profesionales y servicio social de forma rápida, organizada y segura.</p>
+      <div class="hero-btns">
+        <button class="btn-primary" onclick="goAuth('register')">Comenzar gratis →</button>
+        <a class="btn-secondary" href="#como">Ver cómo funciona</a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-card">
+        <div class="hcard-top">
+          <div class="hav">ML</div>
+          <div><div class="hcard-name">Mario López</div><div class="hcard-sub">Ing. Financiero · 8vo Semestre</div></div>
+        </div>
+        <div class="hcard-match">✓ Match encontrado · CIVAC Industrial</div>
+      </div>
+      <div class="hstats">
+        <div class="hstat"><div class="hstat-num">574</div><div class="hstat-lbl">usuarios activos</div></div>
+        <div class="hstat"><div class="hstat-num">98%</div><div class="hstat-lbl">satisfacción</div></div>
+        <div class="hstat"><div class="hstat-num">3x</div><div class="hstat-lbl">más rápido</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROBLEMA -->
+  <section class="land problem-sec" style="position:relative;overflow:hidden;">
+    <div style="position:absolute;width:500px;height:500px;border-radius:50%;background:var(--purple);opacity:.12;filter:blur(80px);top:-100px;right:-100px;"></div>
+    <div class="stag">El problema</div>
+    <h2 class="stitle">Buscar estadía no debería ser tan difícil</h2>
+    <p class="ssub">Miles de estudiantes pierden semanas buscando empresa sin información clara. Eso cambia con NexU.</p>
+    <div class="pain-grid">
+      <div class="pain-card reveal visible"><div class="pain-icon">📋</div><h3>Información dispersa</h3><p>No hay un lugar central. Los estudiantes dependen del azar y el "boca a boca".</p></div>
+      <div class="pain-card reveal visible"><div class="pain-icon">⏳</div><h3>Procesos tardados</h3><p>Contacto, postulación y aceptación tardan semanas. NexU lo reduce a días.</p></div>
+      <div class="pain-card reveal visible"><div class="pain-icon">🔍</div><h3>Sin filtros relevantes</h3><p>Las bolsas generales no están hechas para estadías. Resultados irrelevantes para tu carrera.</p></div>
+      <div class="pain-card reveal visible"><div class="pain-icon">🏢</div><h3>Empresas sin acceso a talento</h3><p>Las PyMEs locales necesitan practicantes pero no tienen canal para encontrarlos.</p></div>
+    </div>
+  </section>
+
+  <!-- CÓMO FUNCIONA -->
+  <section class="land how-sec" id="como">
+    <div class="stag">Cómo funciona</div>
+    <h2 class="stitle">Simple, rápido y efectivo</h2>
+    <p class="ssub">En cuatro pasos conectamos tu perfil con las oportunidades correctas.</p>
+    <div class="steps">
+      <div class="step reveal visible"><div class="step-num">1</div><h3>Crea tu perfil</h3><p>Registra tu carrera, semestre y disponibilidad. Tarda menos de 5 minutos.</p></div>
+      <div class="step reveal visible"><div class="step-num">2</div><h3>Explora vacantes</h3><p>Filtra oportunidades reales en Jiutepec y zona CIVAC, validadas por NexU.</p></div>
+      <div class="step reveal visible"><div class="step-num">3</div><h3>Postúlate</h3><p>Envía tu solicitud directo desde la plataforma. Sin correos ni llamadas en frío.</p></div>
+      <div class="step reveal visible"><div class="step-num">4</div><h3>Da seguimiento</h3><p>Monitorea fechas, horas y avances desde tu panel. Todo en un solo lugar.</p></div>
+    </div>
+  </section>
+
+  <!-- PARA QUIÉN -->
+  <section class="land forwho-sec" id="para-quien">
+    <div class="stag">Para quién</div>
+    <h2 class="stitle">Diseñado para ti</h2>
+    <div style="margin-top:2.5rem;">
+      <div class="tabs-bar">
+        <button class="tab-btn active" onclick="switchTab('est',this)">Estudiantes</button>
+        <button class="tab-btn" onclick="switchTab('emp',this)">Empresas</button>
+      </div>
+      <div class="tab-pane active" id="tab-est">
+        <ul class="tab-feats">
+          <li><div class="fcheck">✓</div><div class="ftxt"><strong>Vacantes filtradas por carrera</strong><span>Solo ves oportunidades alineadas a tu perfil académico.</span></div></li>
+          <li><div class="fcheck">✓</div><div class="ftxt"><strong>Postúlate en un clic</strong><span>Contáctate directamente con la empresa sin intermediarios.</span></div></li>
+          <li><div class="fcheck">✓</div><div class="ftxt"><strong>Calendario de seguimiento</strong><span>Visualiza fechas clave, horas y avances de tu estadía.</span></div></li>
+          <li><div class="fcheck">✓</div><div class="ftxt"><strong>Reseñas de empresas (Premium)</strong><span>Conoce la experiencia de otros estudiantes antes de postularte.</span></div></li>
+          <li><div class="fcheck">✓</div><div class="ftxt"><strong>Cuenta escolar integrada (Premium)</strong><span>Conecta tu perfil universitario sin captura manual.</span></div></li>
+        </ul>
+        <div class="tab-visual"><h3>Encuentra tu estadía ideal en días, no semanas.</h3><p>Estudiantes de UPEMOR, UTM y universidades de la zona ya usan NexU para cumplir sus requisitos.</p></div>
+      </div>
+      <div class="tab-pane" id="tab-emp">
+        <ul class="tab-feats">
+          <li><div class="fcheck">✓</div><div class="ftxt"><strong>Publica vacantes en minutos</strong><span>Define perfil, actividades, duración y modalidad.</span></div></li>
+          <li><div class="fcheck">✓</div><div class="ftxt"><strong>Recibe candidatos calificados</strong><span>Solo perfiles que cumplen con tus requisitos académicos.</span></div></li>
+          <li><div class="fcheck">✓</div><div class="ftxt"><strong>Sin costos elevados de reclutamiento</strong><span>Solución de bajo costo vs procesos tradicionales de selección.</span></div></li>
+          <li><div class="fcheck">✓</div><div class="ftxt"><strong>Talento local zona CIVAC</strong><span>Estudiantes de Jiutepec y alrededores listos para contribuir.</span></div></li>
+          <li><div class="fcheck">✓</div><div class="ftxt"><strong>Primer mes gratuito</strong><span>Publica tu primera vacante sin costo y conoce la plataforma.</span></div></li>
+        </ul>
+        <div class="tab-visual"><h3>Talento joven, listo para aportar a tu empresa.</h3><p>PyMEs del corredor industrial CIVAC ya confían en NexU para encontrar practicantes calificados.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRECIOS -->
+  <section class="land pricing-sec" id="precios">
+    <div class="stag">Planes</div>
+    <h2 class="stitle">Transparente y accesible</h2>
+    <p class="ssub">Empieza gratis y mejora tu experiencia cuando lo necesites.</p>
+    <div class="pricing-grid">
+      <div class="price-card reveal visible">
+        <div class="price-name">Gratuito</div>
+        <div class="price-amount">$0</div>
+        <div class="price-period">Para siempre</div>
+        <ul class="price-feats">
+          <li>Búsqueda y filtrado de vacantes</li>
+          <li>Crear perfil académico</li>
+          <li>Postulación directa a empresas</li>
+          <li>Calendario de seguimiento</li>
+          <li>Control de horas y avances</li>
+        </ul>
+        <button class="btn-plan btn-outline-plan" onclick="goAuth('register')">Crear cuenta gratis</button>
+      </div>
+      <div class="price-card featured reveal visible">
+        <div class="price-badge-tag">Recomendado</div>
+        <div class="price-name">Premium</div>
+        <div class="price-amount">$169</div>
+        <div class="price-period">por mes · sin anuncios</div>
+        <ul class="price-feats">
+          <li>Todo lo del plan gratuito</li>
+          <li>Sin anuncios</li>
+          <li>Reseñas de empresas</li>
+          <li>Integración cuenta escolar</li>
+          <li>Vacantes exclusivas</li>
+        </ul>
+        <button class="btn-plan btn-white-plan" onclick="goAuth('register')">Probar Premium Beta</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIOS -->
+  <section class="land proof-sec">
+    <div class="stag">Testimonios</div>
+    <h2 class="stitle">Lo que dicen nuestros usuarios</h2>
+    <div class="proof-grid">
+      <div class="proof-card reveal visible"><div class="pstars">★★★★★</div><p class="ptext">"Encontré mi estadía en 4 días. Antes estuve 3 semanas buscando sin resultado. NexU cambió por completo la experiencia."</p><div class="pauthor"><div class="pav">AL</div><div><div class="pname">Ana Laura M.</div><div class="prole">Ing. Industrial · UPEMOR</div></div></div></div>
+      <div class="proof-card reveal visible"><div class="pstars">★★★★★</div><p class="ptext">"El calendario de seguimiento me ayudó a llevar control de mis horas sin estrés. La versión premium vale completamente la pena."</p><div class="pauthor"><div class="pav">RC</div><div><div class="pname">Ricardo C.</div><div class="prole">Ing. Financiero · 8vo Semestre</div></div></div></div>
+      <div class="proof-card reveal visible"><div class="pstars">★★★★★</div><p class="ptext">"Como empresa, recibimos perfiles realmente calificados. Más rápido que cualquier bolsa de trabajo tradicional."</p><div class="pauthor"><div class="pav">MG</div><div><div class="pname">Miguel G.</div><div class="prole">RRHH · Empresa CIVAC</div></div></div></div>
+    </div>
+  </section>
+
+  <!-- MÉTRICAS -->
+  <section class="land metrics-sec">
+    <div class="stag" style="color:var(--accent);">Números que hablan</div>
+    <h2 class="stitle" style="color:white;max-width:500px;">NexU en cifras</h2>
+    <div class="metrics-grid">
+      <div class="reveal visible"><div class="metric-num">574</div><div class="metric-lbl">Usuarios proyectados año 1</div></div>
+      <div class="reveal visible"><div class="metric-num">44%</div><div class="metric-lbl">Tasa de retorno (TIR)</div></div>
+      <div class="reveal visible"><div class="metric-num">3x</div><div class="metric-lbl">Más rápido que métodos tradicionales</div></div>
+      <div class="reveal visible"><div class="metric-num">$169</div><div class="metric-lbl">MXN/mes acceso premium</div></div>
+    </div>
+  </section>
+
+  <!-- CTA FINAL -->
+  <section class="cta-sec">
+    <div class="stag">Empieza hoy</div>
+    <h2 class="stitle">Tu estadía ideal está a un clic de distancia</h2>
+    <p class="ssub">Regístrate gratis y accede a vacantes reales en Jiutepec y la zona CIVAC.</p>
+    <div class="cta-btns">
+      <button class="btn-primary" onclick="goAuth('register')">Crear cuenta gratis →</button>
+      <a class="btn-secondary" href="#precios">Ver planes</a>
+    </div>
+  </section>
+
+  <footer class="land-footer">
+    <div class="foot-logo">NexU</div>
+    <p style="font-size:.85rem;">© 2026 NexU · Jiutepec, Morelos, México</p>
+    <div class="foot-links"><a href="Terminos_Y_Privacidad.html">Términos y Privacidad</a><a href="#">Contactos</a></div>
+  </footer>
+</div>
+
+<!-- ══════════════════════════════════════
+     AUTH PAGE
+══════════════════════════════════════ -->
+<div class="page" id="page-auth">
+  <div class="auth-left">
+    <div class="auth-logo" onclick="goLand()">NexU</div>
+    <div class="auth-logo-sub" onclick="goLand()">← Volver al inicio</div>
+    <div class="auth-tagline">
+      <h2>Conecta tu talento con el mundo profesional</h2>
+      <p>La plataforma especializada en estadías, prácticas y servicio social para estudiantes universitarios.</p>
+    </div>
+    <div class="auth-feats">
+      <div class="auth-feat"><div class="feat-dot"></div>Vacantes validadas en zona CIVAC y Jiutepec</div>
+      <div class="auth-feat"><div class="feat-dot"></div>Seguimiento de horas y avances en tiempo real</div>
+      <div class="auth-feat"><div class="feat-dot"></div>Postulación directa sin intermediarios</div>
+      <div class="auth-feat"><div class="feat-dot"></div>⭐ Vacantes y reseñas exclusivas Premium</div>
+    </div>
+  </div>
+  <div class="auth-right">
+    <div class="auth-tabs">
+      <button class="auth-tab active" onclick="showAuthTab('login')">Iniciar sesión</button>
+      <button class="auth-tab" onclick="showAuthTab('register')">Registrarme</button>
+    </div>
+
+    <!-- LOGIN -->
+    <div class="auth-form active" id="form-login">
+      <div><h2 class="auth-title">Bienvenido de vuelta</h2><p class="auth-subtitle">Ingresa tus datos para continuar</p></div>
+      <div id="login-msg"></div>
+      <div class="fgroup"><label>Correo electrónico</label><input type="email" id="login-email" placeholder="tu@correo.com"></div>
+      <div class="fgroup"><label>Contraseña</label><input type="password" id="login-pass" placeholder="••••••••"></div>
+      <button class="btn-auth" onclick="handleLogin()">Entrar a mi cuenta →</button>
+      <p style="text-align:center;font-size:.85rem;color:var(--gray);margin-top:.5rem;">¿No tienes cuenta? <a onclick="showAuthTab('register')" style="color:var(--purple-mid);cursor:pointer;font-weight:600;">Regístrate gratis</a></p>
+    </div>
+
+    <!-- REGISTER -->
+    <div class="auth-form" id="form-register">
+      <div><h2 class="auth-title">Crea tu cuenta gratis</h2><p class="auth-subtitle">Empieza a encontrar tu estadía ideal</p></div>
+      <div id="register-msg"></div>
+      <div class="frow">
+        <div class="fgroup"><label>Nombre</label><input type="text" id="reg-nombre" placeholder="Tu nombre"></div>
+        <div class="fgroup"><label>Apellido</label><input type="text" id="reg-apellido" placeholder="Tu apellido"></div>
+      </div>
+      <div class="fgroup"><label>Correo electrónico</label><input type="email" id="reg-email" placeholder="tu@correo.com"></div>
+      <div class="fgroup"><label>Contraseña</label><input type="password" id="reg-pass" placeholder="Mínimo 6 caracteres"></div>
+      <div class="fgroup">
+        <label>Tipo de usuario</label>
+        <select id="reg-tipo"><option value="">Selecciona...</option><option value="Estudiante">🎓 Estudiante</option><option value="Empresa">🏢 Empresa / Empleador</option></select>
+      </div>
+      <div class="fgroup"><label id="reg-carrera-label">Carrera / Institución</label><input type="text" id="reg-carrera" placeholder="Ej. Ingeniería Financiera · UPEMOR"></div>
+      <button class="btn-auth" onclick="handleRegister()">Crear cuenta gratis →</button>
+      <p style="text-align:center;font-size:.85rem;color:var(--gray);margin-top:.5rem;">¿Ya tienes cuenta? <a onclick="showAuthTab('login')" style="color:var(--purple-mid);cursor:pointer;font-weight:600;">Inicia sesión</a></p>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     DASHBOARD
+══════════════════════════════════════ -->
+<div class="page" id="page-dash">
+
+  <!-- MOBILE TOP BAR (visible only on ≤768px) -->
+  <div class="mob-topbar" id="mob-topbar">
+    <div class="mob-topbar-logo">NexU</div>
+    <div class="mob-topbar-right">
+      <div class="mob-plan-badge" id="mob-plan-badge">Free</div>
+      <button class="hamburger" id="hamburger-btn" onclick="toggleMobSidebar()" aria-label="Menú">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+
+  <!-- OVERLAY (click to close sidebar on mobile) -->
+  <div class="sidebar-overlay" id="sidebar-overlay" onclick="closeMobSidebar()"></div>
+
+  <aside class="sidebar" id="main-sidebar">
+    <div class="sb-logo" onclick="goLand();closeMobSidebar()">NexU</div>
+    <div class="sb-user">
+      <div class="sb-av" id="sb-av">?</div>
+      <div><div class="sb-name" id="sb-name">Usuario</div><div class="sb-type" id="sb-type">—</div></div>
+      <div class="sb-crown" id="sb-crown">👑</div>
+    </div>
+    <div class="nav-lbl">Principal</div>
+    <ul class="sb-nav">
+      <li><a class="active" onclick="showPanel('inicio',this);closeMobSidebar()"><span class="nicon">🏠</span> Inicio</a></li>
+      <li><a onclick="showPanel('vacantes',this);closeMobSidebar()"><span class="nicon">🔍</span> <span id="nav-lbl-vac">Vacantes</span></a></li>
+      <li><a onclick="showPanel('seguimiento',this);closeMobSidebar()"><span class="nicon">📅</span> <span id="nav-lbl-seg">Seguimiento</span></a></li>
+      <li><a onclick="navPremium('resenas',this);closeMobSidebar()"><span class="nicon">⭐</span> <span id="nav-lbl-res">Reseñas</span> <span class="nlock" id="lock-r">🔒</span></a></li>
+      <li><a onclick="navPremium('escolar',this);closeMobSidebar()"><span class="nicon">🎓</span> <span id="nav-lbl-esc">Cuenta Escolar</span> <span class="nlock" id="lock-e">🔒</span></a></li>
+      <li id="nav-mensajes-item"><a onclick="navPremium('mensajes',this);closeMobSidebar()"><span class="nicon">💬</span> Mensajes <span class="nlock" id="lock-msg">🔒</span></a></li>
+    </ul>
+    <div class="nav-lbl">Cuenta</div>
+    <ul class="sb-nav">
+      <li><a onclick="showPanel('perfil',this);closeMobSidebar()"><span class="nicon">👤</span> Mi perfil</a></li>
+      <li><a onclick="showPanel('plan',this);closeMobSidebar()"><span class="nicon">💎</span> Mi plan</a></li>
+    </ul>
+    <div class="sb-foot"><button class="btn-logout" onclick="handleLogout()"><span class="nicon">🚪</span> Cerrar sesión</button></div>
+  </aside>
+
+  <main class="dash-main">
+    <div class="dash-head">
+      <div class="dash-hi"><h1 id="dash-hi">Hola 👋</h1><p id="dash-date"></p></div>
+      <div class="plan-pill free" id="dash-badge">Plan Gratuito</div>
+    </div>
+
+    <!-- AD BANNER (Free plan only) - Rotating real ads with images -->
+    <div class="ad-banner" id="ad-banner">
+      <!-- AD 1: Coca-Cola — imagen producto rojo vibrante -->
+      <div class="ad-slot ad-slot-1 visible" id="ad-0">
+        <div class="ad-slot-row">
+          <div class="ad-inner">
+            <img src="https://images.unsplash.com/photo-1554866585-cd94860890b7?w=80&amp;h=80&amp;fit=crop&amp;crop=center" alt="Coca-Cola" style="width:72px;height:72px;border-radius:12px;object-fit:cover;flex-shrink:0;box-shadow:0 4px 12px rgba(0,0,0,.3)">
+            <div class="ad-body-txt">
+              <span class="ad-tag-real">PUBLICIDAD</span>
+              <strong>Coca-Cola — Refréscate mientras estudias</strong>
+              <span>La bebida oficial de los que no duermen antes de exámenes. ¡Disponible en todas las tiendas del campus universitario!</span>
+            </div>
+          </div>
+          <div class="ad-right-group"><button class="ad-cta-btn" onclick="adClickSim('Coca-Cola')">Ver oferta</button><button class="ad-close-btn" onclick="closeAd()" title="Cerrar">✕</button></div>
+        </div>
+        <div class="ad-footer-strip"><span>Anuncio · 1 de 8</span><button class="ad-upgrade-hint" onclick="openModal()">👑 Elimina los anuncios con Premium →</button></div>
+      </div>
+
+      <!-- AD 2: UPEMOR — imagen universidad/edificio -->
+      <div class="ad-slot ad-slot-2" id="ad-1">
+        <div class="ad-slot-row">
+          <div class="ad-inner">
+            <img src="https://images.unsplash.com/photo-1562774053-701939374585?w=80&amp;h=80&amp;fit=crop&amp;crop=center" alt="Universidad" style="width:72px;height:72px;border-radius:12px;object-fit:cover;flex-shrink:0;box-shadow:0 4px 12px rgba(0,0,0,.3)">
+            <div class="ad-body-txt">
+              <span class="ad-tag-real">PUBLICIDAD</span>
+              <strong>UPEMOR — Posgrados 2026 · Becas disponibles</strong>
+              <span>Maestrías en Ing. Financiera, TI y Administración. Potencia tu perfil antes de graduarte. ¡Inscripciones abiertas!</span>
+            </div>
+          </div>
+          <div class="ad-right-group"><button class="ad-cta-btn" onclick="adClickSim('UPEMOR')">Más info</button><button class="ad-close-btn" onclick="closeAd()" title="Cerrar">✕</button></div>
+        </div>
+        <div class="ad-footer-strip"><span>Anuncio · 2 de 8</span><button class="ad-upgrade-hint" onclick="openModal()">👑 Elimina los anuncios con Premium →</button></div>
+      </div>
+
+      <!-- AD 3: Jumex — imagen frutas/jugo -->
+      <div class="ad-slot ad-slot-3" id="ad-2">
+        <div class="ad-slot-row">
+          <div class="ad-inner">
+            <img src="https://images.unsplash.com/photo-1600271886742-f049cd451bba?w=80&amp;h=80&amp;fit=crop&amp;crop=center" alt="Jumex jugo" style="width:72px;height:72px;border-radius:12px;object-fit:cover;flex-shrink:0;box-shadow:0 4px 12px rgba(0,0,0,.3)">
+            <div class="ad-body-txt">
+              <span class="ad-tag-real">PUBLICIDAD</span>
+              <strong>Jumex — Energía natural para tu estadía</strong>
+              <span>Sin azúcar añadida. 100% natural. Ideal para recargar energía entre reuniones y proyectos. ¡Encuéntralo en tu tienda!</span>
+            </div>
+          </div>
+          <div class="ad-right-group"><button class="ad-cta-btn" onclick="adClickSim('Jumex')">Conocer</button><button class="ad-close-btn" onclick="closeAd()" title="Cerrar">✕</button></div>
+        </div>
+        <div class="ad-footer-strip"><span>Anuncio · 3 de 8</span><button class="ad-upgrade-hint" onclick="openModal()">👑 Elimina los anuncios con Premium →</button></div>
+      </div>
+
+      <!-- AD 4: UAEM — imagen campus/estudiantes -->
+      <div class="ad-slot ad-slot-4" id="ad-3">
+        <div class="ad-slot-row">
+          <div class="ad-inner">
+            <img src="https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?w=80&amp;h=80&amp;fit=crop&amp;crop=center" alt="UAEM campus" style="width:72px;height:72px;border-radius:12px;object-fit:cover;flex-shrink:0;box-shadow:0 4px 12px rgba(0,0,0,.3)">
+            <div class="ad-body-txt">
+              <span class="ad-tag-real">PUBLICIDAD</span>
+              <strong>UAEM — Diplomados y Certificaciones 2026</strong>
+              <span>Fortalece tu CV antes de terminar la estadía. Campus Cuernavaca · Modalidad híbrida · Cupo limitado.</span>
+            </div>
+          </div>
+          <div class="ad-right-group"><button class="ad-cta-btn" onclick="adClickSim('UAEM')">Registrarme</button><button class="ad-close-btn" onclick="closeAd()" title="Cerrar">✕</button></div>
+        </div>
+        <div class="ad-footer-strip"><span>Anuncio · 4 de 8</span><button class="ad-upgrade-hint" onclick="openModal()">👑 Elimina los anuncios con Premium →</button></div>
+      </div>
+
+      <!-- AD 5: Bimbo — imagen pan/bakery -->
+      <div class="ad-slot ad-slot-5" id="ad-4">
+        <div class="ad-slot-row">
+          <div class="ad-inner">
+            <img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?w=80&amp;h=80&amp;fit=crop&amp;crop=center" alt="Bimbo" style="width:72px;height:72px;border-radius:12px;object-fit:cover;flex-shrink:0;box-shadow:0 4px 12px rgba(0,0,0,.3)">
+            <div class="ad-body-txt">
+              <span class="ad-tag-real">PUBLICIDAD</span>
+              <strong>Grupo Bimbo — ¡Trabaja con nosotros!</strong>
+              <span>¿Terminaste tu estadía? Tenemos plazas reales en Morelos y CDMX para recién egresados. Aplica hoy.</span>
+            </div>
+          </div>
+          <div class="ad-right-group"><button class="ad-cta-btn" onclick="adClickSim('Bimbo')">Aplicar ahora</button><button class="ad-close-btn" onclick="closeAd()" title="Cerrar">✕</button></div>
+        </div>
+        <div class="ad-footer-strip"><span>Anuncio · 5 de 8</span><button class="ad-upgrade-hint" onclick="openModal()">👑 Elimina los anuncios con Premium →</button></div>
+      </div>
+
+      <!-- AD 6: Telcel — imagen tecnología/celular -->
+      <div class="ad-slot ad-slot-6" id="ad-5">
+        <div class="ad-slot-row">
+          <div class="ad-inner">
+            <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=80&amp;h=80&amp;fit=crop&amp;crop=center" alt="Telcel plan" style="width:72px;height:72px;border-radius:12px;object-fit:cover;flex-shrink:0;box-shadow:0 4px 12px rgba(0,0,0,.3)">
+            <div class="ad-body-txt">
+              <span class="ad-tag-real">PUBLICIDAD</span>
+              <strong>Telcel — Plan Universitario ilimitado desde $199/mes</strong>
+              <span>Internet sin tope para Zoom, Teams y todas tus plataformas. Descuento especial con credencial universitaria.</span>
+            </div>
+          </div>
+          <div class="ad-right-group"><button class="ad-cta-btn" onclick="adClickSim('Telcel')">Activar plan</button><button class="ad-close-btn" onclick="closeAd()" title="Cerrar">✕</button></div>
+        </div>
+        <div class="ad-footer-strip"><span>Anuncio · 6 de 8</span><button class="ad-upgrade-hint" onclick="openModal()">👑 Elimina los anuncios con Premium →</button></div>
+      </div>
+
+      <!-- AD 7: Liverpool — imagen moda/ropa trabajo -->
+      <div class="ad-slot ad-slot-2" id="ad-6">
+        <div class="ad-slot-row">
+          <div class="ad-inner">
+            <img src="https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?w=80&amp;h=80&amp;fit=crop&amp;crop=center" alt="Liverpool ropa" style="width:72px;height:72px;border-radius:12px;object-fit:cover;flex-shrink:0;box-shadow:0 4px 12px rgba(0,0,0,.3)">
+            <div class="ad-body-txt">
+              <span class="ad-tag-real">PUBLICIDAD</span>
+              <strong>Liverpool — Viste profesional para tu estadía</strong>
+              <span>Ropa de trabajo y accesorios para causar la mejor primera impresión. 20% de descuento con credencial universitaria.</span>
+            </div>
+          </div>
+          <div class="ad-right-group"><button class="ad-cta-btn" onclick="adClickSim('Liverpool')">Ver colección</button><button class="ad-close-btn" onclick="closeAd()" title="Cerrar">✕</button></div>
+        </div>
+        <div class="ad-footer-strip"><span>Anuncio · 7 de 8</span><button class="ad-upgrade-hint" onclick="openModal()">👑 Elimina los anuncios con Premium →</button></div>
+      </div>
+
+      <!-- AD 8: Cinépolis — imagen entretenimiento -->
+      <div class="ad-slot ad-slot-3" id="ad-7">
+        <div class="ad-slot-row">
+          <div class="ad-inner">
+            <img src="https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=80&amp;h=80&amp;fit=crop&amp;crop=center" alt="Cinépolis" style="width:72px;height:72px;border-radius:12px;object-fit:cover;flex-shrink:0;box-shadow:0 4px 12px rgba(0,0,0,.3)">
+            <div class="ad-body-txt">
+              <span class="ad-tag-real">PUBLICIDAD</span>
+              <strong>Cinépolis — Te mereces un descanso, ¡tú que haces todo!</strong>
+              <span>Boletos universitarios desde $49 cualquier día. Porque después de tu estadía te mereces relajarte un poco. 🎬</span>
+            </div>
+          </div>
+          <div class="ad-right-group"><button class="ad-cta-btn" onclick="adClickSim('Cinépolis')">Ver cartelera</button><button class="ad-close-btn" onclick="closeAd()" title="Cerrar">✕</button></div>
+        </div>
+        <div class="ad-footer-strip"><span>Anuncio · 8 de 8</span><button class="ad-upgrade-hint" onclick="openModal()">👑 Elimina los anuncios con Premium →</button></div>
+      </div>
+    </div>
+
+    <!-- POPUP AD (aparece cada cierto tiempo) -->
+    <div class="ad-popup-ov" id="ad-popup">
+      <div class="ad-popup-box">
+        <div class="ad-popup-timer-bar"><div class="ad-popup-timer-fill" id="ad-popup-fill"></div></div>
+        <div class="ad-popup-inner">
+          <div class="ad-popup-logo" id="popup-logo">🥤</div>
+          <div class="ad-popup-brand" id="popup-brand">Coca-Cola</div>
+          <div class="ad-popup-tagline" id="popup-tagline">Refresca tu camino al éxito</div>
+          <div class="ad-popup-body" id="popup-body">¿Sabías que los mejores practicantes se mantienen hidratados? 😂 Coca-Cola patrocina el bienestar universitario en más de 15 campus de Morelos. ¡Encuéntrala en tu cafetería!</div>
+          <button class="ad-popup-skip" id="popup-skip-btn" onclick="closePopupAd()">Saltar anuncio</button>
+          <button class="ad-popup-prem" onclick="closePopupAd();openModal()">👑 Nunca más ver anuncios — Premium $169/mes</button>
+          <div class="ad-countdown" id="popup-countdown"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- INICIO -->
+    <div class="dpanel active" id="panel-inicio">
+      <div class="stats-grid">
+        <div class="sbox"><div class="sbox-icon" id="stat-icon-posts">📋</div><div class="sbox-num" id="stat-posts">0</div><div class="sbox-lbl" id="stat-lbl-posts">Postulaciones</div></div>
+        <div class="sbox"><div class="sbox-icon">✅</div><div class="sbox-num">0</div><div class="sbox-lbl">Aceptaciones</div></div>
+        <div class="sbox"><div class="sbox-icon">⏱️</div><div class="sbox-num">0</div><div class="sbox-lbl">Horas registradas</div></div>
+        <div class="sbox"><div class="sbox-icon" id="stat-icon-extra">🏢</div><div class="sbox-num" id="stat-num-extra">24</div><div class="sbox-lbl" id="stat-lbl-extra">Empresas disponibles</div></div>
+      </div>
+      <div class="sc" id="inicio-steps-card">
+        <div class="sc-title">🚀 Empieza aquí</div>
+        <p id="inicio-desc" style="color:var(--gray);font-size:.9rem;margin-bottom:1.2rem;">Completa estos pasos para encontrar tu estadía.</p>
+        <div class="tl" id="inicio-tl"></div>
+      </div>
+    </div>
+
+    <!-- VACANTES / CANDIDATOS -->
+    <div class="dpanel" id="panel-vacantes">
+      <div class="sc">
+        <div class="sc-title" id="vac-title">🔍 Vacantes disponibles</div>
+        <p id="vac-sub" style="color:var(--gray);font-size:.88rem;margin-bottom:1.5rem;">Zona CIVAC y Jiutepec · <span style="color:#F59E0B;font-weight:700;">⭐ Exclusivas Premium</span></p>
+        <div class="vgrid" id="vacantes-container"></div>
+      </div>
+    </div>
+
+    <!-- SEGUIMIENTO / MIS PUBLICACIONES -->
+    <div class="dpanel" id="panel-seguimiento">
+      <!-- Vista Estudiante -->
+      <div id="seg-estudiante">
+        <div class="sc">
+          <div class="sc-title">📅 Mi seguimiento</div>
+          <div class="tl" id="seg-tl"></div>
+        </div>
+      </div>
+      <!-- Vista Empresa -->
+      <div id="seg-empresa" style="display:none">
+        <div class="sc" style="margin-bottom:1.5rem">
+          <div class="sc-title">📬 Solicitudes de candidatos</div>
+          <p style="color:var(--gray);font-size:.88rem;margin-bottom:1.5rem;">Estudiantes que han solicitado unirse a tu empresa</p>
+          <div id="solicitudes-list"></div>
+        </div>
+        <div class="sc">
+          <div class="sc-title">📢 Mis publicaciones</div>
+          <p style="color:var(--gray);font-size:.88rem;margin-bottom:1.5rem;">Vacantes que has publicado en NexU</p>
+          <div class="vgrid" id="mis-vacantes-grid"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MENSAJES (PREMIUM) -->
+    <div class="dpanel" id="panel-mensajes">
+      <div id="msgs-premium-gate" style="display:none">
+        <div class="sc" style="text-align:center;padding:3rem 2rem;">
+          <div style="font-size:3rem;margin-bottom:1rem">💬</div>
+          <h2 style="font-family:'Syne',sans-serif;font-weight:800;margin-bottom:.5rem">Mensajes directos</h2>
+          <p style="color:var(--gray);margin-bottom:2rem;max-width:380px;margin-left:auto;margin-right:auto;">Comunícate directamente con empresas y estudiantes. Función exclusiva de Plan Premium.</p>
+          <button class="btn-primary" onclick="openModal()">⭐ Subir a Premium — $169/mes</button>
+        </div>
+      </div>
+      <div id="msgs-content" style="display:none">
+        <div class="sc" style="padding:0;overflow:hidden;">
+          <div class="msg-layout">
+            <div class="msg-sidebar">
+              <div class="msg-sidebar-head">💬 Mensajes</div>
+              <div class="msg-list" id="msg-list"></div>
+            </div>
+            <div class="msg-chat" id="msg-chat">
+              <div class="msg-empty" id="msg-empty">
+                <div class="msg-empty-icon">💬</div>
+                <p>Selecciona una conversación para comenzar</p>
+              </div>
+              <div id="msg-chat-active" style="display:none;flex-direction:column;flex:1">
+                <div class="msg-chat-head">
+                  <div class="msg-contact-av" id="chat-av">?</div>
+                  <div><div class="msg-chat-name" id="chat-name">—</div><div class="msg-chat-sub" id="chat-sub">—</div></div>
+                </div>
+                <div class="msg-chat-body" id="chat-body"></div>
+                <div class="msg-input-row">
+                  <input type="text" id="msg-input" placeholder="Escribe un mensaje..." onkeydown="if(event.key==='Enter')sendMsg()">
+                  <button class="msg-send-btn" onclick="sendMsg()">➤</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RESEÑAS / UNIVERSIDADES -->
+    <div class="dpanel" id="panel-resenas">
+      <!-- Vista Estudiante: reseñas empresas -->
+      <div id="res-estudiante">
+        <div class="sc">
+          <div class="sc-title">⭐ Reseñas de empresas <span style="background:var(--gold-light);color:#92400E;border:1px solid #F59E0B;padding:.2rem .6rem;border-radius:50px;font-size:.7rem;font-weight:700;">PREMIUM</span></div>
+          <p style="color:var(--gray);font-size:.88rem;margin-bottom:1.5rem;">Experiencias reales de estudiantes · Solo visible para miembros Premium</p>
+          <div class="rgrid">
+            <div class="rcard"><div class="rstars">★★★★★</div><p class="rtext">"Excelente ambiente. Me dieron proyectos reales desde el primer día y aprendí muchísimo de finanzas aplicada."</p><div class="rauthor"><div class="rav">AL</div><div><div class="rname">Ana Laura M.</div><div class="rrole">CIVAC Industrial · Estadía 480 hrs</div></div></div></div>
+            <div class="rcard"><div class="rstars">★★★★☆</div><p class="rtext">"Muy buena empresa para TI. Proyectos variados y el equipo te guía bien. Solo falta mejor comunicación inicial."</p><div class="rauthor"><div class="rav">RC</div><div><div class="rname">Ricardo C.</div><div class="rrole">Tech Morelos · Práctica</div></div></div></div>
+            <div class="rcard"><div class="rstars">★★★★★</div><p class="rtext">"El supervisor fue muy accesible y me dejó implementar ideas propias. Totalmente recomendada."</p><div class="rauthor"><div class="rav">MH</div><div><div class="rname">Mariana H.</div><div class="rrole">EcoTech Jiutepec · Estadía</div></div></div></div>
+            <div class="rcard"><div class="rstars">★★★☆☆</div><p class="rtext">"Interesante pero instalaciones pequeñas. Recomendable para ingeniería industrial."</p><div class="rauthor"><div class="rav">JL</div><div><div class="rname">Jorge L.</div><div class="rrole">Manufactura Integral · Estadía</div></div></div></div>
+            <div class="rcard"><div class="rstars">★★★★★</div><p class="rtext">"Me contrataron al terminar mi estadía. La mejor decisión fue usar NexU."</p><div class="rauthor"><div class="rav">DS</div><div><div class="rname">Diana S.</div><div class="rrole">Grupo Adm. JTC · Servicio Social</div></div></div></div>
+            <div class="rcard"><div class="rstars">★★★★☆</div><p class="rtext">"Procesos muy bien documentados, horario flexible para estudiantes."</p><div class="rauthor"><div class="rav">PE</div><div><div class="rname">Pablo E.</div><div class="rrole">Bioprocesos Morelos · Pasantía</div></div></div></div>
+          </div>
+        </div>
+      </div>
+      <!-- Vista Empresa: Universidades con vacantes -->
+      <div id="res-empresa" style="display:none">
+        <div class="sc">
+          <div class="sc-title">🎓 Universidades aliadas <span style="background:var(--gold-light);color:#92400E;border:1px solid #F59E0B;padding:.2rem .6rem;border-radius:50px;font-size:.7rem;font-weight:700;">PREMIUM</span></div>
+          <p style="color:var(--gray);font-size:.88rem;margin-bottom:1.5rem;">Instituciones educativas con estudiantes disponibles para estadías en tu área</p>
+          <div class="uni-grid">
+            <div class="uni-card">
+              <img src="https://images.unsplash.com/photo-1562774053-701939374585?w=260&amp;h=120&amp;fit=crop&amp;crop=center" alt="UPEMOR" style="width:100%;height:100px;object-fit:cover;border-radius:10px;margin-bottom:.8rem">
+              <div class="uni-name">UPEMOR</div>
+              <div class="uni-location">📍 Jiutepec, Morelos</div>
+              <div class="uni-stats"><span class="uni-stat">📚 7 carreras</span><span class="uni-stat">👨&zwj;🎓 120 disponibles</span><span class="uni-stat">🕐 Ene–Abr 2026</span></div>
+              <button class="btn-uni" onclick="verEstudiantesUni('UPEMOR','Jiutepec','120',['Ing. Financiera','Ing. Industrial','Administración','Ing. en TI','Biotecnología'])">Ver estudiantes disponibles →</button>
+            </div>
+            <div class="uni-card">
+              <img src="https://images.unsplash.com/photo-1498243691581-b145c3f54a5a?w=260&amp;h=120&amp;fit=crop&amp;crop=center" alt="UTM" style="width:100%;height:100px;object-fit:cover;border-radius:10px;margin-bottom:.8rem">
+              <div class="uni-name">UTM — Univ. Tecnológica de Morelos</div>
+              <div class="uni-location">📍 Cuernavaca, Morelos</div>
+              <div class="uni-stats"><span class="uni-stat">📚 5 carreras</span><span class="uni-stat">👨&zwj;🎓 85 disponibles</span><span class="uni-stat">🕐 Feb–Jun 2026</span></div>
+              <button class="btn-uni" onclick="verEstudiantesUni('UTM','Cuernavaca','85',['Mantenimiento Industrial','Desarrollo de Negocios','TIC','Mecatrónica'])">Ver estudiantes disponibles →</button>
+            </div>
+            <div class="uni-card">
+              <img src="https://images.unsplash.com/photo-1519452635265-7b1fbfd1e4e0?w=260&amp;h=120&amp;fit=crop&amp;crop=center" alt="UAEM" style="width:100%;height:100px;object-fit:cover;border-radius:10px;margin-bottom:.8rem">
+              <div class="uni-name">UAEM — Univ. Autónoma del Estado de Morelos</div>
+              <div class="uni-location">📍 Cuernavaca, Morelos</div>
+              <div class="uni-stats"><span class="uni-stat">📚 12 carreras</span><span class="uni-stat">👨&zwj;🎓 200 disponibles</span><span class="uni-stat">🕐 Ene–Jul 2026</span></div>
+              <button class="btn-uni" onclick="verEstudiantesUni('UAEM','Cuernavaca','200',['Derecho','Contabilidad','Psicología','Ing. Civil','Medicina','Arquitectura'])">Ver estudiantes disponibles →</button>
+            </div>
+            <div class="uni-card">
+              <img src="https://images.unsplash.com/photo-1607237138185-eedd9c632b0b?w=260&amp;h=120&amp;fit=crop&amp;crop=center" alt="ITESM" style="width:100%;height:100px;object-fit:cover;border-radius:10px;margin-bottom:.8rem">
+              <div class="uni-name">ITESM Campus Morelos</div>
+              <div class="uni-location">📍 Cuernavaca, Morelos</div>
+              <div class="uni-stats"><span class="uni-stat">📚 8 carreras</span><span class="uni-stat">👨&zwj;🎓 60 disponibles</span><span class="uni-stat">🕐 Ene–May 2026</span></div>
+              <button class="btn-uni" onclick="verEstudiantesUni('ITESM','Cuernavaca','60',['Ing. en Sistemas','Negocios Internacionales','Finanzas','Mercadotecnia'])">Ver estudiantes disponibles →</button>
+            </div>
+            <div class="uni-card">
+              <img src="https://images.unsplash.com/photo-1576086213369-97a306d36557?w=260&amp;h=120&amp;fit=crop&amp;crop=center" alt="CINVESTAV" style="width:100%;height:100px;object-fit:cover;border-radius:10px;margin-bottom:.8rem">
+              <div class="uni-name">CINVESTAV Unidad Morelos</div>
+              <div class="uni-location">📍 Jiutepec, Morelos</div>
+              <div class="uni-stats"><span class="uni-stat">📚 3 programas</span><span class="uni-stat">👨&zwj;🎓 25 disponibles</span><span class="uni-stat">🕐 Mar–Ago 2026</span></div>
+              <button class="btn-uni" onclick="verEstudiantesUni('CINVESTAV','Jiutepec','25',['Biotecnología','Neurociencias','Biofísica'])">Ver estudiantes disponibles →</button>
+            </div>
+            <div class="uni-card" style="border:1.5px dashed var(--border);background:var(--off-white);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;min-height:200px;gap:.5rem">
+              <div style="font-size:2.5rem">🏛️</div>
+              <div style="font-weight:700;color:var(--dark);font-family:'Syne',sans-serif">¿Tu universidad no aparece?</div>
+              <div style="font-size:.82rem;color:var(--gray)">Sugiérenos agregarla y la contactamos</div>
+              <div class="fgroup" style="width:100%;margin-top:.5rem"><input type="text" id="uni-sugerir-input" placeholder="Nombre de la universidad..." style="font-size:.85rem"></div>
+              <button class="btn-uni" style="background:var(--purple);color:white;border:none" onclick="sugerirUniversidad()">📩 Enviar sugerencia</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CUENTA ESCOLAR / GESTIÓN ESTUDIANTES -->
+    <div class="dpanel" id="panel-escolar">
+      <!-- Vista Estudiante -->
+      <div id="esc-estudiante">
+        <div class="sc">
+          <div class="sc-title">🎓 Cuenta Escolar <span style="background:var(--gold-light);color:#92400E;border:1px solid #F59E0B;padding:.2rem .6rem;border-radius:50px;font-size:.7rem;font-weight:700;">PREMIUM</span></div>
+          <p style="color:var(--gray);font-size:.88rem;margin-bottom:1.5rem;">Conecta tu correo institucional para sincronizar datos automáticamente</p>
+          <div class="ebox">
+            <div class="ebox-title">Vincula tu cuenta universitaria</div>
+            <p style="color:#4A3960;font-size:.9rem;margin-bottom:1.2rem;">Tus asistencias, horas y avances se registran automáticamente. Sin captura manual.</p>
+            <div class="school-row">
+              <div class="fgroup" style="margin:0"><label>Correo institucional</label><input type="email" id="school-email" placeholder="matricula@upemor.edu.mx"></div>
+              <button class="btn-connect" onclick="connectSchool()">Conectar →</button>
+            </div>
+          </div>
+          <div class="ebox">
+            <div class="ebox-title">📊 Datos sincronizados</div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:1rem;">
+              <div class="pf"><div class="pf-lbl">Asistencias</div><div class="pf-val" id="sync-asist">—</div></div>
+              <div class="pf"><div class="pf-lbl">Horas acumuladas</div><div class="pf-val" id="sync-horas">—</div></div>
+              <div class="pf"><div class="pf-lbl">Materias vinculadas</div><div class="pf-val" id="sync-mat">—</div></div>
+              <div class="pf"><div class="pf-lbl">Estado</div><div class="pf-val" id="sync-status" style="color:var(--gray)">Sin conectar</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Vista Empresa -->
+      <div id="esc-empresa" style="display:none">
+        <div class="sc">
+          <div class="sc-title">👥 Gestión de Estudiantes <span style="background:var(--gold-light);color:#92400E;border:1px solid #F59E0B;padding:.2rem .6rem;border-radius:50px;font-size:.7rem;font-weight:700;">PREMIUM</span></div>
+          <p style="color:var(--gray);font-size:.88rem;margin-bottom:1.5rem;">Monitorea el progreso de los estudiantes en tu empresa en tiempo real</p>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1rem;margin-bottom:1.5rem;">
+            <div class="pf" style="text-align:center"><div style="font-size:1.8rem;margin-bottom:.3rem">👨&zwj;🎓</div><div class="pf-lbl">Estudiantes activos</div><div class="pf-val" style="font-size:1.5rem;color:var(--purple);font-family:'Syne',sans-serif;font-weight:800" id="emp-sum-count">3</div></div>
+            <div class="pf" style="text-align:center"><div style="font-size:1.8rem;margin-bottom:.3rem">✅</div><div class="pf-lbl">Asistencia promedio</div><div class="pf-val" style="font-size:1.5rem;color:var(--success);font-family:'Syne',sans-serif;font-weight:800" id="emp-sum-asist">91%</div></div>
+            <div class="pf" style="text-align:center"><div style="font-size:1.8rem;margin-bottom:.3rem">⏱️</div><div class="pf-lbl">Horas totales</div><div class="pf-val" style="font-size:1.5rem;color:var(--purple);font-family:'Syne',sans-serif;font-weight:800" id="emp-sum-horas">486</div></div>
+            <div class="pf" style="text-align:center"><div style="font-size:1.8rem;margin-bottom:.3rem">📋</div><div class="pf-lbl">Actividades completadas</div><div class="pf-val" style="font-size:1.5rem;color:var(--gold);font-family:'Syne',sans-serif;font-weight:800" id="emp-sum-act">18</div></div>
+          </div>
+          <!-- Tabla de estudiantes (dinámica) -->
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;flex-wrap:wrap;gap:.8rem;">
+            <div class="ebox-title" style="margin:0">📋 Detalle por estudiante</div>
+            <button onclick="openInscribirModal()" style="background:var(--purple);color:white;border:none;padding:.6rem 1.3rem;border-radius:50px;font-family:'DM Sans',sans-serif;font-weight:700;font-size:.85rem;cursor:pointer;box-shadow:0 4px 12px rgba(75,29,142,.3);transition:transform .2s;" onmouseover="this.style.transform='translateY(-1px)'" onmouseout="this.style.transform=''">➕ Inscribir alumno</button>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:.8rem" id="estudiantes-list"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PERFIL -->
+    <div class="dpanel" id="panel-perfil">
+
+      <!-- ── PHOTO + INFO CARD ── -->
+      <div class="profile-photo-card">
+        <div class="profile-photo-inner">
+          <!-- Avatar clickeable -->
+          <div class="photo-ring" onclick="document.getElementById('photo-input').click()" title="Cambiar foto">
+            <div class="photo-ring-inner" id="prof-av">?</div>
+            <div class="photo-overlay">📷</div>
+          </div>
+          <input type="file" id="photo-input" style="display:none" accept="image/*" onchange="handlePhotoUpload(this)">
+          <div class="profile-photo-info">
+            <h2 id="pf-fullname">—</h2>
+            <p id="pf-email-show">—</p>
+            <div class="plan-chip" id="pf-badge">🎓 Estudiante</div>
+            <div class="photo-hint">📷 Toca la foto para cambiarla</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── DATA GRID ── -->
+      <div class="data-cards-grid">
+        <div class="data-card"><div class="data-card-label">Nombre</div><div class="data-card-value" id="pf-nombre">—</div></div>
+        <div class="data-card"><div class="data-card-label">Correo</div><div class="data-card-value" id="pf-email" style="font-size:.82rem;word-break:break-all">—</div></div>
+        <div class="data-card"><div class="data-card-label">Tipo de usuario</div><div class="data-card-value" id="pf-tipo">—</div></div>
+        <div class="data-card"><div class="data-card-label" id="pf-carrera-lbl">Carrera</div><div class="data-card-value" id="pf-carrera">—</div></div>
+        <div class="data-card"><div class="data-card-label">Plan activo</div><div class="data-card-value" id="pf-plan">—</div></div>
+        <div class="data-card"><div class="data-card-label">Miembro desde</div><div class="data-card-value" id="pf-fecha">—</div></div>
+      </div>
+
+      <!-- ══ ESTUDIANTE SECTIONS ══ -->
+      <div id="cv-section-wrap">
+
+        <!-- CV CARD -->
+        <div class="cv-card">
+          <div class="cv-card-head">
+            <h3>📄 Currículum Vitae</h3>
+            <span style="font-size:.78rem;color:var(--gray)">Visible para empresas</span>
+          </div>
+          <div class="cv-card-body">
+            <div id="cv-upload-area" class="cv-drop-zone" onclick="document.getElementById('cv-input').click()">
+              <div class="cv-drop-icon">📄</div>
+              <div class="cv-drop-title">Arrastra tu CV aquí o haz clic para seleccionar</div>
+              <div class="cv-drop-sub">PDF, DOC o DOCX · Máximo 5 MB</div>
+            </div>
+            <div id="cv-uploaded-view" style="display:none">
+              <div class="cv-file-row">
+                <div class="cv-file-thumb">📄</div>
+                <div class="cv-file-info">
+                  <div class="cv-file-nm" id="cv-file-name">Mi_CV.pdf</div>
+                  <div class="cv-file-dt" id="cv-file-date">Subido el —</div>
+                  <div class="cv-status-ok">✅ Visible para las empresas</div>
+                </div>
+                <button class="btn-cv-del" onclick="removeCV()">🗑️ Quitar</button>
+              </div>
+            </div>
+            <input type="file" id="cv-input" style="display:none" accept=".pdf,.doc,.docx" onchange="handleCVUpload(this)">
+          </div>
+        </div>
+
+        <!-- INFO ADICIONAL -->
+        <div class="info-section">
+          <div class="info-section-head">
+            <h3>✨ Información adicional</h3>
+            <span style="font-size:.75rem;color:var(--gray)">Destaca frente a las empresas</span>
+          </div>
+          <div class="info-section-body">
+            <div class="info-fields-grid">
+              <div class="info-field">
+                <label>🔧 Habilidades principales</label>
+                <textarea id="ai-habilidades" rows="2" placeholder="Ej. Excel avanzado, Python, AutoCAD..." oninput="saveAddInfo()"></textarea>
+              </div>
+              <div class="info-field">
+                <label>🌐 Idiomas</label>
+                <textarea id="ai-idiomas" rows="2" placeholder="Ej. Español nativo, Inglés B2..." oninput="saveAddInfo()"></textarea>
+              </div>
+              <div class="info-field">
+                <label>💼 Experiencia previa</label>
+                <textarea id="ai-experiencia" rows="2" placeholder="Ej. Auxiliar contable — Empresa XYZ (6 meses)..." oninput="saveAddInfo()"></textarea>
+              </div>
+              <div class="info-field">
+                <label>🏆 Logros / Reconocimientos</label>
+                <textarea id="ai-logros" rows="2" placeholder="Ej. Promedio 9.2, beca académica 2024..." oninput="saveAddInfo()"></textarea>
+              </div>
+              <div class="info-field info-field-full">
+                <label>👤 Acerca de mí</label>
+                <textarea id="ai-bio" rows="3" placeholder="Una breve descripción de ti para las empresas. ¿Quién eres, qué buscas, cuáles son tus metas?" oninput="saveAddInfo()"></textarea>
+              </div>
+            </div>
+            <button class="btn-save-info" onclick="saveAddInfo();toast('✅','Información guardada')">Guardar cambios</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ EMPRESA SECTIONS ══ -->
+      <div id="empresa-section-wrap" style="display:none">
+
+        <!-- EMPRESA HERO CARD -->
+        <div class="emp-profile-hero">
+          <div class="emp-hero-inner">
+            <div class="emp-logo-ring" onclick="document.getElementById('photo-input').click()" title="Cambiar logo">
+              <div class="emp-logo-inner" id="emp-logo-display">🏢</div>
+              <div class="photo-overlay" style="border-radius:12px">📷</div>
+            </div>
+            <div class="emp-hero-text">
+              <h3 id="emp-hero-name">Mi empresa</h3>
+              <p id="emp-hero-sector">Completa tu perfil para atraer candidatos</p>
+              <div class="emp-hero-tag">🏢 Empresa verificada NexU</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- EMPRESA INFO FORM -->
+        <div class="info-section">
+          <div class="info-section-head">
+            <h3>🏢 Perfil de empresa</h3>
+            <span style="font-size:.75rem;color:var(--gray)">Visto por estudiantes al postularse</span>
+          </div>
+          <div class="info-section-body">
+            <div class="info-fields-grid">
+              <div class="info-field">
+                <label>🏭 Sector / Industria</label>
+                <input type="text" id="emp-sector" placeholder="Ej. Manufactura, Servicios TI, Finanzas..." oninput="saveEmpInfo();updateEmpHero()">
+              </div>
+              <div class="info-field">
+                <label>👥 Número de empleados</label>
+                <input type="text" id="emp-size" placeholder="Ej. 50–200 empleados">
+              </div>
+              <div class="info-field">
+                <label>📍 Dirección / Ubicación</label>
+                <input type="text" id="emp-ubicacion" placeholder="Ej. Parque Industrial CIVAC, Jiutepec">
+              </div>
+              <div class="info-field">
+                <label>🌐 Sitio web</label>
+                <input type="text" id="emp-web" placeholder="Ej. www.miempresa.com.mx">
+              </div>
+              <div class="info-field info-field-full">
+                <label>📝 Descripción de la empresa</label>
+                <textarea id="emp-desc-perfil" rows="4" placeholder="Describe tu empresa: a qué se dedica, cuántos años tiene, qué ofrece a los practicantes, cómo es el ambiente de trabajo..." oninput="saveEmpInfo()"></textarea>
+              </div>
+              <div class="info-field info-field-full">
+                <label>🎯 ¿Qué ofrecen a los practicantes?</label>
+                <textarea id="emp-beneficios" rows="3" placeholder="Ej. Certificado de estadía, carta de recomendación, posibilidad de contratación, horario flexible..." oninput="saveEmpInfo()"></textarea>
+              </div>
+            </div>
+            <button class="btn-save-info" onclick="saveEmpInfo();updateEmpHero();toast('✅','Perfil de empresa guardado')">Guardar cambios</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PLAN -->
+    <!-- PLAN -->
+    <div class="dpanel" id="panel-plan">
+      <div id="view-free">
+        <div class="plan-hero-free">
+          <div style="position:relative;z-index:1">
+            <div class="phero-title">Plan Gratuito activo</div>
+            <div class="phero-sub">Acceso a vacantes, postulaciones y seguimiento básico.</div>
+            <button class="btn-upgrade" onclick="openModal()">⭐ Subir a Premium Beta — $169/mes</button>
+          </div>
+        </div>
+        <div class="sc">
+          <div class="sc-title">Compara los planes</div>
+          <div class="cmp-grid">
+            <div class="cmp-col"><div class="cmp-title">Gratuito</div><ul class="cmp-list"><li>✅ Buscar vacantes</li><li>✅ Postulaciones directas</li><li>✅ Seguimiento básico</li><li>✅ Calendario de avances</li><li>❌ Reseñas de empresas</li><li>❌ Vacantes exclusivas</li><li>❌ Sin anuncios</li><li>❌ Cuenta escolar</li></ul></div>
+            <div class="cmp-col gold"><div class="cmp-title">⭐ Premium · $169/mes</div><ul class="cmp-list"><li>✅ Buscar vacantes</li><li>✅ Postulaciones directas</li><li>✅ Seguimiento avanzado</li><li>✅ Calendario de avances</li><li>⭐ Reseñas de empresas</li><li>⭐ Vacantes exclusivas</li><li>⭐ Sin anuncios</li><li>⭐ Integración cuenta escolar</li></ul></div>
+          </div>
+        </div>
+      </div>
+      <div id="view-premium" style="display:none">
+        <div class="plan-hero-prem">
+          <div style="position:relative;z-index:1">
+            <div style="font-size:2.2rem;margin-bottom:.5rem">👑</div>
+            <div class="phero-title">¡Eres miembro Premium!</div>
+            <div class="phero-sub">Acceso completo a todas las funciones de NexU.</div>
+            <div style="background:rgba(255,255,255,.15);border-radius:10px;padding:.7rem 1rem;display:inline-block;font-size:.85rem;color:white">Próxima renovación: <strong id="renewal-date">—</strong></div><br>
+            <button class="cancel-sub" onclick="cancelPremium()">Cancelar suscripción</button>
+          </div>
+        </div>
+        <div class="sc">
+          <div class="sc-title">✅ Todo lo que tienes desbloqueado</div>
+          <div class="cmp-col gold" style="border-radius:16px"><ul class="cmp-list" style="display:grid;grid-template-columns:1fr 1fr;gap:.5rem"><li>⭐ Reseñas de empresas</li><li>⭐ Vacantes exclusivas</li><li>⭐ Sin anuncios</li><li>⭐ Cuenta escolar integrada</li><li>✅ Postulaciones ilimitadas</li><li>✅ Seguimiento avanzado</li><li>✅ Todas las vacantes</li><li>✅ Soporte prioritario</li></ul></div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!-- ══ PUBLISH VACANTE MODAL ══ -->
+<div class="modal-form-ov" id="modal-publish">
+  <div class="modal-form-box">
+    <div class="mfhead">
+      <h2 id="modal-publish-title">📢 Publicar nueva vacante</h2>
+      <p>Completa los datos para encontrar al practicante ideal</p>
+      <button class="mfclose" onclick="closePublishModal()">✕</button>
+    </div>
+    <div class="mfbody">
+      <input type="hidden" id="edit-vac-index" value="-1">
+      <div class="fgroup"><label>Nombre del puesto</label><input type="text" id="vac-puesto" placeholder="Ej. Estadía en Finanzas Corporativas"></div>
+      <div class="frow">
+        <div class="fgroup"><label>Tipo</label>
+          <select id="vac-tipo"><option value="Estadía">Estadía</option><option value="Práctica">Práctica Profesional</option><option value="Servicio Social">Servicio Social</option></select>
+        </div>
+        <div class="fgroup"><label>Modalidad</label>
+          <select id="vac-modalidad"><option value="Presencial">Presencial</option><option value="Híbrida">Híbrida</option><option value="Remota">Remota</option></select>
+        </div>
+      </div>
+      <div class="frow">
+        <div class="fgroup"><label>Horas requeridas</label><input type="text" id="vac-horas" placeholder="Ej. 480 hrs"></div>
+        <div class="fgroup"><label>Carrera preferida</label><input type="text" id="vac-carrera" placeholder="Ej. Ing. Financiera"></div>
+      </div>
+      <div class="fgroup"><label>Descripción de actividades</label><textarea id="vac-desc" placeholder="Describe brevemente las actividades que realizará el practicante..."></textarea></div>
+      <div class="fgroup"><label>Horario</label><input type="text" id="vac-horario" placeholder="Ej. Lunes a Viernes 9:00–14:00"></div>
+    </div>
+    <div class="mffooter">
+      <button class="btn-mf-cancel" onclick="closePublishModal()">Cancelar</button>
+      <button class="btn-mf-save" onclick="saveVacante()">Publicar vacante →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ EDIT ESTUDIANTE MODAL ══ -->
+<div class="modal-form-ov" id="modal-estudiante">
+  <div class="modal-form-box">
+    <div class="mfhead">
+      <h2 id="modal-est-title">✏️ Editar datos del estudiante</h2>
+      <p>Actualiza el progreso y asistencias</p>
+      <button class="mfclose" onclick="closeEstModal()">✕</button>
+    </div>
+    <div class="mfbody">
+      <input type="hidden" id="edit-est-id" value="">
+      <div class="fgroup"><label>Nombre del estudiante</label><input type="text" id="est-edit-nombre" placeholder="Nombre completo" readonly="" style="opacity:.7;cursor:default"></div>
+      <div class="est-row-editable" style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+        <div class="fgroup"><label>Asistencias (%)</label><input type="number" id="est-edit-asist" min="0" max="100" placeholder="94"></div>
+        <div class="fgroup"><label>Horas acumuladas</label><input type="number" id="est-edit-horas" min="0" placeholder="186"></div>
+        <div class="fgroup"><label>Horas totales requeridas</label><input type="number" id="est-edit-horas-total" min="0" placeholder="480"></div>
+        <div class="fgroup"><label>Faltas</label><input type="number" id="est-edit-faltas" min="0" placeholder="1"></div>
+        <div class="fgroup"><label>Actividades completadas</label><input type="number" id="est-edit-act" min="0" placeholder="7"></div>
+        <div class="fgroup"><label>Total de actividades</label><input type="number" id="est-edit-act-total" min="0" placeholder="10"></div>
+      </div>
+      <div class="fgroup" style="margin-top:1rem"><label>Notas / Observaciones</label><textarea id="est-edit-notas" placeholder="Observaciones sobre el desempeño del estudiante..."></textarea></div>
+    </div>
+    <div class="mffooter">
+      <button class="btn-mf-cancel" onclick="closeEstModal()">Cancelar</button>
+      <button class="btn-mf-save" onclick="saveEstudiante()">Guardar cambios →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ PAYMENT MODAL ══ -->
+<div class="modal-ov" id="pay-modal">
+  <div class="modal-box" id="pay-box">
+    <div class="mhead"><h2>⭐ NexU Premium Beta</h2><p>Desbloquea todas las funciones exclusivas</p><button class="mclose" onclick="closeModal()">✕</button></div>
+    <div class="mbody">
+      <div class="beta-banner"><div class="beta-icon">🧪</div><p><strong>Acceso Beta — Sin cargo real</strong>Este es un entorno de demostración. No se realizará ningún cobro. ¡Experimenta Premium gratis!</p></div>
+      <div class="mprice"><span class="mp-amt">$169</span><span class="mp-per">/mes MXN</span><span class="mp-orig">$249</span></div>
+      <div id="pay-form">
+        <div class="cform">
+          <div class="fgroup"><label>Nombre en la tarjeta</label><input type="text" id="pay-name" placeholder="Como aparece en tu tarjeta"></div>
+          <div class="fgroup"><label>Número de tarjeta</label><div class="cwrap"><span class="cico">💳</span><input type="text" id="pay-card" placeholder="0000 0000 0000 0000" maxlength="19" oninput="fmtCard(this)"></div></div>
+          <div class="crow">
+            <div class="fgroup"><label>Expiración</label><input type="text" id="pay-exp" placeholder="MM/AA" maxlength="5" oninput="fmtExp(this)"></div>
+            <div class="fgroup"><label>CVV</label><input type="text" id="pay-cvv" placeholder="•••" maxlength="3"></div>
+          </div>
+          <div id="pay-msg"></div>
+          <button class="btn-pay" onclick="processPayment()">🔒 Activar Premium Beta →</button>
+          <div class="secure-note">🔒 Pago seguro simulado · No se realizan cargos reales</div>
+        </div>
+      </div>
+      <div class="spinner-wrap" id="pay-spinner"><div class="spinner"></div><p style="color:var(--gray);font-size:.9rem">Procesando tu suscripción...</p></div>
+    </div>
+  </div>
+  <div class="success-box" id="success-box" style="display:none">
+    <div class="suc-icon">👑</div>
+    <div class="suc-title">¡Bienvenido a Premium!</div>
+    <div class="suc-sub">Tu cuenta NexU Premium está activa. Ya tienes acceso a reseñas, vacantes exclusivas e integración escolar.</div>
+    <button class="btn-go" onclick="finishUpgrade()">Ir a mi dashboard →</button>
+  </div>
+</div>
+
+<!-- ══ INSCRIBIR ALUMNO MODAL ══ -->
+<div class="modal-form-ov" id="modal-inscribir">
+  <div class="modal-form-box">
+    <div class="mfhead">
+      <h2>➕ Inscribir nuevo alumno</h2>
+      <p>Registra a un estudiante en tu programa de estadía o práctica</p>
+      <button class="mfclose" onclick="closeInscribirModal()">✕</button>
+    </div>
+    <div class="mfbody">
+      <div class="frow">
+        <div class="fgroup"><label>Nombre(s)</label><input type="text" id="ins-nombre" placeholder="Ej. Carlos"></div>
+        <div class="fgroup"><label>Apellidos</label><input type="text" id="ins-apellido" placeholder="Ej. Mendoza Ruiz"></div>
+      </div>
+      <div class="frow">
+        <div class="fgroup"><label>Carrera</label><input type="text" id="ins-carrera" placeholder="Ej. Ing. Financiera"></div>
+        <div class="fgroup"><label>Universidad</label><input type="text" id="ins-uni" placeholder="Ej. UPEMOR"></div>
+      </div>
+      <div class="frow">
+        <div class="fgroup"><label>Tipo de programa</label>
+          <select id="ins-tipo"><option value="Estadía">Estadía</option><option value="Práctica">Práctica Profesional</option><option value="Servicio Social">Servicio Social</option></select>
+        </div>
+        <div class="fgroup"><label>Horas requeridas</label>
+          <select id="ins-horas"><option value="480">480 hrs (Estadía)</option><option value="240">240 hrs (Práctica)</option><option value="480">480 hrs (Servicio Social)</option></select>
+        </div>
+      </div>
+      <div class="fgroup"><label>Correo del alumno</label><input type="email" id="ins-email" placeholder="matricula@universidad.edu.mx"></div>
+      <div class="fgroup"><label>Notas iniciales (opcional)</label><textarea id="ins-notas" placeholder="Ej. Área asignada: contabilidad. Horario: L-V 8-14h."></textarea></div>
+    </div>
+    <div class="mffooter">
+      <button class="btn-mf-cancel" onclick="closeInscribirModal()">Cancelar</button>
+      <button class="btn-mf-save" onclick="saveInscribir()">➕ Inscribir alumno</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ MODAL VER PERFIL CANDIDATO ══ -->
+<div class="modal-form-ov" id="modal-perfil-candidato">
+  <div class="modal-form-box" style="max-width:560px">
+    <div class="mfhead">
+      <h2 id="mpc-title">👤 Perfil del candidato</h2>
+      <p id="mpc-sub">Curriculum y datos de contacto</p>
+      <button class="mfclose" onclick="document.getElementById('modal-perfil-candidato').classList.remove('open')">✕</button>
+    </div>
+    <div class="mfbody" id="mpc-body"></div>
+    <div class="mffooter" id="mpc-footer"></div>
+  </div>
+</div>
+
+<!-- ══ MODAL VER ESTUDIANTES UNIVERSIDAD ══ -->
+<div class="modal-form-ov" id="modal-uni-estudiantes">
+  <div class="modal-form-box" style="max-width:560px">
+    <div class="mfhead">
+      <h2 id="mue-title">👨&zwj;🎓 Estudiantes disponibles</h2>
+      <p id="mue-sub">Selecciona y contacta al candidato ideal</p>
+      <button class="mfclose" onclick="document.getElementById('modal-uni-estudiantes').classList.remove('open')">✕</button>
+    </div>
+    <div class="mfbody" id="mue-body"></div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"><span id="t-icon">✓</span><span id="t-msg"></span></div>
+
+<script>
+// ═══ STORAGE ═══
+const UK='nexu_users',SK='nexu_session';
+const getU=()=>{try{return JSON.parse(localStorage.getItem(UK))||{};}catch{return{};}};
+const saveU=u=>localStorage.setItem(UK,JSON.stringify(u));
+const getSes=()=>{try{return JSON.parse(localStorage.getItem(SK));}catch{return null;}};
+const saveSes=u=>localStorage.setItem(SK,JSON.stringify(u));
+const clearSes=()=>localStorage.removeItem(SK);
+
+// ═══ NAVIGATION ═══
+function goLand(){
+  document.querySelectorAll('.page').forEach(p=>{p.classList.remove('active');p.style.display='';});
+  document.getElementById('page-land').classList.add('active');
+  window.scrollTo(0,0);
+}
+function goAuth(tab){
+  document.querySelectorAll('.page').forEach(p=>{p.classList.remove('active');p.style.display='';});
+  const pa=document.getElementById('page-auth');
+  pa.classList.add('active');
+  pa.style.display='flex';
+  showAuthTab(tab);
+}
+function goDash(){
+  document.querySelectorAll('.page').forEach(p=>{p.classList.remove('active');p.style.display='';});
+  const pd=document.getElementById('page-dash');
+  pd.classList.add('active');
+  pd.style.display='flex';
+}
+
+// ═══ AUTH ═══
+function showAuthTab(t){
+  document.querySelectorAll('.auth-tab').forEach((b,i)=>b.classList.toggle('active',(i===0&&t==='login')||(i===1&&t==='register')));
+  document.getElementById('form-login').classList.toggle('active',t==='login');
+  document.getElementById('form-register').classList.toggle('active',t==='register');
+  // Adapt carrera label for tipo
+  const tipo=document.getElementById('reg-tipo').value;
+  adaptCarreraLabel(tipo);
+}
+function adaptCarreraLabel(tipo){
+  const lbl=document.getElementById('reg-carrera-label');
+  const inp=document.getElementById('reg-carrera');
+  if(tipo==='Empresa'){lbl.textContent='Nombre de la empresa';inp.placeholder='Ej. CIVAC Industrial S.A.';}
+  else{lbl.textContent='Carrera / Institución';inp.placeholder='Ej. Ingeniería Financiera · UPEMOR';}
+}
+document.addEventListener('DOMContentLoaded',()=>{
+  document.getElementById('reg-tipo').addEventListener('change',e=>adaptCarreraLabel(e.target.value));
+});
+
+function showMsg(id,txt,type){const el=document.getElementById(id);el.className='amsg '+type;el.textContent=txt;setTimeout(()=>{el.className='amsg';el.textContent='';},4000);}
+
+function handleRegister(){
+  const n=document.getElementById('reg-nombre').value.trim();
+  const a=document.getElementById('reg-apellido').value.trim();
+  const e=document.getElementById('reg-email').value.trim().toLowerCase();
+  const p=document.getElementById('reg-pass').value;
+  const t=document.getElementById('reg-tipo').value;
+  const c=document.getElementById('reg-carrera').value.trim();
+  if(!n||!a||!e||!p||!t||!c){showMsg('register-msg','Completa todos los campos.','error');return;}
+  if(p.length<6){showMsg('register-msg','Contraseña de al menos 6 caracteres.','error');return;}
+  if(!e.includes('@')){showMsg('register-msg','Correo inválido.','error');return;}
+  const users=getU();
+  if(users[e]){showMsg('register-msg','Correo ya registrado. Inicia sesión.','error');return;}
+  const user={nombre:n,apellido:a,email:e,pass:p,tipo:t,carrera:c,plan:'Gratuito',fecha:new Date().toLocaleDateString('es-MX',{year:'numeric',month:'long',day:'numeric'}),postulaciones:[],schoolConnected:false};
+  users[e]=user;saveU(users);saveSes(user);
+  toast('✓','¡Cuenta creada exitosamente!');
+  setTimeout(()=>loadDash(user),600);
+}
+
+function handleLogin(){
+  const e=document.getElementById('login-email').value.trim().toLowerCase();
+  const p=document.getElementById('login-pass').value;
+  if(!e||!p){showMsg('login-msg','Ingresa correo y contraseña.','error');return;}
+  const users=getU();const user=users[e];
+  if(!user||user.pass!==p){showMsg('login-msg','Correo o contraseña incorrectos.','error');return;}
+  saveSes(user);toast('👋',`¡Bienvenido, ${user.nombre}!`);
+  setTimeout(()=>loadDash(user),600);
+}
+
+function handleLogout(){clearSes();goLand();toast('🚪','Sesión cerrada correctamente');}
+
+// ═══ DASHBOARD ═══
+function loadDash(user){
+  goDash();
+  const ini=(user.nombre[0]+user.apellido[0]).toUpperCase();
+  const full=`${user.nombre} ${user.apellido}`;
+  const isPrem=user.plan==='Premium';
+  const isEmp=user.tipo==='Empresa';
+
+  // Sidebar
+  const av=document.getElementById('sb-av');
+  av.textContent=ini;av.className='sb-av'+(isPrem?' gold':'');
+  document.getElementById('sb-name').textContent=full;
+  document.getElementById('sb-type').textContent=isEmp?'🏢 Empresa / Empleador':'🎓 Estudiante';
+  document.getElementById('sb-crown').style.display=isPrem?'block':'none';
+  document.getElementById('nav-lbl-vac').textContent=isEmp?'Candidatos':'Vacantes';
+  document.getElementById('nav-lbl-seg').textContent=isEmp?'Mis publicaciones':'Seguimiento';
+  // Show correct sub-views for seguimiento and escolar panels
+  document.getElementById('seg-estudiante').style.display=isEmp?'none':'block';
+  document.getElementById('seg-empresa').style.display=isEmp?'block':'none';
+  document.getElementById('esc-estudiante').style.display=isEmp?'none':'block';
+  document.getElementById('esc-empresa').style.display=isEmp?'block':'none';
+  // Rename sidebar escolar nav label
+  const escLbl=document.getElementById('nav-lbl-esc');
+  if(escLbl)escLbl.textContent=isEmp?'Gestión Estudiantes':'Cuenta Escolar';
+
+  // Header
+  document.getElementById('dash-hi').textContent=`Hola, ${user.nombre} 👋`;
+  document.getElementById('dash-date').textContent=new Date().toLocaleDateString('es-MX',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+  const badge=document.getElementById('dash-badge');
+  badge.textContent=isPrem?'👑 Plan Premium':'Plan Gratuito';
+  badge.className='plan-pill '+(isPrem?'premium':'free');
+  // Mobile topbar badge
+  const mobBadge=document.getElementById('mob-plan-badge');
+  if(mobBadge){mobBadge.textContent=isPrem?'👑 Premium':'Free';mobBadge.style.background=isPrem?'rgba(245,158,11,.25)':null;mobBadge.style.color=isPrem?'#F59E0B':null;}
+  closeMobSidebar();
+
+  // Locks
+  document.getElementById('lock-r').style.display=isPrem?'none':'inline';
+  document.getElementById('lock-e').style.display=isPrem?'none':'inline';
+
+  // Profile
+  const pav=document.getElementById('prof-av');
+  const savedPhoto=localStorage.getItem('nexu_photo_'+user.email);
+  if(pav){
+    if(savedPhoto){
+      pav.innerHTML='<img src="'+savedPhoto+'" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" alt="foto">';
+    } else {
+      pav.textContent=ini;
+    }
+  }
+  // Update empresa logo display too
+  const empLogo=document.getElementById('emp-logo-display');
+  if(empLogo&&savedPhoto){
+    empLogo.innerHTML='<img src="'+savedPhoto+'" style="width:100%;height:100%;object-fit:cover;border-radius:12px;" alt="logo">';
+  }
+  // Sidebar avatar
+  const sbAv=document.getElementById('sb-av');
+  if(sbAv){
+    if(savedPhoto){
+      sbAv.innerHTML='<img src="'+savedPhoto+'" style="width:42px;height:42px;border-radius:50%;object-fit:cover;" alt="foto">';
+    } else {
+      sbAv.textContent=ini;
+      sbAv.className='sb-av'+(isPrem?' gold':'');
+    }
+  }
+  // Crown
+  let cr=document.getElementById('crown-ov');
+  if(isPrem&&!cr&&pav){cr=document.createElement('div');cr.id='crown-ov';cr.style.cssText='position:absolute;top:-12px;right:-4px;font-size:1.3rem';cr.textContent='👑';pav.parentElement.appendChild(cr);}
+  else if(!isPrem&&cr)cr.remove();
+  document.getElementById('pf-fullname').textContent=full;
+  document.getElementById('pf-email-show').textContent=user.email;
+  const pb=document.getElementById('pf-badge');
+  if(pb){pb.textContent=(isEmp?'🏢 Empresa / Empleador':'🎓 Estudiante')+(isPrem?' · 👑 Premium':'');}
+  document.getElementById('pf-nombre').textContent=full;
+  document.getElementById('pf-email').textContent=user.email;
+  document.getElementById('pf-tipo').textContent=isEmp?'🏢 Empresa / Empleador':'🎓 Estudiante';
+  document.getElementById('pf-carrera-lbl').textContent=isEmp?'Empresa':'Carrera / Institución';
+  document.getElementById('pf-carrera').textContent=user.carrera;
+  document.getElementById('pf-plan').textContent=isPrem?'👑 Premium':'Plan Gratuito';
+  document.getElementById('pf-fecha').textContent=user.fecha;
+  // Show correct profile extra section
+  const cvWrap=document.getElementById('cv-section-wrap');
+  const empWrap=document.getElementById('empresa-section-wrap');
+  if(cvWrap)cvWrap.style.display=isEmp?'none':'block';
+  if(empWrap)empWrap.style.display=isEmp?'block':'none';
+  // Set empresa hero name
+  const ehn=document.getElementById('emp-hero-name');
+  if(ehn&&isEmp)ehn.textContent=user.carrera||full;
+  // Restore CV info
+  loadCVInfo(user.email);
+  // Restore additional info
+  loadAddInfo(user.email,isEmp);
+
+  // Plan views
+  document.getElementById('view-free').style.display=isPrem?'none':'block';
+  document.getElementById('view-premium').style.display=isPrem?'block':'none';
+  if(isPrem&&user.renewalDate)document.getElementById('renewal-date').textContent=user.renewalDate;
+
+  // Stats adaptados
+  if(isEmp){
+    document.getElementById('stat-icon-posts').textContent='📢';
+    document.getElementById('stat-lbl-posts').textContent='Vacantes publicadas';
+    document.getElementById('stat-posts').textContent='0';
+    document.getElementById('stat-icon-extra').textContent='🎓';
+    document.getElementById('stat-num-extra').textContent='6';
+    document.getElementById('stat-lbl-extra').textContent='Candidatos disponibles';
+  } else {
+    document.getElementById('stat-icon-posts').textContent='📋';
+    document.getElementById('stat-lbl-posts').textContent='Postulaciones';
+    document.getElementById('stat-posts').textContent=(user.postulaciones||[]).length;
+    document.getElementById('stat-icon-extra').textContent='🏢';
+    document.getElementById('stat-num-extra').textContent='24';
+    document.getElementById('stat-lbl-extra').textContent='Empresas disponibles';
+  }
+
+  // Inicio desc
+  document.getElementById('inicio-desc').textContent=isEmp?'Publica tu vacante, revisa candidatos y conecta con talento joven.':'Completa estos pasos para encontrar tu estadía.';
+
+  // Vacantes panel
+  document.getElementById('vac-title').textContent=isEmp?'📢 Candidatos disponibles':'🔍 Vacantes disponibles';
+  const vs=document.getElementById('vac-sub');
+  if(isEmp){vs.textContent='Estudiantes buscando estadía en tu área · tú decides a quién contactar';}
+  else{vs.innerHTML='Zona CIVAC y Jiutepec · <span style="color:#F59E0B;font-weight:700;">⭐ Exclusivas Premium</span>';}
+
+  // School sync
+  if(user.schoolConnected){
+    document.getElementById('sync-asist').textContent='94%';
+    document.getElementById('sync-horas').textContent='312 hrs';
+    document.getElementById('sync-mat').textContent='6 materias';
+    document.getElementById('sync-status').textContent='✅ Conectado';
+    document.getElementById('sync-status').style.color='var(--success)';
+  }
+
+  // Reseñas / Universidades split
+  const resEst=document.getElementById('res-estudiante');
+  const resEmp=document.getElementById('res-empresa');
+  if(resEst)resEst.style.display=isEmp?'none':'block';
+  if(resEmp)resEmp.style.display=isEmp?'block':'none';
+  // Update nav label for reseñas
+  const navResLbl=document.getElementById('nav-lbl-res');
+  if(navResLbl)navResLbl.textContent=isEmp?'Universidades':'Reseñas';
+
+  // Ad banner — reset timers on each load
+  clearInterval(adRotateTimer);clearTimeout(popupTimer);clearInterval(popupCountdownInterval);
+  updateAdBanner(user);
+
+  // Mensajes nav: show for both, lock if not premium
+  document.getElementById('lock-msg').style.display=isPrem?'none':'inline';
+
+  // Empresa-specific renders
+  if(isEmp){
+    renderMisVacantes(user.email);
+    renderEstudiantes(user.email);
+    document.getElementById('stat-posts').textContent=getEmpVacantes(user.email).length;
+    renderSolicitudes(user.email);
+  }
+
+  // Init mensajes
+  initMensajes(user);
+
+  loadVacantes(user);
+  renderTimelines(user);
+  showPanel('inicio',document.querySelector('.sb-nav a'));
+}
+
+// ═══ VACANTES ═══
+const VACANTES=[
+  {id:1,e:'CIVAC Industrial S.A.',n:'Estadía en Finanzas',t:'Estadía',m:'Presencial',h:'480 hrs',i:'🏭',prem:false},
+  {id:2,e:'Tech Morelos Solutions',n:'Practicante TI',t:'Práctica',m:'Híbrida',h:'240 hrs',i:'💻',prem:false},
+  {id:3,e:'Grupo Administrativo JTC',n:'Servicio Social Admin',t:'Servicio Social',m:'Presencial',h:'480 hrs',i:'📊',prem:false},
+  {id:4,e:'Bioprocesos Morelos',n:'Pasante Biotecnología',t:'Estadía',m:'Presencial',h:'480 hrs',i:'🔬',prem:false},
+  {id:5,e:'EcoTech Jiutepec',n:'Practicante Ambiental',t:'Práctica',m:'Remota',h:'240 hrs',i:'🌿',prem:false},
+  {id:6,e:'⭐ Grupo Financiero Premier',n:'Estadía Exclusiva — Análisis Financiero',t:'Estadía',m:'Híbrida',h:'480 hrs',i:'🏦',prem:true},
+  {id:7,e:'⭐ Despacho García & Asoc.',n:'Práctica Premium — Contabilidad Avanzada',t:'Práctica',m:'Presencial',h:'240 hrs',i:'📈',prem:true},
+  {id:8,e:'⭐ NovaTec Startup Morelos',n:'Estadía Premium — Desarrollo Digital',t:'Estadía',m:'Remota',h:'480 hrs',i:'🚀',prem:true},
+];
+
+const CANDIDATOS=[
+  {nombre:'Carlos Mendoza',carrera:'Ing. Financiera · UPEMOR',sem:'8vo semestre',disp:'Presencial',hrs:'480 hrs',ini:'CM'},
+  {nombre:'Laura González',carrera:'Ing. en TI · UPEMOR',sem:'7mo semestre',disp:'Híbrida',hrs:'240 hrs',ini:'LG'},
+  {nombre:'Diego Ramírez',carrera:'Administración · UTM',sem:'6to semestre',disp:'Remota',hrs:'480 hrs',ini:'DR'},
+  {nombre:'Sofía Herrera',carrera:'Ing. Industrial · UPEMOR',sem:'9no semestre',disp:'Presencial',hrs:'480 hrs',ini:'SH'},
+  {nombre:'Andrés López',carrera:'Ing. Ambiental · UPEMOR',sem:'7mo semestre',disp:'Presencial',hrs:'240 hrs',ini:'AL'},
+  {nombre:'Valeria Cruz',carrera:'Ing. Biotecnología · UPEMOR',sem:'8vo semestre',disp:'Híbrida',hrs:'480 hrs',ini:'VC'},
+];
+
+function loadVacantes(user){
+  const c=document.getElementById('vacantes-container');
+  const isPrem=user.plan==='Premium';
+  const isEmp=user.tipo==='Empresa';
+  if(isEmp){
+    const sols=getSolicitudes(user.email);
+    c.innerHTML=CANDIDATOS.map((cd,i)=>{
+      const sol=sols.find(s=>s.estNombre===cd.nombre);
+      const hasSol=!!sol;
+      const estSol=sol?sol.estado:'ninguno';
+      let statusBadge='';
+      if(estSol==='pendiente') statusBadge='<span style="background:#FEF3C7;color:#92400E;border:1px solid #F59E0B;padding:.2rem .6rem;border-radius:50px;font-size:.72rem;font-weight:700">⏳ Solicitud pendiente</span>';
+      else if(estSol==='aceptado') statusBadge='<span style="background:#DCFCE7;color:#166534;border:1px solid #86EFAC;padding:.2rem .6rem;border-radius:50px;font-size:.72rem;font-weight:700">✅ Aceptado</span>';
+      else if(estSol==='rechazado') statusBadge='<span style="background:#FEE2E2;color:#991B1B;border:1px solid #FCA5A5;padding:.2rem .6rem;border-radius:50px;font-size:.72rem;font-weight:700">❌ Rechazado</span>';
+      const btnContactar=hasSol
+        ? `<button class="vbtn applied" style="margin-top:.5rem" disabled>✓ Solicitud enviada</button>`
+        : `<button class="vbtn norm" style="margin-top:.5rem" onclick="contactarCandidato('${cd.nombre}','${user.email}',${i})">Enviar oferta →</button>`;
+      return `<div class="vcard">
+        <div class="vtop">
+          <div class="vlogo" style="background:linear-gradient(135deg,var(--purple),var(--purple-light));color:white;font-weight:800;font-family:'Syne',sans-serif;font-size:.9rem">${cd.ini}</div>
+          <div class="vtag norm">🎓 Estudiante</div>
+        </div>
+        ${statusBadge?'<div style="margin-bottom:.4rem">'+statusBadge+'</div>':''}
+        <div class="vnombre">${cd.nombre}</div>
+        <div class="vempresa">${cd.carrera}</div>
+        <div class="vmeta"><span>📚 ${cd.sem}</span><span>💼 ${cd.disp}</span><span>🕐 ${cd.hrs}</span></div>
+        <button class="vbtn" style="margin-top:.8rem;background:var(--off-white);color:var(--purple);border:1.5px solid var(--border)" onclick="verPerfilCandidato(${i})">👤 Ver perfil y CV</button>
+        ${btnContactar}
+      </div>`;
+    }).join('');
+    return;
+  }
+  const applied=user.postulaciones||[];
+  c.innerHTML=VACANTES.map(v=>{
+    const isApplied=applied.includes(v.id);
+    const locked=v.prem&&!isPrem;
+    let bc='vbtn '+(isApplied?'applied':locked?'locked':'norm');
+    let bt=isApplied?'✓ Postulación enviada':locked?'🔒 Desbloquear con Premium →':'Postularme →';
+    let bo=isApplied?'':locked?'openModal()':'postular('+v.id+',this)';
+    return `<div class="vcard${v.prem?' gold-c':''}">
+      <div class="vtop"><div class="vlogo">${v.i}</div><div class="vtag ${v.prem?'gold':'norm'}">${v.prem?'⭐ Premium':v.t}</div></div>
+      ${v.prem?'<div class="vribbon">👑 Vacante exclusiva Premium</div>':''}
+      <div class="vempresa">${v.e}</div><div class="vnombre">${v.n}</div>
+      <div class="vmeta"><span>📍 Jiutepec</span><span>🕐 ${v.h}</span><span>💼 ${v.m}</span></div>
+      <button class="${bc}" onclick="${bo}" ${isApplied?'disabled':''}>${bt}</button>
+    </div>`;
+  }).join('');
+}
+
+// ═══════════════════════════════════════════════
+// SOLICITUDES (empresa recibe, estudiante manda)
+// ═══════════════════════════════════════════════
+// Stored per empresa email: array of {estNombre,estCarrera,vacante,estado:'pendiente'|'aceptado'|'rechazado',fecha}
+function getSolicitudes(empEmail){try{return JSON.parse(localStorage.getItem('nexu_sol_'+empEmail))||[];}catch{return[];}}
+function saveSolicitudes(empEmail,arr){localStorage.setItem('nexu_sol_'+empEmail,JSON.stringify(arr));}
+
+// On student postulacion we pick a random empresa email from vacantes to simulate real flow
+const EMP_EMAILS={1:'civac@nexu.mx',2:'techmorelos@nexu.mx',3:'jtc@nexu.mx',4:'bioprocesos@nexu.mx',5:'ecotech@nexu.mx',6:'premier@nexu.mx',7:'garcia@nexu.mx',8:'novatec@nexu.mx'};
+
+function postular(id,btn){
+  const ses=getSes();if(!ses)return;
+  const users=getU();const user=users[ses.email];
+  if(!user.postulaciones)user.postulaciones=[];
+  if(user.postulaciones.includes(id))return;
+  user.postulaciones.push(id);saveU(users);saveSes(user);
+  document.getElementById('stat-posts').textContent=user.postulaciones.length;
+  btn.textContent='✓ Postulación enviada';btn.className='vbtn applied';btn.disabled=true;
+  // Save solicitud on the empresa side
+  const vac=VACANTES.find(v=>v.id===id);
+  if(vac){
+    const empEmail=EMP_EMAILS[id]||'empresa@nexu.mx';
+    const sols=getSolicitudes(empEmail);
+    const now=new Date().toLocaleDateString('es-MX',{day:'numeric',month:'short',year:'numeric'});
+    sols.push({estNombre:user.nombre+' '+user.apellido,estCarrera:user.carrera,vacante:vac.n,empresa:vac.e,estado:'pendiente',fecha:now,estEmail:user.email});
+    saveSolicitudes(empEmail,sols);
+  }
+  // Simulate empresa response after ~3 seconds: randomly aceptado or en revisión
+  const delay=2800+Math.random()*2000;
+  setTimeout(()=>{
+    const u2=getU()[ses.email];
+    if(!u2)return;
+    const r=Math.random();
+    let nuevoEstado,notif;
+    if(r<0.5){nuevoEstado='aceptado';notif='🎉 ¡Te aceptaron en '+VACANTES.find(v=>v.id===id)?.e+'!';}
+    else if(r<0.8){nuevoEstado='revision';notif='👀 Tu solicitud está en revisión en '+VACANTES.find(v=>v.id===id)?.e;}
+    else{nuevoEstado='rechazado';notif='❌ '+VACANTES.find(v=>v.id===id)?.e+' no continuará con tu postulación.';}
+    if(!u2.estados)u2.estados={};
+    u2.estados[id]=nuevoEstado;
+    saveU({...getU(),[ses.email]:u2});saveSes(u2);
+    toast(r<0.5?'🎉':r<0.8?'👀':'❌',notif);
+    renderTimelines(u2);
+    // Update vacantes card
+    const cards=document.querySelectorAll('#vacantes-container .vcard');
+    // re-render to refresh state
+    loadVacantes(u2);
+  },delay);
+  toast('📋','¡Postulación enviada! Espera respuesta de la empresa.');
+  renderTimelines(user);
+}
+
+// ═══════════════════════════════════════════════
+// TIMELINES — Inicio + Seguimiento (estudiante)
+// ═══════════════════════════════════════════════
+function tlDot(cls,label,hasLine){
+  return `<div class="tl-l"><div class="tl-dot ${cls}">${label}</div>${hasLine?'<div class="tl-line"></div>':''}</div>`;
+}
+function tlRow(dotCls,dotLbl,title,sub,hasLine=true,extra=''){
+  return `<div class="tl-item">${tlDot(dotCls,dotLbl,hasLine)}<div class="tl-c"><div class="tl-title">${title}</div><div class="tl-sub">${sub}</div>${extra}</div></div>`;
+}
+
+function renderTimelines(user){
+  const isEmp=user.tipo==='Empresa';
+  const posts=user.postulaciones||[];
+  const estados=user.estados||{};
+  // Determine highest stage reached
+  const hasPost=posts.length>0;
+  const hasAceptado=Object.values(estados).includes('aceptado');
+  const hasRechazo=Object.values(estados).some(e=>e==='rechazado');
+  const hasRevision=Object.values(estados).some(e=>e==='revision');
+
+  // ── INICIO TIMELINE ──
+  const inicioTl=document.getElementById('inicio-tl');
+  if(inicioTl){
+    if(isEmp){
+      const vacantes=getEmpVacantes(user.email);
+      const hasPub=vacantes.length>0;
+      const sols=getSolicitudes(user.email);
+      const hasResp=sols.some(s=>s.estado!=='pendiente');
+      inicioTl.innerHTML=
+        tlRow('done','✓','Crear cuenta de empresa','¡Listo! Ya estás en NexU.')+
+        tlRow(hasPub?'done':'cur',hasPub?'✓':'2','Publica tu primera vacante',hasPub?`Tienes ${vacantes.length} vacante(s) activa(s).`:'Describe el perfil que buscas.')+
+        tlRow(sols.length?'done':'pend',sols.length?'✓':'3','Recibe candidatos',sols.length?`${sols.length} solicitud(es) recibida(s).`:'Pendiente — esperando postulaciones.')+
+        tlRow(hasResp?'done':'pend',hasResp?'✓':'4','Gestiona y acepta','Acepta o rechaza candidatos desde Seguimiento.',false);
+    } else {
+      inicioTl.innerHTML=
+        tlRow('done','✓','Crear tu cuenta','¡Listo! Ya estás en NexU.')+
+        tlRow('done','✓','Completa tu perfil','Carrera y disponibilidad registradas.')+
+        tlRow(hasPost?'done':'cur',hasPost?'✓':'3','Explora y postúlate',hasPost?`${posts.length} postulación(es) enviada(s).`:'Filtra vacantes por carrera y modalidad.')+
+        tlRow(hasAceptado?'done':hasPost?'cur':'pend',hasAceptado?'✓':hasPost?'→':'4','Respuesta de empresa',
+          hasAceptado?'¡Aceptado! Revisa tu seguimiento.':hasPost?'En espera de respuesta...':'Pendiente — postúlate primero.',false);
+    }
+  }
+
+  // ── SEGUIMIENTO TIMELINE (estudiante) ──
+  const segTl=document.getElementById('seg-tl');
+  if(segTl&&!isEmp){
+    const aceptadoId=Object.keys(estados).find(k=>estados[k]==='aceptado');
+    const aceptadoVac=aceptadoId?VACANTES.find(v=>v.id===parseInt(aceptadoId)):null;
+
+    // Postulacion detail rows
+    let postRows='';
+    if(hasPost){
+      posts.forEach(id=>{
+        const vac=VACANTES.find(v=>v.id===id);if(!vac)return;
+        const est=estados[id]||'enviado';
+        let eCls='cur',eLbl='→',eSub='En revisión por la empresa...';
+        if(est==='aceptado'){eCls='done';eLbl='✓';eSub='<span style="color:var(--success);font-weight:700;">✅ Aceptado</span>';}
+        else if(est==='rechazado'){eCls='pend';eLbl='✗';eSub='<span style="color:#EF4444;font-weight:600;">❌ No continuaron con tu perfil</span>';}
+        else if(est==='revision'){eSub='<span style="color:var(--gold);font-weight:600;">👀 En revisión activa</span>';}
+        postRows+=`<div class="tl-item" style="margin-left:1.5rem">
+          ${tlDot(eCls,eLbl,false)}
+          <div class="tl-c" style="padding-bottom:.8rem">
+            <div class="tl-title" style="font-size:.88rem">${vac.n}</div>
+            <div class="tl-sub" style="font-size:.78rem">${vac.e}</div>
+            <div class="tl-sub" style="font-size:.78rem;margin-top:.1rem">${eSub}</div>
+          </div>
+        </div>`;
+      });
+    }
+
+    segTl.innerHTML=
+      tlRow('done','✓','Registro en plataforma','Cuenta creada exitosamente')+
+      tlRow(hasPost?'done':'cur',hasPost?'✓':'→','Búsqueda de empresa',hasPost?'Exploraste vacantes disponibles':'Explorando vacantes disponibles')+
+      `<div class="tl-item"><div class="tl-l"><div class="tl-dot ${hasPost?'done':'pend'}">${hasPost?'✓':'3'}</div><div class="tl-line"></div></div><div class="tl-c"><div class="tl-title">Postulación(es) enviada(s)</div><div class="tl-sub">${hasPost?posts.length+' enviada(s)':'Pendiente'}</div></div></div>`+
+      postRows+
+      tlRow(hasAceptado?'done':hasPost?'cur':'pend',hasAceptado?'✓':hasPost?'→':'4','Aceptación de empresa',
+        hasAceptado?`¡${aceptadoVac?.e||'empresa'} te aceptó!`:'Pendiente — esperando respuesta')+
+      tlRow(hasAceptado?'cur':'pend',hasAceptado?'→':'5','Inicio de estadía',
+        hasAceptado?'Coordina fecha de inicio con la empresa':'Pendiente')+
+      tlRow('pend','✓','Conclusión','Pendiente',false);
+  }
+}
+
+// ── SOLICITUDES (empresa) ──
+function renderSolicitudes(empEmail){
+  const list=document.getElementById('solicitudes-list');
+  if(!list)return;
+  const sols=getSolicitudes(empEmail);
+  if(!sols.length){
+    list.innerHTML='<p style="color:var(--gray);font-size:.88rem;text-align:center;padding:1.5rem 0">Aún no tienes solicitudes. Publica una vacante para recibirlas.</p>';
+    return;
+  }
+  list.innerHTML=sols.map((s,i)=>{
+    const estCls=s.estado==='aceptado'?'done':s.estado==='rechazado'?'pend':'cur';
+    const estLabel=s.estado==='aceptado'?'<span style="color:var(--success);font-weight:700;font-size:.82rem">✅ Aceptado</span>':
+      s.estado==='rechazado'?'<span style="color:#EF4444;font-weight:600;font-size:.82rem">❌ Rechazado</span>':
+      '<span style="color:var(--gold);font-weight:600;font-size:.82rem">⏳ Pendiente</span>';
+    const btns=s.estado==='pendiente'?`
+      <div style="display:flex;gap:.5rem;margin-top:.8rem">
+        <button onclick="responderSolicitud('${empEmail}',${i},'aceptado')" style="flex:1;background:var(--success);color:white;border:none;padding:.55rem;border-radius:50px;font-family:'DM Sans',sans-serif;font-weight:700;font-size:.82rem;cursor:pointer">✅ Aceptar</button>
+        <button onclick="responderSolicitud('${empEmail}',${i},'rechazado')" style="flex:1;background:#FEE2E2;color:#991B1B;border:none;padding:.55rem;border-radius:50px;font-family:'DM Sans',sans-serif;font-weight:700;font-size:.82rem;cursor:pointer">❌ Rechazar</button>
+      </div>`:'';
+    return `<div style="background:var(--off-white);border-radius:14px;padding:1.1rem 1.3rem;border:1px solid var(--border);margin-bottom:.8rem">
+      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.5rem">
+        <div style="display:flex;align-items:center;gap:.8rem">
+          <div style="width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--purple),var(--purple-light));color:white;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.82rem;flex-shrink:0">${s.estNombre.split(' ').map(p=>p[0]).slice(0,2).join('')}</div>
+          <div>
+            <div style="font-weight:700;font-size:.92rem">${s.estNombre}</div>
+            <div style="font-size:.78rem;color:var(--gray)">${s.estCarrera}</div>
+            <div style="font-size:.78rem;color:var(--purple-mid);font-weight:600;margin-top:.1rem">Vacante: ${s.vacante}</div>
+          </div>
+        </div>
+        <div style="text-align:right">
+          ${estLabel}
+          <div style="font-size:.72rem;color:var(--gray);margin-top:.2rem">${s.fecha}</div>
+        </div>
+      </div>
+      ${btns}
+    </div>`;
+  }).join('');
+}
+
+function responderSolicitud(empEmail,idx,respuesta){
+  const sols=getSolicitudes(empEmail);
+  if(!sols[idx])return;
+  sols[idx].estado=respuesta;
+  saveSolicitudes(empEmail,sols);
+  // Notify student side if their email matches
+  const estEmail=sols[idx].estEmail;
+  if(estEmail){
+    const users=getU();
+    const estUser=users[estEmail];
+    if(estUser){
+      // Find which vac id matches
+      const vacId=Object.keys(EMP_EMAILS).find(k=>EMP_EMAILS[k]===empEmail);
+      if(vacId){
+        if(!estUser.estados)estUser.estados={};
+        estUser.estados[parseInt(vacId)]=respuesta;
+        users[estEmail]=estUser;saveU(users);
+      }
+    }
+  }
+  renderSolicitudes(empEmail);
+  const ses=getSes();if(ses)renderTimelines(getU()[ses.email]);
+  toast(respuesta==='aceptado'?'✅':'❌', respuesta==='aceptado'?`Aceptaste a ${sols[idx].estNombre}`:`Rechazaste a ${sols[idx].estNombre}`);
+}
+
+function navPremium(panel,link){
+  const ses=getSes();if(!ses)return;
+  const users=getU();const user=users[ses.email];
+  if(user.plan!=='Premium'){
+    // Show gate inside mensajes panel
+    if(panel==='mensajes'){
+      showPanel('mensajes',link);
+      document.getElementById('msgs-premium-gate').style.display='block';
+      document.getElementById('msgs-content').style.display='none';
+      return;
+    }
+    openModal();return;
+  }
+  if(panel==='mensajes'){
+    document.getElementById('msgs-premium-gate').style.display='none';
+    document.getElementById('msgs-content').style.display='block';
+  }
+  showPanel(panel,link);
+}
+
+// ═══ MODAL PREMIUM ═══
+function openModal(){
+  document.getElementById('pay-modal').classList.add('open');
+  document.getElementById('pay-box').style.display='';
+  document.getElementById('success-box').style.display='none';
+  document.getElementById('pay-form').style.display='';
+  document.getElementById('pay-spinner').classList.remove('show');
+  document.getElementById('pay-msg').className='amsg';document.getElementById('pay-msg').textContent='';
+}
+function closeModal(){document.getElementById('pay-modal').classList.remove('open');}
+
+function fmtCard(el){let v=el.value.replace(/\D/g,'').substring(0,16);el.value=v.replace(/(.{4})/g,'$1 ').trim();}
+function fmtExp(el){let v=el.value.replace(/\D/g,'');if(v.length>=2)v=v.substring(0,2)+'/'+v.substring(2);el.value=v;}
+
+function processPayment(){
+  const name=document.getElementById('pay-name').value.trim();
+  const card=document.getElementById('pay-card').value.trim();
+  const exp=document.getElementById('pay-exp').value.trim();
+  const cvv=document.getElementById('pay-cvv').value.trim();
+  const msg=document.getElementById('pay-msg');
+  if(!name||!card||!exp||!cvv){msg.className='amsg error';msg.textContent='Completa todos los campos.';setTimeout(()=>{msg.className='amsg';msg.textContent='';},3000);return;}
+  if(card.replace(/\s/g,'').length<16){msg.className='amsg error';msg.textContent='Número de tarjeta inválido.';setTimeout(()=>{msg.className='amsg';msg.textContent='';},3000);return;}
+  document.getElementById('pay-form').style.display='none';
+  document.getElementById('pay-spinner').classList.add('show');
+  setTimeout(()=>{
+    document.getElementById('pay-spinner').classList.remove('show');
+    const ses=getSes();const users=getU();const user=users[ses.email];
+    user.plan='Premium';
+    const r=new Date();r.setMonth(r.getMonth()+1);
+    user.renewalDate=r.toLocaleDateString('es-MX',{year:'numeric',month:'long',day:'numeric'});
+    saveU(users);saveSes(user);
+    document.getElementById('pay-box').style.display='none';
+    document.getElementById('success-box').style.display='';
+  },2400);
+}
+
+function finishUpgrade(){
+  closeModal();
+  const ses=getSes();const users=getU();
+  loadDash(users[ses.email]);
+  showPanel('plan',null);
+  updateAdBanner(users[ses.email]);
+  toast('👑','¡Bienvenido a NexU Premium!');
+}
+
+function cancelPremium(){
+  if(!confirm('¿Seguro que deseas cancelar tu Premium?'))return;
+  const ses=getSes();const users=getU();const user=users[ses.email];
+  user.plan='Gratuito';delete user.renewalDate;
+  saveU(users);saveSes(user);loadDash(user);
+  showPanel('plan',null);toast('ℹ️','Suscripción cancelada.');
+}
+
+function connectSchool(){
+  const email=document.getElementById('school-email').value.trim();
+  if(!email||!email.includes('@')){toast('❌','Ingresa un correo institucional válido.');return;}
+  const ses=getSes();const users=getU();const user=users[ses.email];
+  user.schoolConnected=true;saveU(users);saveSes(user);
+  document.getElementById('sync-asist').textContent='94%';
+  document.getElementById('sync-horas').textContent='312 hrs';
+  document.getElementById('sync-mat').textContent='6 materias';
+  document.getElementById('sync-status').textContent='✅ Conectado';
+  document.getElementById('sync-status').style.color='var(--success)';
+  toast('🎓','¡Cuenta escolar vinculada!');
+}
+
+// ═══ UI ═══
+function showPanel(name,link){
+  document.querySelectorAll('.dpanel').forEach(p=>p.classList.remove('active'));
+  document.getElementById('panel-'+name).classList.add('active');
+  document.querySelectorAll('.sb-nav a').forEach(a=>a.classList.remove('active'));
+  if(link)link.classList.add('active');
+}
+
+let tTimer;
+function toast(icon,msg){
+  const t=document.getElementById('toast');
+  document.getElementById('t-icon').textContent=icon;
+  document.getElementById('t-msg').textContent=msg;
+  t.classList.add('show');clearTimeout(tTimer);
+  tTimer=setTimeout(()=>t.classList.remove('show'),3200);
+}
+
+// Tab landing
+function switchTab(id,btn){
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.tab-pane').forEach(p=>p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('tab-'+id).classList.add('active');
+}
+
+// Scroll reveal
+const ro=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:.1});
+document.querySelectorAll('.reveal').forEach(el=>ro.observe(el));
+
+
+// ═══════════════════════════════════════════════
+// AD SYSTEM — rotating banner + popup
+// ═══════════════════════════════════════════════
+let currentAd=0;
+const totalAds=8;
+let adRotateTimer=null;
+let popupTimer=null;
+let popupCountdownInterval=null;
+
+const POPUP_ADS=[
+  {logo:'🥤',brand:'Coca-Cola',tagline:'Refresca tu camino al éxito',body:'¿Sabías que los mejores practicantes se mantienen hidratados? Coca-Cola patrocina el bienestar universitario en más de 15 campus de Morelos. ¡Encuéntrala en tu cafetería!'},
+  {logo:'🏛️',brand:'UPEMOR',tagline:'Tu futuro empieza aquí',body:'¿Ya pensaste en tu posgrado? UPEMOR ofrece maestrías en Ing. Financiera, TI y Administración con becas disponibles para egresados. Inscripciones abiertas hasta mayo 2026.'},
+  {logo:'🍊',brand:'Jumex',tagline:'Energía natural para los que van por más',body:'Antes de tu próxima entrevista, carga energía con Jumex. Sin azúcar añadida, 100% natural. La elección de los universitarios de Morelos. ¡Ya en todas las tiendas del campus!'},
+  {logo:'📱',brand:'Telcel',tagline:'Conecta sin límites desde $199/mes',body:'¿Tu estadía es remota o híbrida? Con el Plan Universitario Telcel tienes internet ilimitado para Zoom, Teams y todas tus plataformas. ¡Actívalo hoy y no pierdas ni una clase!'},
+];
+
+function startAdSystem(user){
+  if(user.plan==='Premium')return;
+  // Rotate banner every 8 seconds
+  adRotateTimer=setInterval(()=>{
+    document.getElementById('ad-'+currentAd).classList.remove('visible');
+    currentAd=(currentAd+1)%totalAds;
+    document.getElementById('ad-'+currentAd).classList.add('visible');
+  },8000);
+  // Show popup after 30s, then every 2 minutes
+  popupTimer=setTimeout(()=>showPopupAd(),30000);
+}
+
+function showPopupAd(){
+  const ad=POPUP_ADS[Math.floor(Math.random()*POPUP_ADS.length)];
+  document.getElementById('popup-logo').textContent=ad.logo;
+  document.getElementById('popup-brand').textContent=ad.brand;
+  document.getElementById('popup-tagline').textContent=ad.tagline;
+  document.getElementById('popup-body').textContent=ad.body;
+  document.getElementById('ad-popup').classList.add('open');
+  // 5-second countdown before skip is available
+  let secs=5;
+  const skipBtn=document.getElementById('popup-skip-btn');
+  skipBtn.disabled=true;
+  skipBtn.textContent=`Espera ${secs}s para cerrar...`;
+  const fill=document.getElementById('ad-popup-fill');
+  fill.style.transition='none';fill.style.width='100%';
+  setTimeout(()=>{fill.style.transition=`width ${secs}s linear`;fill.style.width='0%';},50);
+  document.getElementById('popup-countdown').textContent='';
+  popupCountdownInterval=setInterval(()=>{
+    secs--;
+    if(secs<=0){
+      clearInterval(popupCountdownInterval);
+      skipBtn.disabled=false;
+      skipBtn.textContent='Saltar anuncio';
+    } else {
+      skipBtn.textContent=`Espera ${secs}s para cerrar...`;
+    }
+  },1000);
+  // Schedule next popup
+  popupTimer=setTimeout(()=>showPopupAd(),120000);
+}
+
+function closePopupAd(){
+  document.getElementById('ad-popup').classList.remove('open');
+  clearInterval(popupCountdownInterval);
+}
+
+function adClickSim(brand){
+  toast('🔗',`Redirigiendo a ${brand}... (simulado)`);
+}
+
+function closeAd(){
+  const ses=getSes();if(!ses)return;
+  const users=getU();const user=users[ses.email];
+  if(user.plan!=='Premium'){
+    openModal();
+    return;
+  }
+  document.getElementById('ad-banner').classList.add('hidden');
+}
+
+function updateAdBanner(user){
+  const banner=document.getElementById('ad-banner');
+  if(user.plan==='Premium'){
+    banner.classList.add('hidden');
+    clearInterval(adRotateTimer);
+    clearTimeout(popupTimer);
+    clearInterval(popupCountdownInterval);
+    document.getElementById('ad-popup').classList.remove('open');
+  } else {
+    banner.classList.remove('hidden');
+    startAdSystem(user);
+  }
+}
+
+// ═══════════════════════════════════════════════
+// INSCRIBIR ALUMNO
+// ═══════════════════════════════════════════════
+function openInscribirModal(){
+  ['ins-nombre','ins-apellido','ins-carrera','ins-uni','ins-email','ins-notas'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('ins-tipo').value='Estadía';
+  document.getElementById('ins-horas').value='480';
+  document.getElementById('modal-inscribir').classList.add('open');
+}
+function closeInscribirModal(){document.getElementById('modal-inscribir').classList.remove('open');}
+
+function saveInscribir(){
+  const nombre=document.getElementById('ins-nombre').value.trim();
+  const apellido=document.getElementById('ins-apellido').value.trim();
+  const carrera=document.getElementById('ins-carrera').value.trim();
+  const uni=document.getElementById('ins-uni').value.trim();
+  const tipo=document.getElementById('ins-tipo').value;
+  const horas=parseInt(document.getElementById('ins-horas').value)||480;
+  const email=document.getElementById('ins-email').value.trim();
+  const notas=document.getElementById('ins-notas').value.trim();
+  if(!nombre||!apellido||!carrera||!uni){toast('❌','Completa nombre, apellidos, carrera y universidad.');return;}
+  const ses=getSes();if(!ses)return;
+  const arr=getEmpStudents(ses.email);
+  const ini=(nombre[0]+(apellido[0]||'?')).toUpperCase();
+  arr.push({id:ini+Date.now().toString().slice(-3),nombre:`${nombre} ${apellido}`,carrera:`${carrera} · ${uni} · ${tipo}`,asist:100,horas:0,horasTotal:horas,faltas:0,act:0,actTotal:10,notas:notas,email:email||''});
+  saveEmpStudents(ses.email,arr);
+  closeInscribirModal();
+  renderEstudiantes(ses.email);
+  toast('✅',`¡${nombre} ${apellido} inscrito correctamente!`);
+}
+
+// ═══════════════════════════════════════════════
+// VACANTES (EMPRESA) — publish + edit
+// ═══════════════════════════════════════════════
+function getEmpVacantes(email){
+  try{return JSON.parse(localStorage.getItem('nexu_vacantes_'+email))||[];}catch{return[];}
+}
+function saveEmpVacantes(email,arr){
+  localStorage.setItem('nexu_vacantes_'+email,JSON.stringify(arr));
+}
+
+function openPublishModal(idx=-1){
+  const ses=getSes();if(!ses)return;
+  document.getElementById('edit-vac-index').value=idx;
+  if(idx>=0){
+    const v=getEmpVacantes(ses.email)[idx];
+    document.getElementById('modal-publish-title').textContent='✏️ Editar vacante';
+    document.getElementById('vac-puesto').value=v.puesto||'';
+    document.getElementById('vac-tipo').value=v.tipo||'Estadía';
+    document.getElementById('vac-modalidad').value=v.modalidad||'Presencial';
+    document.getElementById('vac-horas').value=v.horas||'';
+    document.getElementById('vac-carrera').value=v.carrera||'';
+    document.getElementById('vac-desc').value=v.desc||'';
+    document.getElementById('vac-horario').value=v.horario||'';
+  } else {
+    document.getElementById('modal-publish-title').textContent='📢 Publicar nueva vacante';
+    ['vac-puesto','vac-horas','vac-carrera','vac-desc','vac-horario'].forEach(id=>document.getElementById(id).value='');
+    document.getElementById('vac-tipo').value='Estadía';
+    document.getElementById('vac-modalidad').value='Presencial';
+  }
+  document.getElementById('modal-publish').classList.add('open');
+}
+function closePublishModal(){document.getElementById('modal-publish').classList.remove('open');}
+
+function saveVacante(){
+  const ses=getSes();if(!ses)return;
+  const puesto=document.getElementById('vac-puesto').value.trim();
+  if(!puesto){toast('❌','El nombre del puesto es obligatorio.');return;}
+  const v={
+    puesto,
+    tipo:document.getElementById('vac-tipo').value,
+    modalidad:document.getElementById('vac-modalidad').value,
+    horas:document.getElementById('vac-horas').value.trim(),
+    carrera:document.getElementById('vac-carrera').value.trim(),
+    desc:document.getElementById('vac-desc').value.trim(),
+    horario:document.getElementById('vac-horario').value.trim(),
+    fecha:new Date().toLocaleDateString('es-MX',{day:'numeric',month:'short',year:'numeric'}),
+    vistas:Math.floor(Math.random()*20),
+    postulaciones:Math.floor(Math.random()*5)
+  };
+  const arr=getEmpVacantes(ses.email);
+  const idx=parseInt(document.getElementById('edit-vac-index').value);
+  if(idx>=0){arr[idx]=v;toast('✅','Vacante actualizada correctamente');}
+  else{arr.push(v);toast('📢','¡Vacante publicada exitosamente!');}
+  saveEmpVacantes(ses.email,arr);
+  closePublishModal();
+  renderMisVacantes(ses.email);
+  // update stat
+  document.getElementById('stat-posts').textContent=arr.length;
+}
+
+function deleteVacante(idx){
+  if(!confirm('¿Eliminar esta vacante?'))return;
+  const ses=getSes();if(!ses)return;
+  const arr=getEmpVacantes(ses.email);
+  arr.splice(idx,1);
+  saveEmpVacantes(ses.email,arr);
+  renderMisVacantes(ses.email);
+  document.getElementById('stat-posts').textContent=arr.length;
+  toast('🗑️','Vacante eliminada');
+}
+
+function acceptCandidate(nombre,carrera,ini,hrs,btn){
+  if(!confirm('¿Aceptar a '+nombre+' como nuevo practicante? Se agregará automáticamente a Gestión de Estudiantes.'))return;
+  addStudentFromCandidate(nombre,carrera,ini,hrs);
+  btn.closest('.vcard').style.opacity='.5';
+  btn.closest('.vcard').style.pointerEvents='none';
+  const label=btn.closest('.vcard').querySelector('.vbtn.norm');
+  btn.textContent='✅ Aceptado';
+  btn.style.background='var(--success)';
+  toast('🎉','¡'+nombre+' aceptado! Ve a Gestión de Estudiantes para ver su perfil.');
+}
+
+function renderMisVacantes(email){
+  const arr=getEmpVacantes(email);
+  const grid=document.getElementById('mis-vacantes-grid');
+  if(!grid)return;
+  let html=arr.map((v,i)=>`
+    <div class="vcard">
+      <div class="vtop"><div class="vlogo">🏢</div><div class="vtag norm">Activa</div></div>
+      <div class="vnombre">${v.puesto}</div>
+      <div class="vempresa">Publicada el ${v.fecha}</div>
+      <div class="vmeta"><span>👁️ ${v.vistas} vistas</span><span>📋 ${v.postulaciones} postulaciones</span><span>💼 ${v.modalidad}</span></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin-top:1rem">
+        <button class="vbtn norm" style="margin:0" onclick="openPublishModal(${i})">✏️ Editar</button>
+        <button class="vbtn" style="margin:0;background:#FEE2E2;color:#991B1B;border:none;cursor:pointer;padding:.65rem;border-radius:50px;font-family:'DM Sans',sans-serif;font-size:.85rem;font-weight:600;transition:all .2s" onclick="deleteVacante(${i})">🗑️ Eliminar</button>
+      </div>
+    </div>`).join('');
+  html+=`<div class="vcard" style="border:1.5px dashed var(--border);background:var(--off-white);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;min-height:200px;">
+    <div style="font-size:2rem;margin-bottom:.8rem;opacity:.4">➕</div>
+    <div style="font-weight:600;color:var(--gray);margin-bottom:.4rem">Nueva vacante</div>
+    <div style="font-size:.82rem;color:var(--gray);margin-bottom:1rem">Encuentra al practicante ideal</div>
+    <button class="vbtn norm" style="width:auto;padding:.6rem 1.4rem" onclick="openPublishModal()">+ Publicar vacante</button>
+  </div>`;
+  grid.innerHTML=html;
+}
+
+// ═══════════════════════════════════════════════
+// ESTUDIANTES (EMPRESA) — dynamic + editable
+// ═══════════════════════════════════════════════
+const DEFAULT_STUDENTS=[
+  {id:'CM',nombre:'Carlos Mendoza',carrera:'Ing. Financiera · Estadía',asist:94,horas:186,horasTotal:480,faltas:1,act:7,actTotal:10,notas:''},
+  {id:'LG',nombre:'Laura González',carrera:'Ing. en TI · Práctica',asist:97,horas:200,horasTotal:240,faltas:0,act:8,actTotal:8,notas:''},
+  {id:'DR',nombre:'Diego Ramírez',carrera:'Administración · Servicio Social',asist:82,horas:100,horasTotal:480,faltas:4,act:3,actTotal:10,notas:'Requiere seguimiento'},
+];
+
+function getEmpStudents(email){
+  try{
+    const d=JSON.parse(localStorage.getItem('nexu_students_'+email));
+    return d||JSON.parse(JSON.stringify(DEFAULT_STUDENTS));
+  }catch{return JSON.parse(JSON.stringify(DEFAULT_STUDENTS));}
+}
+function saveEmpStudents(email,arr){localStorage.setItem('nexu_students_'+email,JSON.stringify(arr));}
+
+function renderEstudiantes(email){
+  const arr=getEmpStudents(email);
+  const list=document.getElementById('estudiantes-list');
+  if(!list)return;
+  // update summary stats
+  const avgAsist=Math.round(arr.reduce((s,e)=>s+e.asist,0)/arr.length);
+  const totalHrs=arr.reduce((s,e)=>s+e.horas,0);
+  const totalAct=arr.reduce((s,e)=>s+e.act,0);
+  const sumEl=document.getElementById('emp-sum-asist');
+  const hrsEl=document.getElementById('emp-sum-horas');
+  const actEl=document.getElementById('emp-sum-act');
+  const cntEl=document.getElementById('emp-sum-count');
+  if(sumEl)sumEl.textContent=avgAsist+'%';
+  if(hrsEl)hrsEl.textContent=totalHrs;
+  if(actEl)actEl.textContent=totalAct;
+  if(cntEl)cntEl.textContent=arr.length;
+
+  list.innerHTML=arr.map((e,i)=>{
+    const status=e.asist>=90&&e.faltas<=2?
+      '<span style="background:#DCFCE7;color:#166534;border:1px solid #86EFAC;padding:.25rem .7rem;border-radius:50px;font-size:.75rem;font-weight:700">✅ Al corriente</span>':
+      '<span style="background:#FEF3C7;color:#92400E;border:1px solid #F59E0B;padding:.25rem .7rem;border-radius:50px;font-size:.75rem;font-weight:700">⚠️ Revisar</span>';
+    const asistColor=e.asist>=90?'var(--success)':e.asist>=75?'var(--gold)':'#EF4444';
+    const faltasColor=e.faltas<=2?'var(--success)':e.faltas<=4?'var(--gold)':'#EF4444';
+    return `<div style="background:var(--off-white);border-radius:14px;padding:1.2rem;border:1px solid var(--border)">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.8rem;flex-wrap:wrap;gap:.5rem">
+        <div style="display:flex;align-items:center;gap:.8rem">
+          <div style="width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--purple),var(--purple-light));color:white;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.85rem">${e.id}</div>
+          <div><div style="font-weight:600;font-size:.95rem">${e.nombre}</div><div style="font-size:.78rem;color:var(--gray)">${e.carrera}</div>${e.notas?'<div style="font-size:.75rem;color:var(--gold);margin-top:.1rem">📝 '+e.notas+'</div>':''}</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:.4rem;flex-wrap:wrap">${status}<button onclick="openEstModal(${i})" style="background:var(--purple);color:white;border:none;padding:.35rem .8rem;border-radius:50px;font-size:.72rem;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;">✏️ Editar</button><button onclick="deleteEstudiante(${i})" style="background:#FEE2E2;color:#991B1B;border:none;padding:.35rem .8rem;border-radius:50px;font-size:.72rem;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;">🗑️ Dar de baja</button></div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:.6rem">
+        <div style="text-align:center;background:white;border-radius:8px;padding:.6rem;border:1px solid var(--border)"><div style="font-size:.65rem;color:var(--gray);margin-bottom:.2rem">ASISTENCIAS</div><div style="font-weight:700;color:${asistColor}">${e.asist}%</div></div>
+        <div style="text-align:center;background:white;border-radius:8px;padding:.6rem;border:1px solid var(--border)"><div style="font-size:.65rem;color:var(--gray);margin-bottom:.2rem">HORAS</div><div style="font-weight:700;color:var(--purple)">${e.horas}/${e.horasTotal}</div></div>
+        <div style="text-align:center;background:white;border-radius:8px;padding:.6rem;border:1px solid var(--border)"><div style="font-size:.65rem;color:var(--gray);margin-bottom:.2rem">ACTIVIDADES</div><div style="font-weight:700;color:var(--gold)">${e.act}/${e.actTotal}</div></div>
+        <div style="text-align:center;background:white;border-radius:8px;padding:.6rem;border:1px solid var(--border)"><div style="font-size:.65rem;color:var(--gray);margin-bottom:.2rem">FALTAS</div><div style="font-weight:700;color:${faltasColor}">${e.faltas}</div></div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function openEstModal(idx){
+  const ses=getSes();if(!ses)return;
+  const arr=getEmpStudents(ses.email);const e=arr[idx];
+  document.getElementById('edit-est-id').value=idx;
+  document.getElementById('est-edit-nombre').value=e.nombre;
+  document.getElementById('est-edit-asist').value=e.asist;
+  document.getElementById('est-edit-horas').value=e.horas;
+  document.getElementById('est-edit-horas-total').value=e.horasTotal;
+  document.getElementById('est-edit-faltas').value=e.faltas;
+  document.getElementById('est-edit-act').value=e.act;
+  document.getElementById('est-edit-act-total').value=e.actTotal;
+  document.getElementById('est-edit-notas').value=e.notas||'';
+  document.getElementById('modal-est-title').textContent='✏️ Editar — '+e.nombre;
+  document.getElementById('modal-estudiante').classList.add('open');
+}
+function closeEstModal(){document.getElementById('modal-estudiante').classList.remove('open');}
+
+function deleteEstudiante(idx){
+  if(!confirm('¿Dar de baja a este estudiante? Esta acción no se puede deshacer.'))return;
+  const ses=getSes();if(!ses)return;
+  const arr=getEmpStudents(ses.email);
+  const nombre=arr[idx].nombre;
+  arr.splice(idx,1);
+  saveEmpStudents(ses.email,arr);
+  renderEstudiantes(ses.email);
+  toast('🗑️',nombre+' fue dado de baja correctamente');
+}
+
+function addStudentFromCandidate(nombre,carrera,ini,horasTotal){
+  const ses=getSes();if(!ses)return;
+  const arr=getEmpStudents(ses.email);
+  arr.push({
+    id:ini,nombre,carrera:carrera+' · Recién ingresado',
+    asist:100,horas:0,horasTotal:parseInt(horasTotal)||480,
+    faltas:0,act:0,actTotal:10,notas:'Nuevo ingreso'
+  });
+  saveEmpStudents(ses.email,arr);
+  renderEstudiantes(ses.email);
+  // Update count stat
+  document.getElementById('stat-num-extra').textContent=arr.length;
+  toast('🎉',nombre+' fue agregado a Gestión de Estudiantes');
+}
+
+function saveEstudiante(){
+  const ses=getSes();if(!ses)return;
+  const idx=parseInt(document.getElementById('edit-est-id').value);
+  const arr=getEmpStudents(ses.email);
+  arr[idx]={
+    ...arr[idx],
+    asist:parseInt(document.getElementById('est-edit-asist').value)||0,
+    horas:parseInt(document.getElementById('est-edit-horas').value)||0,
+    horasTotal:parseInt(document.getElementById('est-edit-horas-total').value)||480,
+    faltas:parseInt(document.getElementById('est-edit-faltas').value)||0,
+    act:parseInt(document.getElementById('est-edit-act').value)||0,
+    actTotal:parseInt(document.getElementById('est-edit-act-total').value)||10,
+    notas:document.getElementById('est-edit-notas').value.trim()
+  };
+  saveEmpStudents(ses.email,arr);
+  closeEstModal();
+  renderEstudiantes(ses.email);
+  toast('✅','Datos actualizados correctamente');
+}
+
+// ═══════════════════════════════════════════════
+// MENSAJES
+// ═══════════════════════════════════════════════
+const DEFAULT_CONTACTS_EST=[
+  {id:'c1',ini:'CI',name:'CIVAC Industrial',sub:'Empresa · Estadía en Finanzas',msgs:[
+    {me:false,txt:'Hola, vimos tu perfil y nos interesa tu candidatura.',t:'10:30 AM'},
+    {me:true,txt:'¡Muchas gracias! Me interesa mucho la oportunidad.',t:'10:45 AM'},
+    {me:false,txt:'¿Podrías venir el lunes a una entrevista a las 10am?',t:'11:00 AM'},
+  ]},
+  {id:'c2',ini:'TM',name:'Tech Morelos',sub:'Empresa · Practicante TI',msgs:[
+    {me:false,txt:'Buenos días, estamos revisando tu solicitud.',t:'Ayer'},
+  ]},
+];
+const DEFAULT_CONTACTS_EMP=[
+  {id:'e1',ini:'CM',name:'Carlos Mendoza',sub:'Ing. Financiera · Estadía',msgs:[
+    {me:true,txt:'Hola Carlos, nos interesa tu perfil para la estadía.',t:'10:30 AM'},
+    {me:false,txt:'¡Muchas gracias! Estoy muy interesado.',t:'10:50 AM'},
+  ]},
+  {id:'e2',ini:'LG',name:'Laura González',sub:'Ing. TI · Práctica',msgs:[
+    {me:false,txt:'Buenos días, ¿cuándo podría empezar?',t:'Ayer'},
+  ]},
+];
+
+let activeContact=null;
+let currentContacts=[];
+
+function getMsgs(userEmail,contactId){
+  try{return JSON.parse(localStorage.getItem('nexu_msgs_'+userEmail+'_'+contactId))||null;}catch{return null;}
+}
+function saveMsgs(userEmail,contactId,msgs){localStorage.setItem('nexu_msgs_'+userEmail+'_'+contactId,JSON.stringify(msgs));}
+
+function initMensajes(user){
+  const isEmp=user.tipo==='Empresa';
+  const defaults=isEmp?DEFAULT_CONTACTS_EMP:DEFAULT_CONTACTS_EST;
+  currentContacts=defaults.map(c=>{
+    const stored=getMsgs(user.email,c.id);
+    return {...c,msgs:stored||c.msgs};
+  });
+  renderMsgList();
+}
+
+function renderMsgList(){
+  const list=document.getElementById('msg-list');if(!list)return;
+  list.innerHTML=currentContacts.map((c,i)=>`
+    <div class="msg-contact ${activeContact===i?'active':''}" onclick="openChat(${i})">
+      <div class="msg-contact-av">${c.ini}</div>
+      <div style="flex:1;min-width:0">
+        <div class="msg-contact-name">${c.name}</div>
+        <div class="msg-contact-last">${c.msgs.length?c.msgs[c.msgs.length-1].txt:'Sin mensajes'}</div>
+      </div>
+      ${i===0&&activeContact!==0?'<div class="msg-unread">1</div>':''}
+    </div>`).join('');
+}
+
+function openChat(idx){
+  activeContact=idx;
+  const c=currentContacts[idx];
+  renderMsgList();
+  document.getElementById('msg-empty').style.display='none';
+  const active=document.getElementById('msg-chat-active');
+  active.style.display='flex';
+  document.getElementById('chat-av').textContent=c.ini;
+  document.getElementById('chat-name').textContent=c.name;
+  document.getElementById('chat-sub').textContent=c.sub;
+  renderChatBody(c);
+}
+
+function renderChatBody(c){
+  const body=document.getElementById('chat-body');
+  body.innerHTML=c.msgs.map(m=>`
+    <div>
+      <div class="msg-bubble ${m.me?'me':'them'}">${m.txt}</div>
+      <div class="msg-time ${m.me?'right':''}">${m.t}</div>
+    </div>`).join('');
+  body.scrollTop=body.scrollHeight;
+}
+
+const REPLIES_EMP_TO_EST=[
+  'Gracias por tu interés. Nos gustaría agendar una entrevista. ¿Tienes disponibilidad esta semana?',
+  'Recibimos tu mensaje. Estamos revisando tu perfil y te contactaremos en los próximos días.',
+  'Con gusto. ¿Podrías enviarnos tu CV actualizado y una carta de presentación de tu universidad?',
+  'Perfecto. La estadía es de 480 horas en modalidad presencial. ¿Tienes disponibilidad de lunes a viernes?',
+  'Excelente, tu perfil encaja muy bien con lo que buscamos. ¿Cuándo podrías iniciar?',
+  'Entendido. El proceso de selección incluye una entrevista con el jefe de área. ¿Estarías disponible el próximo lunes a las 10am?',
+  'Gracias por escribirnos. Necesitaríamos que tu institución nos envíe el oficio de presentación antes de iniciar.',
+];
+const REPLIES_EST_TO_EMP=[
+  'Muchas gracias por la oportunidad. Sí puedo ir a la entrevista el lunes, ¿a qué hora?',
+  'Claro, con mucho gusto. Le adjunto mi CV y en cuanto tenga el oficio de mi universidad se lo hago llegar.',
+  'Perfecto, tengo disponibilidad completa de lunes a viernes. ¿Hay algún requisito adicional de mi institución?',
+  'Entendido, muchas gracias. ¿Me podría confirmar la dirección exacta de la empresa para la entrevista?',
+  'Muchas gracias. ¿El horario sería de 8 a 14 horas o podría ser en otro turno?',
+  'Claro que sí. Ya le comenté a mi coordinador y él enviará el convenio esta semana.',
+  'Gracias, me interesa mucho. ¿La estadía incluye algún apoyo económico o es solo por créditos?',
+];
+
+function sendMsg(){
+  if(activeContact===null)return;
+  const input=document.getElementById('msg-input');
+  const txt=input.value.trim();if(!txt)return;
+  const ses=getSes();if(!ses)return;
+  const user=getU()[ses.email];
+  const isEmp=user.tipo==='Empresa';
+  const c=currentContacts[activeContact];
+  const now=new Date().toLocaleTimeString('es-MX',{hour:'2-digit',minute:'2-digit'});
+  c.msgs.push({me:true,txt,t:now});
+  saveMsgs(ses.email,c.id,c.msgs);
+  input.value='';
+  renderChatBody(c);
+  renderMsgList();
+  // Simulate reply after 1.2-2.5s with realistic context-aware response
+  const delay=1200+Math.random()*1300;
+  setTimeout(()=>{
+    const pool=isEmp?REPLIES_EMP_TO_EST:REPLIES_EST_TO_EMP;
+    const reply=pool[Math.floor(Math.random()*pool.length)];
+    c.msgs.push({me:false,txt:reply,t:new Date().toLocaleTimeString('es-MX',{hour:'2-digit',minute:'2-digit'})});
+    saveMsgs(ses.email,c.id,c.msgs);
+    renderChatBody(c);renderMsgList();
+  },delay);
+}
+
+
+// ═══════════════════════════════════════════════
+// VER PERFIL CANDIDATO (empresa)
+// ═══════════════════════════════════════════════
+const CV_DATA=[
+  {habilidades:['Análisis financiero','Excel avanzado','Power BI','SAP básico'],idiomas:'Español nativo · Inglés B2',exp:'Auxiliar contable — Despacho Martínez (6 meses)',logros:'Promedio 9.1 · Beca académica 2024–2025',foto:'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=80&h=80&fit=crop&crop=face'},
+  {habilidades:['Python','JavaScript','MySQL','Redes Cisco','Git'],idiomas:'Español nativo · Inglés B1',exp:'Soporte TI — Municipio de Jiutepec (3 meses)',logros:'Promedio 8.8 · Participante Hackathon UPEMOR 2024',foto:'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=80&h=80&fit=crop&crop=face'},
+  {habilidades:['Administración de proyectos','Office 365','Atención al cliente','Logística'],idiomas:'Español nativo · Inglés básico',exp:'Asistente administrativo — Tienda Coppel (8 meses)',logros:'Promedio 8.5 · Líder de equipo en servicio social',foto:'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=80&h=80&fit=crop&crop=face'},
+  {habilidades:['AutoCAD','SolidWorks','Lean Manufacturing','Control de calidad'],idiomas:'Español nativo · Inglés B2 · Francés básico',exp:'Pasante en línea de producción — CIVAC (1 mes)',logros:'Promedio 9.3 · Premio al mejor proyecto de titulación 2025',foto:'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=80&h=80&fit=crop&crop=face'},
+  {habilidades:['GIS','AutoCAD','Auditorías ambientales','NOM-059'],idiomas:'Español nativo · Inglés B1',exp:'Voluntario — Reserva de la Biósfera Sierra de Huautla',logros:'Promedio 8.7 · Ponencia en Congreso Ambiental UAEM 2024',foto:'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=80&h=80&fit=crop&crop=face'},
+  {habilidades:['HPLC','PCR','Cultivo celular','Buenas Prácticas de Lab.','R estadístico'],idiomas:'Español nativo · Inglés C1',exp:'Auxiliar de laboratorio — UAEM Centro de Investigación',logros:'Promedio 9.5 · Coautora artículo científico RMIB 2025',foto:'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=80&h=80&fit=crop&crop=face'},
+];
+
+function verPerfilCandidato(idx){
+  const cd=CANDIDATOS[idx];
+  const cv=CV_DATA[idx]||CV_DATA[0];
+  const ses=getSes();const user=ses?getU()[ses.email]:null;
+  const sols=user?getSolicitudes(user.email):[];
+  const sol=sols.find(s=>s.estNombre===cd.nombre);
+  const estSol=sol?sol.estado:'ninguno';
+  document.getElementById('mpc-title').textContent='👤 '+cd.nombre;
+  document.getElementById('mpc-sub').textContent=cd.carrera+' · '+cd.sem;
+  let estadoBadge='';
+  if(estSol==='pendiente') estadoBadge='<span style="background:#FEF3C7;color:#92400E;border:1px solid #F59E0B;padding:.25rem .7rem;border-radius:50px;font-size:.75rem;font-weight:700">⏳ Oferta enviada — pendiente</span>';
+  else if(estSol==='aceptado') estadoBadge='<span style="background:#DCFCE7;color:#166534;border:1px solid #86EFAC;padding:.25rem .7rem;border-radius:50px;font-size:.75rem;font-weight:700">✅ Aceptó tu oferta</span>';
+  else if(estSol==='rechazado') estadoBadge='<span style="background:#FEE2E2;color:#991B1B;border:1px solid #FCA5A5;padding:.25rem .7rem;border-radius:50px;font-size:.75rem;font-weight:700">❌ Rechazó tu oferta</span>';
+  document.getElementById('mpc-body').innerHTML=`
+    <div style="display:flex;align-items:center;gap:1.2rem;margin-bottom:1.5rem;padding-bottom:1.5rem;border-bottom:1px solid var(--border)">
+      <img src="${cv.foto}" alt="${cd.nombre}" style="width:72px;height:72px;border-radius:50%;object-fit:cover;border:3px solid var(--border)">
+      <div>
+        <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:1.1rem">${cd.nombre}</div>
+        <div style="color:var(--gray);font-size:.85rem">${cd.carrera}</div>
+        <div style="color:var(--gray);font-size:.82rem">📚 ${cd.sem} · 💼 ${cd.disp} · 🕐 ${cd.hrs}</div>
+        ${estadoBadge?'<div style="margin-top:.5rem">'+estadoBadge+'</div>':''}
+      </div>
+    </div>
+    <div style="display:grid;gap:1rem">
+      <div class="pf"><div class="pf-lbl">💼 Experiencia previa</div><div class="pf-val" style="font-size:.9rem">${cv.exp}</div></div>
+      <div class="pf"><div class="pf-lbl">🛠️ Habilidades técnicas</div><div style="display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.4rem">${cv.habilidades.map(h=>`<span style="background:rgba(75,29,142,.08);color:var(--purple-mid);border:1px solid rgba(75,29,142,.15);padding:.2rem .65rem;border-radius:50px;font-size:.78rem;font-weight:600">${h}</span>`).join('')}</div></div>
+      <div class="pf"><div class="pf-lbl">🌐 Idiomas</div><div class="pf-val" style="font-size:.9rem">${cv.idiomas}</div></div>
+      <div class="pf"><div class="pf-lbl">🏆 Logros académicos</div><div class="pf-val" style="font-size:.9rem">${cv.logros}</div></div>
+    </div>`;
+  const footer=document.getElementById('mpc-footer');
+  if(estSol==='ninguno'){
+    footer.innerHTML=`<button class="btn-mf-cancel" onclick="document.getElementById('modal-perfil-candidato').classList.remove('open')">Cerrar</button><button class="btn-mf-save" onclick="contactarCandidato('${cd.nombre.replace(/'/g,"\\'")}','${user?.email||''}',${idx});document.getElementById('modal-perfil-candidato').classList.remove('open')">📩 Enviar oferta</button>`;
+  } else {
+    footer.innerHTML=`<button class="btn-mf-save" onclick="document.getElementById('modal-perfil-candidato').classList.remove('open')">Cerrar</button>`;
+  }
+  document.getElementById('modal-perfil-candidato').classList.add('open');
+}
+
+function contactarCandidato(nombre,empEmail,idx){
+  if(!empEmail)return;
+  const sols=getSolicitudes(empEmail);
+  if(sols.find(s=>s.estNombre===nombre)){toast('ℹ️','Ya enviaste una oferta a '+nombre);return;}
+  const cd=CANDIDATOS[idx];
+  const now=new Date().toLocaleDateString('es-MX',{day:'numeric',month:'short',year:'numeric'});
+  sols.push({estNombre:cd.nombre,estCarrera:cd.carrera,vacante:'Oferta directa',empresa:'Tu empresa',estado:'pendiente',fecha:now,estEmail:''});
+  saveSolicitudes(empEmail,sols);
+  renderSolicitudes(empEmail);
+  const ses=getSes();if(ses)loadVacantes(getU()[ses.email]);
+  toast('📩','Oferta enviada a '+nombre+' — visible en Seguimiento');
+  // Simulate response after 4s
+  setTimeout(()=>{
+    const r=Math.random();
+    const s2=getSolicitudes(empEmail);
+    const si=s2.findIndex(s=>s.estNombre===nombre&&s.vacante==='Oferta directa');
+    if(si<0)return;
+    s2[si].estado=r<0.65?'aceptado':'rechazado';
+    saveSolicitudes(empEmail,s2);
+    renderSolicitudes(empEmail);
+    const ses2=getSes();if(ses2)loadVacantes(getU()[ses2.email]);
+    toast(r<0.65?'🎉':'❌', r<0.65?nombre+' aceptó tu oferta':nombre+' no está disponible en este momento');
+  },4000+Math.random()*3000);
+}
+
+// ═══════════════════════════════════════════════
+// VER ESTUDIANTES UNIVERSIDAD
+// ═══════════════════════════════════════════════
+const NOMBRES_UNI=[
+  ['Ana García','Miguel Torres','Sofía Ramos','José Hernández','Valentina Cruz'],
+  ['Luis Mendoza','Paola Jiménez','Rodrigo Flores','Camila López','Emilio Vargas'],
+  ['Diana Martínez','Alejandro Ruiz','Fernanda Castillo','Omar Reyes','Isabella Morales'],
+];
+
+function verEstudiantesUni(uni,ciudad,total,carreras){
+  document.getElementById('mue-title').textContent='🎓 '+uni+' — Estudiantes disponibles';
+  document.getElementById('mue-sub').textContent=ciudad+' · '+total+' estudiantes disponibles';
+  const nombres=NOMBRES_UNI[Math.abs(uni.charCodeAt(0)-65)%NOMBRES_UNI.length];
+  const sems=['6to','7mo','8vo','9no'];
+  const disps=['Presencial','Híbrida','Remota'];
+  const rows=nombres.map((n,i)=>{
+    const carrera=carreras[i%carreras.length];
+    const ini=n.split(' ').map(p=>p[0]).join('').substring(0,2);
+    return `<div style="display:flex;align-items:center;justify-content:space-between;padding:.9rem;background:var(--off-white);border-radius:12px;border:1px solid var(--border);margin-bottom:.6rem;flex-wrap:wrap;gap:.5rem">
+      <div style="display:flex;align-items:center;gap:.8rem">
+        <div style="width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--purple),var(--purple-light));color:white;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.8rem;flex-shrink:0">${ini}</div>
+        <div>
+          <div style="font-weight:600;font-size:.9rem">${n}</div>
+          <div style="font-size:.78rem;color:var(--gray)">${carrera} · ${sems[i%sems.length]} sem · ${disps[i%disps.length]}</div>
+        </div>
+      </div>
+      <button onclick="toast('📩','Solicitud enviada a ${n} via ${uni}')" style="background:var(--purple);color:white;border:none;padding:.4rem .9rem;border-radius:50px;font-family:\'DM Sans\',sans-serif;font-size:.78rem;font-weight:600;cursor:pointer">Contactar →</button>
+    </div>`;
+  }).join('');
+  document.getElementById('mue-body').innerHTML=`
+    <div style="display:flex;gap:.4rem;flex-wrap:wrap;margin-bottom:1rem">
+      ${carreras.map(c=>`<span style="background:rgba(75,29,142,.08);color:var(--purple-mid);border:1px solid rgba(75,29,142,.15);padding:.2rem .6rem;border-radius:50px;font-size:.76rem;font-weight:600">📚 ${c}</span>`).join('')}
+    </div>${rows}
+    <p style="text-align:center;font-size:.78rem;color:var(--gray);margin-top:.5rem">Mostrando 5 de ${total} estudiantes disponibles este periodo</p>`;
+  document.getElementById('modal-uni-estudiantes').classList.add('open');
+}
+
+function sugerirUniversidad(){
+  const inp=document.getElementById('uni-sugerir-input');
+  const val=(inp?.value||'').trim();
+  if(!val){toast('❌','Escribe el nombre de la universidad');return;}
+  inp.value='';
+  toast('📩','¡Gracias! Revisaremos "'+val+'" y la agregaremos pronto.');
+}
+
+
+// ═══════════════════════════════════════════════
+// PHOTO UPLOAD
+// ═══════════════════════════════════════════════
+function handlePhotoUpload(input){
+  const file=input.files[0];if(!file)return;
+  if(file.size>3*1024*1024){toast('❌','La imagen debe ser menor a 3 MB');return;}
+  const reader=new FileReader();
+  reader.onload=function(e){
+    const ses=getSes();if(!ses)return;
+    const src=e.target.result;
+    localStorage.setItem('nexu_photo_'+ses.email,src);
+    const pav=document.getElementById('prof-av');
+    if(pav)pav.innerHTML='<img src="'+src+'" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" alt="foto">';
+    const empLogo=document.getElementById('emp-logo-display');
+    if(empLogo)empLogo.innerHTML='<img src="'+src+'" style="width:100%;height:100%;object-fit:cover;border-radius:12px;" alt="logo">';
+    const sbAv=document.getElementById('sb-av');
+    if(sbAv)sbAv.innerHTML='<img src="'+src+'" style="width:42px;height:42px;border-radius:50%;object-fit:cover;" alt="foto">';
+    toast('✅','Foto actualizada correctamente');
+  };
+  reader.readAsDataURL(file);
+}
+
+// ═══════════════════════════════════════════════
+// CV UPLOAD
+// ═══════════════════════════════════════════════
+function handleCVUpload(input){
+  const file=input.files[0];if(!file)return;
+  if(file.size>5*1024*1024){toast('❌','El archivo debe ser menor a 5 MB');return;}
+  const ses=getSes();if(!ses)return;
+  const cvData={name:file.name,date:new Date().toLocaleDateString('es-MX',{day:'numeric',month:'long',year:'numeric'})};
+  localStorage.setItem('nexu_cv_'+ses.email,JSON.stringify(cvData));
+  showCVUploaded(cvData);
+  toast('📄','CV subido. Las empresas ya pueden verlo.');
+}
+function loadCVInfo(email){
+  try{
+    const d=JSON.parse(localStorage.getItem('nexu_cv_'+email));
+    if(d){showCVUploaded(d);}
+    else{
+      const ua=document.getElementById('cv-upload-area');
+      const uv=document.getElementById('cv-uploaded-view');
+      if(ua)ua.style.display='block';
+      if(uv)uv.style.display='none';
+    }
+  }catch{
+    const ua=document.getElementById('cv-upload-area');
+    const uv=document.getElementById('cv-uploaded-view');
+    if(ua)ua.style.display='block';
+    if(uv)uv.style.display='none';
+  }
+}
+function showCVUploaded(d){
+  const ua=document.getElementById('cv-upload-area');
+  const uv=document.getElementById('cv-uploaded-view');
+  const fn=document.getElementById('cv-file-name');
+  const fd=document.getElementById('cv-file-date');
+  if(ua)ua.style.display='none';
+  if(uv)uv.style.display='block';
+  if(fn)fn.textContent=d.name;
+  if(fd)fd.textContent='Subido el '+d.date;
+}
+function removeCV(){
+  if(!confirm('¿Eliminar tu CV?'))return;
+  const ses=getSes();if(!ses)return;
+  localStorage.removeItem('nexu_cv_'+ses.email);
+  const ua=document.getElementById('cv-upload-area');
+  const uv=document.getElementById('cv-uploaded-view');
+  const ci=document.getElementById('cv-input');
+  if(ua)ua.style.display='block';
+  if(uv)uv.style.display='none';
+  if(ci)ci.value='';
+  toast('🗑️','CV eliminado');
+}
+
+// ═══════════════════════════════════════════════
+// ADDITIONAL INFO
+// ═══════════════════════════════════════════════
+function loadAddInfo(email,isEmp){
+  try{
+    const d=JSON.parse(localStorage.getItem('nexu_addinfo_'+email))||{};
+    if(!isEmp){
+      ['habilidades','idiomas','experiencia','logros','bio'].forEach(function(k){
+        const el=document.getElementById('ai-'+k);
+        if(el)el.value=d[k]||'';
+      });
+    } else {
+      ['sector','size','ubicacion','web','desc-perfil','beneficios'].forEach(function(k){
+        const el=document.getElementById('emp-'+k);
+        if(el)el.value=d[k]||'';
+      });
+      // Update hero sector display
+      if(d.sector){const hs=document.getElementById('emp-hero-sector');if(hs)hs.textContent=d.sector;}
+    }
+  }catch(e){}
+}
+function saveAddInfo(){
+  const ses=getSes();if(!ses)return;
+  const d={};
+  ['habilidades','idiomas','experiencia','logros','bio'].forEach(function(k){
+    const el=document.getElementById('ai-'+k);
+    if(el)d[k]=el.value;
+  });
+  localStorage.setItem('nexu_addinfo_'+ses.email,JSON.stringify(d));
+}
+function saveEmpInfo(){
+  const ses=getSes();if(!ses)return;
+  const d={};
+  ['sector','size','ubicacion','web','desc-perfil','beneficios'].forEach(function(k){
+    const el=document.getElementById('emp-'+k);
+    if(el)d[k]=el.value;
+  });
+  localStorage.setItem('nexu_addinfo_'+ses.email,JSON.stringify(d));
+}
+function updateEmpHero(){
+  const sector=document.getElementById('emp-sector');
+  const heroSec=document.getElementById('emp-hero-sector');
+  if(sector&&heroSec&&sector.value)heroSec.textContent=sector.value;
+}
+
+// ═══════════════════════════════════════════════
+// MOBILE SIDEBAR
+// ═══════════════════════════════════════════════
+function toggleMobSidebar(){
+  const sb=document.getElementById('main-sidebar');
+  const ov=document.getElementById('sidebar-overlay');
+  const hb=document.getElementById('hamburger-btn');
+  const open=sb.classList.toggle('mob-open');
+  ov.classList.toggle('open',open);
+  hb.classList.toggle('open',open);
+  document.body.style.overflow=open?'hidden':'';
+}
+function closeMobSidebar(){
+  const sb=document.getElementById('main-sidebar');
+  const ov=document.getElementById('sidebar-overlay');
+  const hb=document.getElementById('hamburger-btn');
+  sb.classList.remove('mob-open');
+  ov.classList.remove('open');
+  if(hb)hb.classList.remove('open');
+  document.body.style.overflow='';
+}
+// Close sidebar on ESC
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeMobSidebar();});
+
+// ═══════════════════════════════════════════════
+// AUTO LOGIN
+// ═══════════════════════════════════════════════
+window.addEventListener('load',()=>{
+  const ses=getSes();
+  if(ses){const u=getU();if(u[ses.email])loadDash(u[ses.email]);}
+});
+</script>
+
+
+</body></html>
